@@ -1,7 +1,7 @@
 package test;
 
 /**
- * Das ist die Klasse TestKlasse für unser Spiel Slide.
+ * Das ist die Klasse TestKlasse fuer unser Spiel Slide.
  * 
  * @author Angelina
  * @version 1.0
@@ -11,7 +11,9 @@ public class TestKlasse {
 	/**
 	 * Hier wird der String "Test" ausgegeben.
 	 * 
-	 * @param args
+	 * @param args 
+	 * @return 
+	 * @throws 
 	 */
 	public static void main(String[] args) {
 		// einzeiliger Kommentar
