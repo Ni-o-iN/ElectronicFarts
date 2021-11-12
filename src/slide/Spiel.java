@@ -6,9 +6,18 @@ package slide;
  * @version 0.1
  *
  */
-public class Spiel {
 
-	public void spielerHinzufügen(String name) {
+public class Spiel {
+	
+	private int[][] spielfeld = new int[7][4]; 
+	private Spieler spielerAmZug;
+	
+	
+	
+	
+	
+	
+	public void spielerHinzufuegen(String name) {
 		
 	}
 	
