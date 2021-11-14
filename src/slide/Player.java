@@ -1,25 +1,23 @@
 package slide;
 
-import java.util.ArrayList;
 /**
  * Spieler Klasse
- * @author Paul
+ * @author Team
  * @version 0.1
  */
-import java.util.List;
-public class Spieler {
+public class Player {
 	
-	private int id;
-	private String name;
-	private ArrayList<Spielstein> spielerSteine = new ArrayList<Spielstein>();
-	
+	private int id = 0;
+	private String name = "";
+	private boolean bombAvailable = true;
+	private boolean isCOM = false;
 	/**
 	 * Spieler initialisierung
 	 * @param id
 	 * @param name
 	 * @param spielerSteine
 	 */
-	public Spieler(int id, String name) {
+	public Player(int id, String name) {
 		this.id = id;
 		this.name = name;
 	} 
@@ -40,11 +38,13 @@ public class Spieler {
 		this.id = id;
 	}
 	
-	public List<Spielstein> getSpielerSteine(){
-		return this.spielerSteine;
+	public void setCOM() {
+		isCOM = true;
 	}
-	
-	public void setSpielerSteine() {
-		
+	public boolean getPlayerBombStatus() {
+		return this.bombAvailable;
+	}
+	public void setPllayerBombStatusFalse() {
+		this.bombAvailable = false;
 	}
 }
