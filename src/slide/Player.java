@@ -10,7 +10,6 @@ public class Player {
 	private int id = 0;
 	private String name = "";
 	private boolean bombAvailable = true;
-	private boolean isCOM = false;
 	/**
 	 * Spieler initialisierung
 	 * @param id
@@ -38,9 +37,6 @@ public class Player {
 		this.id = id;
 	}
 	
-	public void setCOM() {
-		isCOM = true;
-	}
 	public boolean getPlayerBombStatus() {
 		return this.bombAvailable;
 	}
