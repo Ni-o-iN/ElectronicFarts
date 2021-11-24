@@ -3,27 +3,27 @@ package slide;
 /**
  * 
  * @author Team
- * @version 0.1 This class generates the Gamefield
+ * @version 0.4 This class generates the Gamefield
  */
 public class Board {
 	private char[] signs = new char[] {'X','O'};
 	private char bomb = 'B';
 	private char block = '#';
 	final int ROW = 6;
-	final int COLLUM = 7;
-	private char[][] spielfeld = new char[ROW][COLLUM];
+	final int COLUMN = 7;
+	private char[][] field = new char[ROW][COLUMN];
 
 	Board() {
-		for (int z = 0; z < spielfeld.length; z++) {
-			for (int s = 0; s < spielfeld[z].length; s++) {
-				spielfeld[z][s] = '_';
+		for (int z = 0; z < field.length; z++) {
+			for (int s = 0; s < field[z].length; s++) {
+				field[z][s] = '_';
 			}
 		}
 		
 	}
 
-	public char[] getSigns(int pos) {
-		return signs;
+	public char getSigns(int pos) {
+		return signs[pos];
 	}
 
 	public char getBomb() {
@@ -34,11 +34,11 @@ public class Board {
 		return block;
 	}
 
-	public char[][] getSpielfeld() {
-		return spielfeld;
+	public char[][] getField() {
+		return field;
 	}
 
-	public void setSpielfeld(int row, int collum,char sign) {
-		spielfeld[row][collum] = sign;
+	public void setField(int row, int column,char sign) {
+		field[row][column] = sign;
 	}
 }
