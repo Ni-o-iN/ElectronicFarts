@@ -1,7 +1,7 @@
 package slide;
 
 /**
- * Spieler Klasse
+ * Spielerklasse
  * @author Team
  * @version 0.1
  */
@@ -11,7 +11,7 @@ public class Player {
 	private String name = "";
 	private boolean bombAvailable = true;
 	/**
-	 * Spieler initialisierung
+	 * Spielerinitialisierung
 	 * @param id
 	 * @param name
 	 * @param spielerSteine
@@ -40,7 +40,7 @@ public class Player {
 	public boolean getPlayerBombStatus() {
 		return this.bombAvailable;
 	}
-	public void setPllayerBombStatusFalse() {
+	public void setPlayerBombStatusFalse() {
 		this.bombAvailable = false;
 	}
 }

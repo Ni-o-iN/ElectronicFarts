@@ -65,7 +65,7 @@ public class GameLogic {
 		if(isValidBombMove(row, column)) {
 			board.setField(row, column, board.getBlock());
 			blast( row,  column);
-			currentPlayer.setPllayerBombStatusFalse();
+			currentPlayer.setPlayerBombStatusFalse(); 
 		
 		}
 	}
