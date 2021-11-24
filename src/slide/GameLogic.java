@@ -56,5 +56,29 @@ public class GameLogic {
 	public boolean isRunning() {
 		return false;
 	}
+	
+	private boolean isValidMove() {
+		
+	}
+	
+	private boolean isValidBombMove() {
+		
+	}
+	
+	private void printBoard() {
+		
+	}
+	
+	private void setBlockField() {
+		
+	}
+	
+	private void blast() {
+		
+	}
+	
+	public boolean whoWon() {
+		
+	}
 
 }
