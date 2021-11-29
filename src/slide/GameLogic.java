@@ -133,7 +133,6 @@ public class GameLogic {
 
 
 	public boolean whoWon() {
-		
 		return true;
 	}
 
