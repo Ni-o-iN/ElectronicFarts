@@ -44,38 +44,51 @@ public class GameLogic {
 	}
 	
 	public char setPlayerSign() {
-		if(roundCounter % 2 == 0) {
+		if(moveCounter % 2 == 0) {
 			return 'O';
 		}else 
 			return 'X';
 	}
 
 	public void myMove(String direction, int position) {
-		if(direction == "left") {	//Column = rechts, row = unten
-			int column = position;
-//			board(row = 1 + 1, column = position)
+		if(direction == "left") {
+			if(board.getSignfromField(position, 1) == '_') {	//can you even slide the token in this row
+				int i = 1;
+				while(board.getSignfromField(position, i+1) == '_') {	//can the token slide one field further 
+					i++;
+				}
+				board.setField(position, i, setPlayerSign());
+			} else {
+				isValidMove();
+			}
 		} 
+		
 		if(direction == "top") {
-			int row = position;
-				
+			if(board.getSignfromField(1, position) == '_') {	//can you even slide the token in this column
+				int i = 1;
+				while(board.getSignfromField(i+1, position) == '_') {	//can the token slide one field further
+					i++;
+				}
+				board.setField(i, position, setPlayerSign());
+			}else {
+				isValidMove();
+			}
 		}
 	}
 
-	private boolean isValidBombMove(int row, int column) { // 1.
-		// if true.... call blast() 
+	private boolean isValidBombMove(int row, int column) {
 		char[][] checkField = board.getField();
 		if(checkField[row][column] == '#' || currentPlayer.getPlayerBombStatus() == false) {
 			return false;
 		}else
 			return true;
-		
-	}
+		}
+	
 	public void setBomb(int row, int column) { 
 		if(isValidBombMove(row, column)) {
 			board.setField(row, column, board.getBlock());
 			blast( row,  column);
 			currentPlayer.setPlayerBombStatusFalse(); 
-		
 		}
 	}
 

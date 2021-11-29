@@ -41,4 +41,8 @@ public class Board {
 	public void setField(int row, int column,char sign) {
 		field[row][column] = sign;
 	}
+	
+	public char getSignfromField(int row, int column) {
+		return field[row][column];
+	}
 }
