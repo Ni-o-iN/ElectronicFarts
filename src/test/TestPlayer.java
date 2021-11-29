@@ -36,4 +36,13 @@ public class TestPlayer {
 		assertEquals(1, sp2.getId());
 		
 	}
+	
+	@Test
+	public void testeBombenStatus() {
+		
+		assertEquals(true, sp1.getPlayerBombStatus());
+		
+		sp2.setPlayerBombStatusFalse();
+		assertEquals(false, sp2.getPlayerBombStatus());
+	}
 }
