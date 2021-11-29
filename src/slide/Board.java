@@ -42,7 +42,7 @@ public class Board {
 		field[row][column] = sign;
 	}
 	
-	public char getSignfromField(int row, int column) {
+	public char getSignFromField(int row, int column) {
 		return field[row][column];
 	}
 }

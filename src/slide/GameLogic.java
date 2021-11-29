@@ -52,9 +52,9 @@ public class GameLogic {
 
 	public void myMove(String direction, int position) {
 		if(direction == "left") {
-			if(board.getSignfromField(position, 1) == '_') {	//can you even slide the token in this row
+			if(board.getSignFromField(position, 1) == '_') {	//can you even slide the token in this row
 				int i = 1;
-				while(board.getSignfromField(position, i+1) == '_') {	//can the token slide one field further 
+				while(board.getSignFromField(position, i+1) == '_') {	//can the token slide one field further 
 					i++;
 				}
 				board.setField(position, i, setPlayerSign());
@@ -64,9 +64,9 @@ public class GameLogic {
 		} 
 		
 		if(direction == "top") {
-			if(board.getSignfromField(1, position) == '_') {	//can you even slide the token in this column
+			if(board.getSignFromField(1, position) == '_') {	//can you even slide the token in this column
 				int i = 1;
-				while(board.getSignfromField(i+1, position) == '_') {	//can the token slide one field further
+				while(board.getSignFromField(i+1, position) == '_') {	//can the token slide one field further
 					i++;
 				}
 				board.setField(i, position, setPlayerSign());
