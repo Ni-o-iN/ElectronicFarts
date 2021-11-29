@@ -42,18 +42,27 @@ public class GameLogic {
 		else
 			players[1] = new Player(2, "Spieler2");
 	}
+	
+	public char setPlayerSign() {
+		if(roundCounter % 2 == 0) {
+			return 'O';
+		}else 
+			return 'X';
+	}
 
-	public void myMove(String direction, int row) {
-		String sign = "";
-		// if( roundCount % 2 == 0)
-		// sign = "O";
-		// else
-		// sign = "X";
+	public void myMove(String direction, int position) {
+		if(direction == "left") {	//Column = rechts, row = unten
+			int column = position;
+//			board(row = 1 + 1, column = position)
+		} 
+		if(direction == "top") {
+			int row = position;
+				
+		}
 	}
 
 	private boolean isValidBombMove(int row, int column) { // 1.
 		// if true.... call blast() 
-		
 		char[][] checkField = board.getField();
 		if(checkField[row][column] == '#' || currentPlayer.getPlayerBombStatus() == false) {
 			return false;
@@ -77,6 +86,7 @@ public class GameLogic {
 		board.setField(row, column + 1, '_'); // deletes field right next to bomb
 		board.setField(row, column - 1, '_'); // deletes field left next to bomb
 	}
+	
 	public boolean isRunning() {
 		return false;
 	}
@@ -110,6 +120,7 @@ public class GameLogic {
 
 
 	public boolean whoWon() {
+		
 		return true;
 	}
 
