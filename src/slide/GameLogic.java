@@ -49,6 +49,7 @@ public class GameLogic {
 		}else 
 			return 'X';
 	}
+	
 
 	public void myMove(String direction, int position) {
 		if(direction == "left") {
@@ -131,9 +132,49 @@ public class GameLogic {
 		board.setField(row, column, board.getBlock());
 	}
 
-
-	public boolean whoWon() {
+	public boolean searchRaw() {
+		
+		
+		
 		return true;
+	}
+	public boolean whoWon() {
+		char[][] tmp = board.getField();
+		int count = 0;
+//		check every row left to right
+		for (int row = 0; row < tmp.length; row++) {
+			if(count >= 4)
+				return true;
+			count = 0;
+			for (int col = 0; col < tmp[row].length; col++) {
+				if(count >= 4)
+					return true;
+				else if(tmp[row][col] == setPlayerSign()) {
+					count++;
+				}
+				else
+					count = 0;
+			}
+			
+		}
+//		check every column from above to below
+		for (int col = 0; col < tmp[0].length; col++) {
+			if(count >= 4)
+				return true;
+			count = 0;
+			for (int row = 0; row < tmp.length; row++) {
+				if(count >= 4)
+					return true;
+				else if(tmp[row][col] == setPlayerSign()) {
+					count++;
+				}
+				else
+					count = 0;
+			}
+			
+		}
+//		TODO Diagonalen
+ 		return true;
 	}
 
 }
