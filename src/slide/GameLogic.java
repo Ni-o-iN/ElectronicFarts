@@ -64,11 +64,35 @@ public class GameLogic {
 			}
 		} 
 		
+		if(direction == "right") {
+			if(board.getSignFromField(position, 7) == '_') {	//can you even slide the token in this row
+				int i = 7;
+				while(board.getSignFromField(position, i+1) == '_') {	//can the token slide one field further 
+					i++;
+				}
+				board.setField(position, i, setPlayerSign());
+			} else {
+				isValidMove();
+			}
+		} 
+		
 		if(direction == "top") {
 			if(board.getSignFromField(1, position) == '_') {	//can you even slide the token in this column
 				int i = 1;
 				while(board.getSignFromField(i+1, position) == '_') {	//can the token slide one field further
-					i++;
+					i--;
+				}
+				board.setField(i, position, setPlayerSign());
+			}else {
+				isValidMove();
+			}
+		}
+		
+		if(direction == "bottom") {
+			if(board.getSignFromField(6, position) == '_') {	//can you even slide the token in this column
+				int i = 6;
+				while(board.getSignFromField(i+1, position) == '_') {	//can the token slide one field further
+					i--;
 				}
 				board.setField(i, position, setPlayerSign());
 			}else {
