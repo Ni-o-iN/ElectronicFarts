@@ -123,16 +123,19 @@ public class GameLogic {
 		board.setField(row, column + 1, '_'); // deletes field right next to bomb
 		board.setField(row, column - 1, '_'); // deletes field left next to bomb
 	}
-
+// this method will be called every run TODO method to display the winner
 	public boolean isRunning() {
+		if(whoWon())
 		return false;
+		else
+			return true;
 	}
-
+//TODO
 	private boolean isValidMove() {
 		return false;
 	}
 
-	private void printBoard() {
+	public void printBoard() {
 		char[][] field = board.getField();
 
 		for (int i = 0; i < field[0].length; i++) {
@@ -256,12 +259,16 @@ public class GameLogic {
 			return false;
 
 	}
-
+	// TODO richtiger Spieler
 	public boolean whoWon() {
 		char[][] tmp = board.getField();
 		if (searchRaw(tmp))
 			return true;
 		else if (searchCol(tmp))
+			return true;
+		else if(searchDiagonalNorthWest(tmp))
+			return true;
+		else if(searchDiagonalSouthWest(tmp))
 			return true;
 		else
 			return false;
