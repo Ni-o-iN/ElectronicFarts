@@ -5,6 +5,13 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 
+ * @author julianlautenscheidt
+ * @version 0.2
+ * Tests für die Player Klasse
+ *
+ */
 public class PlayerTest {
 
 	private Player sp1;
@@ -16,7 +23,9 @@ public class PlayerTest {
 		sp2 = new Player(1, "Spieler2");
 	}
 	
-
+	/**
+	 * Test bei dem die IDs und Namen auf Richtigkeit gecheckt werden
+	 */
 	@Test
 	public void testZweiSpieler() {
 		
@@ -27,6 +36,9 @@ public class PlayerTest {
 		
 	}
 	
+	/**
+	 * Test bei dem Bombemstatus auf Richtigkeit gecheckt wird
+	 */
 	@Test
 	public void testeBombenStatus() {
 		

@@ -5,6 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 
+ * @author julianlautenscheidt
+ * @version 0.2
+ * Test zu der GameLogic-Klasse
+ */
 public class GameLogicTest {
 
 
@@ -16,7 +22,9 @@ public class GameLogicTest {
 	private Player spielerTest3 = new Player(0, null);
 	
 	
-
+	/**
+	 * Test bei dem gecheckt wird, ob SetCOM richtig initialisiert ist und sich auch umstellen lässt
+	 */
 	@Test
 	public void testeSetCOM() {
 		
@@ -34,7 +42,9 @@ public class GameLogicTest {
 		
 	}
 	
-	
+	/**
+	 * Test bei dem gecheckt wird, ob Player ein eigenes Objekt ist
+	 */
 	@Test
 	public void testePlayerAufEigenesObjekt() {
 		
@@ -42,12 +52,17 @@ public class GameLogicTest {
 		
 	}
 	
+	
 	/*@Before
 	public void initSpielerObjekte() {
 		spielerTest2 = testLogic.getCurrentPlayer();
 		testLogic.moveCounter =+1; 
 	}
-	
+	*/
+	/**
+	 * Test bei dem gecheckt wird, ob Currentplayer durch movecounter zwischen 2 Objekten wechselt
+	 */
+	/*
 	@Test
 	public void testeCurrentPlayer() {
 		
@@ -55,6 +70,11 @@ public class GameLogicTest {
 	*/
 	//Erst möglich wenn Movecounter initialisiert wurde
 	
+	/**
+	 * Test bei dem gecheckt wird, ob die Bombe die Angrenzenden Felder "cleared"
+	 * vorher Felder abfragen, dass sie auch wirklich befüllt sind/waren
+	 */
+	// TODO setFields könnten in eine BeforeMethode
 	@Test
 	public void testeBombMove() {
 		
@@ -81,13 +101,29 @@ public class GameLogicTest {
 		
 	}
 	
+	/**
+	 * Test bei dem gecheckt wird, ob Mymove durchrutschen lässt
+	 */
 	@Test
 	public void testeMyMove() {
 		
 		//Problem wie oben, diesmal mit getField
-		//Auf Valide Move und Stopps kann noch nicht geprüft werden
+		//Auf Valide Move und Stopps kann noch nicht geprüft werden	
+	}
+	
+	/**
+	 * Test bei dem gecheckt wird, ob Mymove valide ist
+	 */
+	@Test
+	public void testeMyMoveValide() {
 		
-		
+	}
+	
+	/**
+	 * Test bei dem gecheckt wird, ob Mymove stoppt durch Block 
+	 */
+	@Test
+	public void testeMyMoveBlock() {
 		
 	}
 }
