@@ -1,21 +1,11 @@
-package test;
+package slide;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import slide.Player;
-
-/**
- * 
- * @author julianlautenscheidt
- * @version 0.1
- * Test erstmal nur zur Probe, Spieler sind selbst angelegt und nicht vom Spiel
- * JUnit 4 genutzt
- *
- */
-public class TestPlayer {
+public class PlayerTest {
 
 	private Player sp1;
 	private Player sp2; 

@@ -80,5 +80,15 @@ public class GameLogicTest {
 		//!! unterschiedliche Boards, daher unfunktional!! (bräuchte direkten Zugriff auf Board aus Logic)
 		
 	}
+	
+	@Test
+	public void testeMyMove() {
+		
+		//Problem wie oben, diesmal mit getField
+		//Auf Valide Move und Stopps kann noch nicht geprüft werden
+		
+		
+		
+	}
 }
 
