@@ -1,29 +1,28 @@
-package test;
+package slide;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import slide.Board;
 
-public class TestBoard {
+public class BoardTest {
 
-	private Board board = new Board(); //Board nicht public
-	
-	
+	private Board board = new Board(); 
+	 	
 	@Before
-	public void richteBoardEin() {
+	public void initFeld() {
 		
-		board.setField(1, 1, 'X');
-		char[][] testField = board.getField();
+		board.setField(1, 1, 'X');		
 	}
+	
+	char[][] testField = board.getField();
 	
 	@Test
 	public void testeBoardGröße() {
 		
 		assertEquals(6, testField.length); 
-		assertEquals(6, testField[0].length); 
+		assertEquals(7, testField[0].length); 
 	
 	}
 	
@@ -32,5 +31,4 @@ public class TestBoard {
 		
 		assertEquals('X', testField[1][1]);
 	}
-
 }
