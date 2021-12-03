@@ -13,7 +13,8 @@ public class BoardTest {
 	@Before
 	public void initFeld() {
 		
-		board.setField(1, 1, 'X');		
+		board.setField(1, 1, 'X');	
+		board.setField(4, 4, 'O');
 	}
 	
 	char[][] testField = board.getField();
@@ -30,5 +31,6 @@ public class BoardTest {
 	public void testeSteinSetzen() {
 		
 		assertEquals('X', testField[1][1]);
+		assertEquals('O', board.getSignFromField(4, 4));
 	}
 }
