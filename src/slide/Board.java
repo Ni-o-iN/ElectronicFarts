@@ -37,7 +37,9 @@ public class Board {
 	public char[][] getField() {
 		return field;
 	}
-
+	public void slide(String direction, int pos) {
+		
+	}
 	public void setField(int row, int column,char sign) {
 		field[row][column] = sign;
 	}

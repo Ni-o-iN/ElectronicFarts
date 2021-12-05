@@ -1,4 +1,7 @@
 package slide;
+
+import java.util.Scanner;
+
 /**
  * 
  * @author Team
@@ -9,8 +12,15 @@ public class Slide {
 
 	public static void main(String[] args) {
 		
+		Scanner in = new Scanner(System.in);
 		GameLogic board = new GameLogic();
 		board.printBoard();
+		
+//		System.out.println("Wollen Sie mit COm spielen? (y/n)");
+//		String enterCOM = in.next();
+//		if(enterCOM.equals("y"))
+//			board.setCOM();
+//		System.out.println(board.getCOM());
 	}
 
 }

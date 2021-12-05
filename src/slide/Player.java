@@ -8,6 +8,7 @@ package slide;
 public class Player {
 	
 	private int id = 0;
+	private int winCounter = 0;
 	private String name = "";
 	private boolean bombAvailable = true;
 	/**
@@ -20,6 +21,13 @@ public class Player {
 		this.id = id;
 		this.name = name;
 	} 
+	public void setWinCounter() {
+		winCounter++;
+	}
+	
+	public int getWinCounter() {
+		return winCounter;
+	}
 	
 	public String getName() {
 		return this.name;

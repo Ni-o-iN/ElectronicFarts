@@ -16,26 +16,26 @@ public class GameLogic {
 	private Board board = new Board();
 	private boolean COM = false;
 
-	public void setCOM() {
+	public void setCOM() { // rdy
 		COM = true;
 	}
 
-	public boolean getCOM() {
+	public boolean getCOM() { //rdy
 		return COM;
 	}
 
-	public Player getCurrentPlayer() {
+	public Player getCurrentPlayer() { //rdy
 		return currentPlayer;
 	}
 
-	public void setCurrentPlayer() {
+	public void setCurrentPlayer() { // TODO
 		if (moveCounter % 2 == 1) {
 			currentPlayer = players[0];
 		} else
 			currentPlayer = players[1];
 	}
 
-	public void addPlayer() {
+	public void addPlayer() {	//rdy
 		players[0] = new Player(1, "Spieler1");
 		if (getCOM())
 			players[1] = new Player(2, "COM");
@@ -43,64 +43,89 @@ public class GameLogic {
 			players[1] = new Player(2, "Spieler2");
 	}
 
-	public char setPlayerSign() {
+	public char setPlayerSign() {  // rdy
 		if (moveCounter % 2 == 0) {
 			return 'O';
 		} else
 			return 'X';
 	}
 
-	public void myMove(String direction, int position) {
-		if (direction == "left") {
+	// TODO Methode damit die Steine durchsliden 
+	
+	public void myMove(String direction, int position) { //TODO
+		int[] cordinates = getCordinates(direction, position); 
+		if (direction == "left" && isValidMove(cordinates[0], cordinates[1])) {
 			if (board.getSignFromField(position, 1) == '_') { // can you even slide the token in this row
 				int i = 1;
 				while (board.getSignFromField(position, i + 1) == '_') { // can the token slide one field further
 					i++;
 				}
 				board.setField(position, i, setPlayerSign());
-			} else {
-				isValidMove();
 			}
 		}
 
-		if (direction == "right") {
+		if (direction == "right" && isValidMove(cordinates[0], cordinates[1])) {
 			if (board.getSignFromField(position, 7) == '_') { // can you even slide the token in this row
 				int i = 7;
 				while (board.getSignFromField(position, i + 1) == '_') { // can the token slide one field further
 					i++;
 				}
 				board.setField(position, i, setPlayerSign());
-			} else {
-				isValidMove();
-			}
+			} 
 		}
 
-		if (direction == "top") {
+		if (direction == "top" && isValidMove(cordinates[0], cordinates[1])) {
 			if (board.getSignFromField(1, position) == '_') { // can you even slide the token in this column
 				int i = 1;
 				while (board.getSignFromField(i + 1, position) == '_') { // can the token slide one field further
 					i--;
 				}
 				board.setField(i, position, setPlayerSign());
-			} else {
-				isValidMove();
-			}
+			} 
 		}
 
-		if (direction == "bottom") {
+		if (direction == "bottom" && isValidMove(cordinates[0], cordinates[1])) {
 			if (board.getSignFromField(6, position) == '_') { // can you even slide the token in this column
 				int i = 6;
 				while (board.getSignFromField(i + 1, position) == '_') { // can the token slide one field further
 					i--;
 				}
 				board.setField(i, position, setPlayerSign());
-			} else {
-				isValidMove();
-			}
+			} 
 		}
 	}
+	
+	public int[] getCordinates(String direction, int position) {
+		int row, col;
+		if(direction.equals("left")) {
+			col = 0; 
+			row = position;
+		}
+		else if(direction.equals("right")) {
+			col = 6;
+			row = position;
+		}
+		else if(direction.equals("top")) {
+			col = position;
+			row = 0;	
+		}
+		else {
+			col = position;
+			row = 5;
+		}
+		 int[] cordinates = new int[] {row,col};
+		 return cordinates;
+	}
+	
+	private boolean isValidMove(int row, int col) { // TODO
+	
+		if(board.getSignFromField(row, col) == '_')
+			return true;
+		else
+			return false;
+	}
 
-	private boolean isValidBombMove(int row, int column) {
+	private boolean isValidBombMove(int row, int column) { //rdy
 		char[][] checkField = board.getField();
 		if (checkField[row][column] == '#' || currentPlayer.getPlayerBombStatus() == false) {
 			return false;
@@ -108,7 +133,7 @@ public class GameLogic {
 			return true;
 	}
 
-	public void setBomb(int row, int column) {
+	public void setBomb(int row, int column) { // rdy
 		if (isValidBombMove(row, column)) {
 			board.setField(row, column, board.getBlock());
 			blast(row, column);
@@ -116,7 +141,7 @@ public class GameLogic {
 		}
 	}
 
-	private void blast(int row, int column) {
+	private void blast(int row, int column) { // rdy
 		board.setField(row, column, '_'); // deletes field where bomb got placed
 		board.setField(row + 1, column, '_'); // deletes field below bomb
 		board.setField(row - 1, column, '_'); // deletes field above bomb
@@ -130,12 +155,8 @@ public class GameLogic {
 		else
 			return true;
 	}
-//TODO
-	private boolean isValidMove() {
-		return false;
-	}
 
-	public void printBoard() {
+	public void printBoard() { //rdy
 		char[][] field = board.getField();
 
 		for (int i = 0; i < field[0].length; i++) {
@@ -154,11 +175,11 @@ public class GameLogic {
 		System.out.println();
 	}
 
-	private void setBlockField(int row, int column) {
+	private void setBlockField(int row, int column) { // rdy
 		board.setField(row, column, board.getBlock());
 	}
 
-	public boolean searchRaw(char[][] tmp) {
+	public boolean searchRow(char[][] tmp) { // (rdy) -> Test
 
 //		check every row left to right
 		int countHit = 0;
@@ -178,7 +199,7 @@ public class GameLogic {
 		return false;
 	}
 
-	public boolean searchCol(char[][] tmp) {
+	public boolean searchCol(char[][] tmp) { // (rdy) -> Test
 
 //		check every column from above to below
 		int countHit = 0;
@@ -205,7 +226,7 @@ public class GameLogic {
 	 * @param tmp
 	 * @return
 	 */
-	public boolean searchDiagonalNorthWest(char[][] tmp) { // North-west ---> south-east
+	public boolean searchDiagonalNorthWest(char[][] tmp) { // North-west ---> south-east  (rdy) -> Testen
 		int countHit = 0;
 		int row = 0, col = 0;
 
@@ -236,7 +257,7 @@ public class GameLogic {
 	 * @param tmp
 	 * @return
 	 */
-	public boolean searchDiagonalSouthWest(char[][] tmp) {
+	public boolean searchDiagonalSouthWest(char[][] tmp) { // South-west ---> North-east (rdy) --> Testen
 		int countHit = 0;
 		int row = 5, col = 0;
 
@@ -262,7 +283,7 @@ public class GameLogic {
 	// TODO richtiger Spieler
 	public boolean whoWon() {
 		char[][] tmp = board.getField();
-		if (searchRaw(tmp))
+		if (searchRow(tmp))
 			return true;
 		else if (searchCol(tmp))
 			return true;
