@@ -1,4 +1,4 @@
-package slide;
+package Tests;
 
 import static org.junit.Assert.*;
 
