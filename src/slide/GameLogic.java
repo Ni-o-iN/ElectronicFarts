@@ -20,11 +20,11 @@ public class GameLogic {
 		COM = true;
 	}
 
-	public boolean getCOM() { //rdy
+	public boolean getCOM() { // rdy
 		return COM;
 	}
 
-	public Player getCurrentPlayer() { //rdy
+	public Player getCurrentPlayer() { // rdy
 		return currentPlayer;
 	}
 
@@ -35,7 +35,7 @@ public class GameLogic {
 			currentPlayer = players[1];
 	}
 
-	public void addPlayer() {	//rdy
+	public void addPlayer() { // rdy
 		players[0] = new Player(1, "Spieler1");
 		if (getCOM())
 			players[1] = new Player(2, "COM");
@@ -43,89 +43,81 @@ public class GameLogic {
 			players[1] = new Player(2, "Spieler2");
 	}
 
-	public char setPlayerSign() {  // rdy
+	public char setPlayerSign() { // rdy
 		if (moveCounter % 2 == 0) {
 			return 'O';
 		} else
 			return 'X';
 	}
 
-	// TODO Methode damit die Steine durchsliden 
-	
-	public void myMove(String direction, int position) { //TODO
-		int[] cordinates = getCordinates(direction, position); 
-		if (direction == "left" && isValidMove(cordinates[0], cordinates[1])) {
+	// TODO Methode damit die Steine durchsliden
+
+	public void tokenSlide(String direction, int position, int i) {
+		while (board.getSignFromField(position, i + 1) == '_') { // can the token slide one field further
+			i++;
+		}
+		board.setField(position, i, setPlayerSign());
+	}
+
+	public void myMove(String direction, int position) { // TODO
+		int[] coordinates = getCoordinates(direction, position);
+		if (direction == "left" && isValidMove(coordinates[0], coordinates[1])) {
 			if (board.getSignFromField(position, 1) == '_') { // can you even slide the token in this row
 				int i = 1;
-				while (board.getSignFromField(position, i + 1) == '_') { // can the token slide one field further
-					i++;
-				}
-				board.setField(position, i, setPlayerSign());
+				tokenSlide(direction, position, i);
 			}
 		}
 
-		if (direction == "right" && isValidMove(cordinates[0], cordinates[1])) {
+		if (direction == "right" && isValidMove(coordinates[0], coordinates[1])) {
 			if (board.getSignFromField(position, 7) == '_') { // can you even slide the token in this row
 				int i = 7;
-				while (board.getSignFromField(position, i + 1) == '_') { // can the token slide one field further
-					i++;
-				}
-				board.setField(position, i, setPlayerSign());
-			} 
+				tokenSlide(direction, position, i);
+			}
 		}
 
-		if (direction == "top" && isValidMove(cordinates[0], cordinates[1])) {
+		if (direction == "top" && isValidMove(coordinates[0], coordinates[1])) {
 			if (board.getSignFromField(1, position) == '_') { // can you even slide the token in this column
 				int i = 1;
-				while (board.getSignFromField(i + 1, position) == '_') { // can the token slide one field further
-					i--;
-				}
-				board.setField(i, position, setPlayerSign());
-			} 
+				tokenSlide(direction, position, i);
+			}
 		}
 
-		if (direction == "bottom" && isValidMove(cordinates[0], cordinates[1])) {
+		if (direction == "bottom" && isValidMove(coordinates[0], coordinates[1])) {
 			if (board.getSignFromField(6, position) == '_') { // can you even slide the token in this column
 				int i = 6;
-				while (board.getSignFromField(i + 1, position) == '_') { // can the token slide one field further
-					i--;
-				}
-				board.setField(i, position, setPlayerSign());
-			} 
+				tokenSlide(direction, position, i);
+			}
 		}
 	}
-	
-	public int[] getCordinates(String direction, int position) {
+
+	public int[] getCoordinates(String direction, int position) {
 		int row, col;
-		if(direction.equals("left")) {
-			col = 0; 
+		if (direction.equals("left")) {
+			col = 0;
 			row = position;
-		}
-		else if(direction.equals("right")) {
+		} else if (direction.equals("right")) {
 			col = 6;
 			row = position;
-		}
-		else if(direction.equals("top")) {
+		} else if (direction.equals("top")) {
 			col = position;
-			row = 0;	
-		}
-		else {
+			row = 0;
+		} else {
 			col = position;
 			row = 5;
 		}
-		 int[] cordinates = new int[] {row,col};
-		 return cordinates;
+		int[] coordinates = new int[] { row, col };
+		return coordinates;
 	}
-	
+
 	private boolean isValidMove(int row, int col) { // TODO
-	
-		if(board.getSignFromField(row, col) == '_')
+
+		if (board.getSignFromField(row, col) == '_')
 			return true;
 		else
 			return false;
 	}
 
-	private boolean isValidBombMove(int row, int column) { //rdy
+	private boolean isValidBombMove(int row, int column) { // rdy
 		char[][] checkField = board.getField();
 		if (checkField[row][column] == '#' || currentPlayer.getPlayerBombStatus() == false) {
 			return false;
@@ -148,24 +140,26 @@ public class GameLogic {
 		board.setField(row, column + 1, '_'); // deletes field right next to bomb
 		board.setField(row, column - 1, '_'); // deletes field left next to bomb
 	}
-// this method will be called every run TODO method to display the winner
+
+	// this method will be called every move TODO method to display the winner
 	public boolean isRunning() {
-		if(whoWon())
-		return false;
+		if (whoWon())
+			return false;
 		else
 			return true;
 	}
 
-	public void printBoard() { //rdy
+	public void printBoard() { // rdy
 		char[][] field = board.getField();
-
-		for (int i = 0; i < field[0].length; i++) {
+		System.out.printf("  ");
+		for (int i = 0; i < field[0].length; i++) { // print out column numbers
 			System.out.print((i + 1) + " ");
 		}
 
-		System.out.println();
+		System.out.println(); // new line after column numbers
 
 		for (int i = 0; i < field.length; i++) {
+			System.out.printf("%d ",i+1);
 			for (int j = 0; j < field[i].length; j++) {
 				System.out.print(field[i][j] + " ");
 			}
@@ -175,13 +169,13 @@ public class GameLogic {
 		System.out.println();
 	}
 
-	private void setBlockField(int row, int column) { // rdy
+	public void setBlockField(int row, int column) { // rdy FIXME set from public to private
 		board.setField(row, column, board.getBlock());
 	}
 
 	public boolean searchRow(char[][] tmp) { // (rdy) -> Test
 
-//		check every row left to right
+		// check every row from left to right
 		int countHit = 0;
 		for (int row = 0; row < tmp.length; row++) {
 			if (countHit >= 4)
@@ -201,7 +195,7 @@ public class GameLogic {
 
 	public boolean searchCol(char[][] tmp) { // (rdy) -> Test
 
-//		check every column from above to below
+		// check every column from top to bottom
 		int countHit = 0;
 		for (int col = 0; col < tmp[0].length; col++) {
 			if (countHit >= 4)
@@ -226,7 +220,7 @@ public class GameLogic {
 	 * @param tmp
 	 * @return
 	 */
-	public boolean searchDiagonalNorthWest(char[][] tmp) { // North-west ---> south-east  (rdy) -> Testen
+	public boolean searchDiagonalNorthWest(char[][] tmp) { // North-west ---> south-east (rdy) -> Testen
 		int countHit = 0;
 		int row = 0, col = 0;
 
@@ -249,7 +243,8 @@ public class GameLogic {
 			return false;
 
 	}
-// TODO check if diagonal works
+
+	// TODO check if diagonal works
 	/**
 	 * for detecting if game is won. While loop row >= please mind the array index 5
 	 * = (6)
@@ -280,6 +275,7 @@ public class GameLogic {
 			return false;
 
 	}
+
 	// TODO richtiger Spieler
 	public boolean whoWon() {
 		char[][] tmp = board.getField();
@@ -287,9 +283,9 @@ public class GameLogic {
 			return true;
 		else if (searchCol(tmp))
 			return true;
-		else if(searchDiagonalNorthWest(tmp))
+		else if (searchDiagonalNorthWest(tmp))
 			return true;
-		else if(searchDiagonalSouthWest(tmp))
+		else if (searchDiagonalSouthWest(tmp))
 			return true;
 		else
 			return false;
