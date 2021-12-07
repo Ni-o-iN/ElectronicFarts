@@ -65,6 +65,7 @@ public class GameLogic {
 			if (board.getSignFromField(position, 1) == '_') { // can you even slide the token in this row
 				int i = 1;
 				tokenSlide(direction, position, i);
+				moveCounter++;
 			}
 		}
 
@@ -72,6 +73,7 @@ public class GameLogic {
 			if (board.getSignFromField(position, 7) == '_') { // can you even slide the token in this row
 				int i = 7;
 				tokenSlide(direction, position, i);
+				moveCounter++;
 			}
 		}
 
@@ -79,6 +81,7 @@ public class GameLogic {
 			if (board.getSignFromField(1, position) == '_') { // can you even slide the token in this column
 				int i = 1;
 				tokenSlide(direction, position, i);
+				moveCounter++;
 			}
 		}
 
@@ -86,6 +89,7 @@ public class GameLogic {
 			if (board.getSignFromField(6, position) == '_') { // can you even slide the token in this column
 				int i = 6;
 				tokenSlide(direction, position, i);
+				moveCounter++;
 			}
 		}
 	}
@@ -143,9 +147,20 @@ public class GameLogic {
 
 	// this method will be called every move TODO method to display the winner
 	public boolean isRunning() {
-		if (whoWon())
+		char[][] tmp = board.getField();
+		if (searchRow(tmp)) {
+			System.out.println("Gewinner ist: " + whoWon());
 			return false;
-		else
+		} else if (searchCol(tmp)) {
+			System.out.println("Gewinner ist: " + whoWon());
+			return false;
+		} else if (searchDiagonalNorthWest(tmp)) {
+			System.out.println("Gewinner ist: " + whoWon());
+			return false;
+		} else if (searchDiagonalSouthWest(tmp)) {
+			System.out.println("Gewinner ist: " + whoWon());
+			return false;
+		} else
 			return true;
 	}
 
@@ -159,7 +174,7 @@ public class GameLogic {
 		System.out.println(); // new line after column numbers
 
 		for (int i = 0; i < field.length; i++) {
-			System.out.printf("%d ",i+1);
+			System.out.printf("%d ", i + 1);
 			for (int j = 0; j < field[i].length; j++) {
 				System.out.print(field[i][j] + " ");
 			}
@@ -276,19 +291,12 @@ public class GameLogic {
 
 	}
 
-	// TODO richtiger Spieler
 	public boolean whoWon() {
-		char[][] tmp = board.getField();
-		if (searchRow(tmp))
+		if (currentPlayer.getName() == "Spieler1")
 			return true;
-		else if (searchCol(tmp))
-			return true;
-		else if (searchDiagonalNorthWest(tmp))
-			return true;
-		else if (searchDiagonalSouthWest(tmp))
-			return true;
-		else
+		else {
 			return false;
+		}
 	}
 
 }
