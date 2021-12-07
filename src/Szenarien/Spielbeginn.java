@@ -8,13 +8,13 @@ package Szenarien;
 
 	public class Spielbeginn {
 		
-		private static GameLogic SzLogic = new GameLogic(); 
+		private static GameLogic szLogic = new GameLogic(); 
 		
 		public static void main (String[] args) {
 			
-			SzLogic.addPlayer(); 
+			szLogic.addPlayer(); 
 			
-			Player testPlayer1 = SzLogic.getCurrentPlayer();
+			Player testPlayer1 = szLogic.getCurrentPlayer();
 			String testString1 = testPlayer1.toString(); 
 			System.out.println(testString1);	
 			}
