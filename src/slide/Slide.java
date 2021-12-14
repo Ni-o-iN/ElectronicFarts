@@ -80,7 +80,7 @@ public class Slide {
 					col = input.nextInt();
 				}while(row < 0 && row > 7 && col < 0 && col > 8);
 				}
-			board.setBlockField(row -1, col -1);
+			board.setBlockField(row , col );
 			countBlock--;
 			board.printBoard();
 		}while(row > 0 && row < 7 && col > 0 && col < 8 && countBlock > 0);
