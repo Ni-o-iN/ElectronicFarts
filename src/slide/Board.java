@@ -21,26 +21,37 @@ public class Board {
 		}
 		
 	}
-
+	public boolean isBlocked(int row, int col) {
+		if(getSignFromField(row,col) == '#') 
+			return true;
+		else
+			return false;
+	}
+	public boolean isEmpty(int row, int col) {
+		if(getSignFromField(row,col) == '_') 
+			return true;
+		else
+			return false;
+	}
 	public char getSigns(int pos) {
 		return signs[pos];
 	}
 
 	public char getBomb() {
-		return bomb;
+		return this.bomb;
 	}
 
 	public char getBlock() {
-		return block;
+		return this.block;
 	}
-
+	public void setField(char[][] field) {
+		this.field = field;
+	}
 	public char[][] getField() {
-		return field;
+		return this.field;
 	}
-	public void slide(String direction, int pos) {
-		
-	}
-	public void setField(int row, int column,char sign) {
+	
+	public void setSignFromField(int row, int column,char sign) {
 		field[row][column] = sign;
 	}
 	

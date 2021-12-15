@@ -43,7 +43,7 @@ public class GameLogic {
 			players[1] = new Player(2, "Spieler2");
 	}
 
-	public char setPlayerSign() { // rdy
+	public char getPlayerSign() { // rdy
 		if (moveCounter % 2 == 0) {
 			return 'O';
 		} else
@@ -51,58 +51,83 @@ public class GameLogic {
 	}
 
 	// TODO Methode damit die Steine durchsliden
-
-	public void tokenSlide(String direction, int position, int i) {
-		while (board.getSignFromField(position, i + 1) == '_') { // can the token slide one field further
-			i++;
+	/**
+	 * Throws stone until it hits first unempty field (haven't slided yet)
+	 * @param row
+	 * @param col
+	 * @return
+	 */
+	private int connectToRowLR(int row, int col) {
+		int touch = 0;
+		for (int i = 0; i < col; i++) {
+			if (!board.isEmpty(row, i)) { 
+				touch = i - 1;
+				board.setSignFromField(row, touch, getPlayerSign());
+				break;
+			}
 		}
-		board.setField(position, i, setPlayerSign());
+		return touch;
+	}
+	/**
+	 *Help Method to slide stone one position forward 
+	 * @param row
+	 * @param firstSign
+	 * @param lastSign
+	 */
+	private void slideLeftToRight(int row,int firstSign, int lastSign) {
+		while(lastSign >= firstSign && lastSign < 6) {
+			char ch = board.getSignFromField(row, lastSign );
+			board.setSignFromField(row, lastSign + 1, ch);
+			lastSign--;
+		}
+	}
+	
+	public void tokenSlideFromLeftToRight(int row, int col) {
+			int firstSign = connectToRowLR(row, col);
+			int lastSign = firstSign, counter = firstSign;
+			int empty = 0;
+			for (int i = counter; i < col; i++) {
+				if(board.isEmpty(row, i)) {
+					slideLeftToRight(row, firstSign, lastSign);
+					lastSign++;
+					firstSign++;
+				}
+				else if(!board.isBlocked(row, i) && !board.isEmpty(row, i)) {
+					lastSign = i;
+				}
+				else
+					break;
+			}
 	}
 
 	public void myMove(String direction, int position) { // TODO
 		int[] coordinates = getCoordinates(direction, position);
 		if (direction == "left" && isValidMove(coordinates[0], coordinates[1])) {
-			if (board.getSignFromField(position, 1) == '_') { // can you even slide the token in this row
-				int i = 1;
-				tokenSlide(direction, position, i);
-				moveCounter++;
-			}
+			tokenSlideFromLeftToRight(coordinates[0],coordinates[1]);
 		}
 
 		if (direction == "right" && isValidMove(coordinates[0], coordinates[1])) {
-			if (board.getSignFromField(position, 7) == '_') { // can you even slide the token in this row
-				int i = 7;
-				tokenSlide(direction, position, i);
-				moveCounter++;
-			}
+
 		}
 
 		if (direction == "top" && isValidMove(coordinates[0], coordinates[1])) {
-			if (board.getSignFromField(1, position) == '_') { // can you even slide the token in this column
-				int i = 1;
-				tokenSlide(direction, position, i);
-				moveCounter++;
-			}
+
 		}
 
 		if (direction == "bottom" && isValidMove(coordinates[0], coordinates[1])) {
-			if (board.getSignFromField(6, position) == '_') { // can you even slide the token in this column
-				int i = 6;
-				tokenSlide(direction, position, i);
-				moveCounter++;
-			}
+
 		}
 	}
 
 	public int[] getCoordinates(String direction, int position) {
 		int row, col;
-		if (direction.equals("left")) {
+		if (direction.equals("links")) {
 			col = 0;
 			row = position;
-		} else if (direction.equals("right")) {
+		} else if (direction.equals("rechts")) {
 			col = 6;
 			row = position;
-		} else if (direction.equals("top")) {
+		} else if (direction.equals("oben")) {
 			col = position;
 			row = 0;
 		} else {
@@ -131,18 +156,18 @@ public class GameLogic {
 
 	public void setBomb(int row, int column) { // rdy
 		if (isValidBombMove(row, column)) {
-			board.setField(row, column, board.getBlock());
+			board.setSignFromField(row, column, board.getBlock());
 			blast(row, column);
 			currentPlayer.setPlayerBombStatusFalse();
 		}
 	}
 
 	private void blast(int row, int column) { // rdy
-		board.setField(row, column, '_'); // deletes field where bomb got placed
-		board.setField(row + 1, column, '_'); // deletes field below bomb
-		board.setField(row - 1, column, '_'); // deletes field above bomb
-		board.setField(row, column + 1, '_'); // deletes field right next to bomb
-		board.setField(row, column - 1, '_'); // deletes field left next to bomb
+		board.setSignFromField(row, column, '_'); // deletes field where bomb got placed
+		board.setSignFromField(row + 1, column, '_'); // deletes field below bomb
+		board.setSignFromField(row - 1, column, '_'); // deletes field above bomb
+		board.setSignFromField(row, column + 1, '_'); // deletes field right next to bomb
+		board.setSignFromField(row, column - 1, '_'); // deletes field left next to bomb
 	}
 
 	// this method will be called every move TODO method to display the winner
@@ -185,7 +210,7 @@ public class GameLogic {
 	}
 
 	public void setBlockField(int row, int column) { // rdy FIXME set from public to private
-		board.setField(row, column, board.getBlock());
+		board.setSignFromField(row -1, column -1, board.getBlock());
 	}
 
 	public boolean searchRow(char[][] tmp) { // (rdy) -> Test
@@ -199,7 +224,7 @@ public class GameLogic {
 			for (int col = 0; col < tmp[row].length; col++) {
 				if (countHit >= 4)
 					return true;
-				else if (tmp[row][col] == setPlayerSign()) {
+				else if (tmp[row][col] == getPlayerSign()) {
 					countHit++;
 				} else
 					countHit = 0;
@@ -219,7 +244,7 @@ public class GameLogic {
 			for (int row = 0; row < tmp.length; row++) {
 				if (countHit >= 4)
 					return true;
-				else if (tmp[row][col] == setPlayerSign()) {
+				else if (tmp[row][col] == getPlayerSign()) {
 					countHit++;
 				} else
 					countHit = 0;
@@ -246,7 +271,7 @@ public class GameLogic {
 				row++;
 				col = 0;
 			}
-			if (tmp[row][col] == setPlayerSign())
+			if (tmp[row][col] == getPlayerSign())
 				countHit++;
 			else
 				countHit = 0;
@@ -278,7 +303,7 @@ public class GameLogic {
 				row--;
 				col = 0;
 			}
-			if (tmp[row][col] == setPlayerSign())
+			if (tmp[row][col] == getPlayerSign())
 				countHit++;
 			else
 				countHit = 0;
