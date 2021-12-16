@@ -8,8 +8,8 @@ import slide.Board;
 
 /**
  * 
- * @author julianlautenscheidt
- * @version 0.2
+ * @author julianlautenscheidt, emreaydemir
+ * @version 0.3
  * Verschiedene Tests zu der Board-Klasse
  */
 public class BoardTest {
@@ -19,8 +19,8 @@ public class BoardTest {
 	@Before
 	public void initFeld() {
 		
-		board.setField(1, 1, 'X');	
-		board.setField(4, 4, 'O');
+		board.setSignFromField(1, 1, 'X');	
+		board.setSignFromField(4, 4, 'O');
 	}
 	
 	char[][] testField = board.getField();
@@ -34,6 +34,25 @@ public class BoardTest {
 		assertEquals(6, testField.length); 
 		assertEquals(7, testField[0].length); 
 	
+	}
+	
+	/**
+	 * Test bei dem gecheckt wird ob das Spielfeld richtig visualisiert wird. Spielfeld darf keine leeren Chars aufweisen.
+	 */
+	@Test
+
+	public void testBoardVisualisation() {
+
+		char[][] leer = new char[6][7];
+
+		for(int a = 0; a < leer.length; a++) {
+			for (int i = 0; i < leer[a].length; i++) {
+				assertNotEquals(leer[a][i], board.getField()[a][i]);
+			}
+		}
+		
+		
+
 	}
 	
 	/**
