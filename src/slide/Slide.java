@@ -56,7 +56,7 @@ public class Slide {
 		}
 //		board.printBoard();
 		// #region Only for testing reasons. Please put this in another Method later
-//		System.out.println("Bitte wählen Sie drei Felder, die Sie blockieren möchten:\n");
+//		System.out.println("Bitte wählen Sie drei Felder, die Sie blockieren moechten:\n");
 		String skipString = input.nextLine(); // So that it doesnt skip the next in.nextLine() (ignore it)
 		int row, col,countBlock = 3;
 		do {

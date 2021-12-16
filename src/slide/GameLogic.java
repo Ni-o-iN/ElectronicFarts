@@ -154,7 +154,7 @@ public class GameLogic {
 			return true;
 	}
 
-	public void setBomb(int row, int column) { // rdy
+	public void setBomb(int row, int column) { // ready
 		if (isValidBombMove(row, column)) {
 			board.setSignFromField(row, column, board.getBlock());
 			blast(row, column);
