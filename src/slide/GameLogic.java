@@ -94,23 +94,41 @@ public class GameLogic {
 		String direction = inputToDirection(input);
 		int position = inputToPosition(input);
 
-		printBoard();
-		// int[] coordinates = getCoordinates(direction, position);
-		// if (direction == "links" && isValidMove(coordinates[0], coordinates[1])) {
-		// tokenSlideFromLeftToRight(coordinates[0],coordinates[1]);
-		// }
-
-		// if (direction == "rechts" && isValidMove(coordinates[0], coordinates[1])) {
-
-		// }
-
-		// if (direction == "oben" && isValidMove(coordinates[0], coordinates[1])) {
-
-		// }
-
-		// if (direction == "unten" && isValidMove(coordinates[0], coordinates[1])) {
-
-		// }
+		if(direction.equals("top")) {
+			LastFreeFieldFromTop(position);
+		}
+	}
+	
+	public void LastFreeFieldFromTop(int position) {
+		int i = 0;
+		while(board.isEmpty(position, i++)) {
+			i++;
+		}
+		// slide method
+	}
+	
+	public void LastFreeFieldFromRight(int position) {
+		int i = 0;
+		while(board.isEmpty(i++, position)) {
+			i++;
+		}
+		// slide method
+	}
+	
+	public void LastFreeFieldFromBottom(int position) {
+		int i = 0;
+		while(board.isEmpty(i++, position)) {
+			i++;
+		}
+		// slide method
+	}
+	
+	public void LastFreeFieldFromLeft(int position) {
+		int i = 0;
+		while(board.isEmpty(position, i++)) {
+			i++;
+		}
+		// slide method
 	}
 
 	public void updateMoveCounter() {
@@ -357,6 +375,18 @@ public class GameLogic {
 		else {
 			return false;
 		}
+	}
+	
+	public boolean boardIsFull(char[][] tmp) {
+		for (int z = 0; z < tmp.length; z++) {
+			for (int s = 0; s < tmp[z].length; s++) {
+				if(tmp[z][s] == '_') {
+					return false;
+				} else 
+					return true;
+			}
+		}
+		return false;
 	}
 
 }
