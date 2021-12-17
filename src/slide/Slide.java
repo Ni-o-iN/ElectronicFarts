@@ -47,57 +47,84 @@ public class Slide {
 				break;
 			case 2:
 				logic.addPlayer();
+				blockFields(logic, input);
 				break;
 			case 3:
 				// TODO COM VS COM implementieren!
 				System.out.println("COM vs COM und der Gewinner ist: COM");
 				break;
 		}
-		// logic.printBoard();
-		// #region Only for testing reasons. Please put this in another Method later
-		// System.out.println("Bitte wählen Sie drei Felder, die Sie blockieren
-		// möchten:\n");
-		// input.nextLine(); // So that it doesnt skip the next in.nextLine() (ignore
-		// it)
-		int row, col, countBlock = 3;
-		do {
-			System.out.println("Sie dürfen [" + countBlock + "] Feld(er) blocken");
-			System.out.println("Soll ein Feld geblockt werden? (j/n)");
-			String blockAnother = input.next();
-			if (!blockAnother.equals("j"))
-				break;
-			System.out.println("Bitte wählen Sie drei Felder, die Sie blockieren möchten:\n");
-			logic.printBoard();
-			System.out.print("REIHE: ");
-			row = input.nextInt();
-			System.out.print("SPALTE: ");
-			col = input.nextInt();
-			if (row < 1 || row > 6 || col < 1 || col > 7) {
-				System.out.println("Fehlerhafte Eingabe bitte korrigieren...");
-				do {
-					System.out.print("REIHE: ");
-					row = input.nextInt();
-					System.out.print("SPALTE: ");
-					col = input.nextInt();
-				} while (row < 0 && row > 7 && col < 0 && col > 8);
-			}
-			logic.setBlockField(row, col);
-			countBlock--;
-			logic.printBoard();
-		} while (row > 0 && row < 7 && col > 0 && col < 8 && countBlock > 0);
-		// logic.setBlockField(coordinates[0], coordinates[1]);
-		// String inputString1 = input.nextLine();
-		// int[] coordinates1 = convertInputIntoCords(inputString1);
-		// logic.setBlockField(coordinates1[0], coordinates1[1]);
-		// String inputString2 = input.nextLine();
-		// int[] coordinates2 = convertInputIntoCords(inputString2);
-		// logic.setBlockField(coordinates2[0], coordinates2[1]);
-		logic.printBoard();
-		// #endregion
+
 	}
 
-	private void convertInputIntoDirectionAndPosition(String inputString) { // TODO new class for InputConversion
-																			// instead of these methods
+	public void blockFields(GameLogic logic, Scanner input) {
+		int row, col, availableBlockfields1 = 3, availableBlockfields2 = 3, currentplayer = 0, playercounter = 0,
+				countBlock;
+
+		for (int i = 1; i < 7; i++) {
+			currentplayer = playercounter % 2;
+			if (currentplayer == 0)
+				countBlock = availableBlockfields1;
+			else
+				countBlock = availableBlockfields2;
+
+			if (countBlock == 0) {
+				playercounter++;
+				continue;
+			}
+			System.out.println(
+					"Spieler" + (currentplayer + 1) + " ist dran, du darfst [" + countBlock + "] Feld(er) blockieren");
+			System.out.println("Soll ein Feld geblockt werden? (j/n)");
+			String block = input.next();
+			if (!block.equals("j")) {
+				if (currentplayer == 0) {
+					availableBlockfields1 = 0;
+					playercounter++;
+					continue;
+				} else {
+					availableBlockfields2 = 0;
+					playercounter++;
+					continue;
+				}
+			}
+			if (countBlock > 0) {
+				System.out.println("Bitte wählen Sie drei Felder, die Sie blockieren möchten:\n");
+				logic.printBoard();
+				System.out.print("REIHE: ");
+				row = input.nextInt();
+				System.out.print("SPALTE: ");
+				col = input.nextInt();
+				if (row < 1 || row > 6 || col < 1 || col > 7) {
+					System.out.println("Fehlerhafte Eingabe bitte korrigieren...");
+					do {
+						System.out.print("REIHE: ");
+						row = input.nextInt();
+						System.out.print("SPALTE: ");
+						col = input.nextInt();
+					} while (row < 0 && row > 6 && col < 0 && col > 7);
+				}
+
+				if (logic.isValidBlockMove(row, col)) {
+					logic.setBlockField(row, col);
+					if (currentplayer == 0) {
+						availableBlockfields1--;
+					} else
+						availableBlockfields2--;
+				} else {
+					do {
+						System.out.println("\nFeld ist besetzt\n");
+						System.out.print("REIHE: ");
+						row = input.nextInt();
+						System.out.print("SPALTE: ");
+						col = input.nextInt();
+					} while (row < 0 && row > 6 && col < 0 && col > 7);
+					logic.setBlockField(row, col);
+				}
+
+				logic.printBoard();
+				playercounter++;
+			}
+		}
 	}
 
 	public void playGame(GameLogic logic, Scanner input) {
@@ -108,30 +135,10 @@ public class Slide {
 			String direction = input.nextLine();
 			System.out.println("Bitte geben Sie an in welcher Reihe/Spalte Sie einwerfen möchten: ");
 			int position = input.nextInt();
-			//logic.myMove(direction, position);
+			// logic.myMove(direction, position);
 			logic.printBoard();
 			logic.updateMoveCounter();
 		}
 		input.close();
 	}
-
-	// public int[] convertInputIntoCords(String inputString) {
-	// int[] cords = new int[2];
-	// switch (inputString) {
-	// case "1,1":
-	// cords[0] = 0;
-	// cords[1] = 0;
-	// break;
-	// case "1,2":
-	// cords[0] = 0;
-	// cords[1] = 1;
-	// break;
-	// case "1,3":
-	// cords[0] = 0;
-	// cords[1] = 2;
-	// break;
-	// //...
-	// }
-	// return cords;
-	// }
 }

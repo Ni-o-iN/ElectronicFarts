@@ -20,45 +20,45 @@ public class AI extends GameLogic {
 //	}
 	
 	
-	public void randomDirection() {
-		int direction = random.nextInt(4);
-		if(direction == 1) {
-			top();
-		} else if(direction == 2) {
-			right();
-		}else if (direction == 3) {
-			bottom();
-		}else
-			left();
-	}
+	// public void randomDirection() {
+	// 	int direction = random.nextInt(4);
+	// 	if(direction == 1) {
+	// 		top();
+	// 	} else if(direction == 2) {
+	// 		right();
+	// 	}else if (direction == 3) {
+	// 		bottom();
+	// 	}else
+	// 		left();
+	// }
 	
-	public void top() {
-		int randomRow = random.nextInt(6);
-		if(isValidMove(randomRow, 1)) {
+	// public void top() {
+	// 	int randomRow = random.nextInt(6);
+	// 	if(isValidMove(randomRow, 1)) {
 			
-		}else top();
-	}
+	// 	}else top();
+	// }
 	
-	public void right() {
-		int randomCollum = random.nextInt(7);
-		if(isValidMove(1, randomCollum)) {
+	// public void right() {
+	// 	int randomCollum = random.nextInt(7);
+	// 	if(isValidMove(1, randomCollum)) {
 			
-		}
-	}
+	// 	}
+	// }
 
-	public void bottom() {
-		int randomRow = random.nextInt(6);
-		if(isValidMove(randomRow, 1)) {
+	// public void bottom() {
+	// 	int randomRow = random.nextInt(6);
+	// 	if(isValidMove(randomRow, 1)) {
 			
-		}
-	}
+	// 	}
+	// }
 
-	public void left() {
-		int randomCollum = random.nextInt(7);
-		if(isValidMove(1, randomCollum)) {
+	// public void left() {
+	// 	int randomCollum = random.nextInt(7);
+	// 	if(isValidMove(1, randomCollum)) {
 			
-		}
-	}
+	// 	}
+	// }
 	
 	public void losePossibility() {
 		

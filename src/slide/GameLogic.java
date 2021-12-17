@@ -94,38 +94,38 @@ public class GameLogic {
 		String direction = inputToDirection(input);
 		int position = inputToPosition(input);
 
-		if(direction.equals("top")) {
+		if (direction.equals("top")) {
 			LastFreeFieldFromTop(position);
 		}
 	}
-	
+
 	public void LastFreeFieldFromTop(int position) {
 		int i = 0;
-		while(board.isEmpty(position, i++)) {
+		while (board.isEmpty(position, i++)) {
 			i++;
 		}
 		// slide method
 	}
-	
+
 	public void LastFreeFieldFromRight(int position) {
 		int i = 0;
-		while(board.isEmpty(i++, position)) {
+		while (board.isEmpty(i++, position)) {
 			i++;
 		}
 		// slide method
 	}
-	
+
 	public void LastFreeFieldFromBottom(int position) {
 		int i = 0;
-		while(board.isEmpty(i++, position)) {
+		while (board.isEmpty(i++, position)) {
 			i++;
 		}
 		// slide method
 	}
-	
+
 	public void LastFreeFieldFromLeft(int position) {
 		int i = 0;
-		while(board.isEmpty(position, i++)) {
+		while (board.isEmpty(position, i++)) {
 			i++;
 		}
 		// slide method
@@ -236,15 +236,27 @@ public class GameLogic {
 		String direction = inputToDirection(input);
 		int position = inputToPosition(input);
 
-		//if (board.getSignFromField(row, col) == '_')
+		// if (board.getSignFromField(row, col) == '_')
 		// return true;
 		// else
 		return false;
 	}
 
 	private boolean isValidBombMove(int row, int column) { // TODO STRING ALS PARAMETERÜBERGABE
+		row = row - 1;
+		column = column - 1;
 		char[][] checkField = board.getField();
 		if (checkField[row][column] == '#' || currentPlayer.getPlayerBombStatus() == false) {
+			return false;
+		} else
+			return true;
+	}
+
+	public boolean isValidBlockMove(int row, int column) {
+		row = row - 1;
+		column = column - 1;
+		char[][] checkField = board.getField();
+		if (checkField[row][column] == '#') {
 			return false;
 		} else
 			return true;
@@ -376,13 +388,13 @@ public class GameLogic {
 			return false;
 		}
 	}
-	
+
 	public boolean boardIsFull(char[][] tmp) {
 		for (int z = 0; z < tmp.length; z++) {
 			for (int s = 0; s < tmp[z].length; s++) {
-				if(tmp[z][s] == '_') {
+				if (tmp[z][s] == '_') {
 					return false;
-				} else 
+				} else
 					return true;
 			}
 		}
