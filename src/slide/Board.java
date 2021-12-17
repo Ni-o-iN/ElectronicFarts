@@ -6,7 +6,7 @@ package slide;
  * @version 0.4 This class generates the Gamefield
  */
 public class Board {
-	private char[] signs = new char[] {'X','O'};
+	private char[] signs = new char[] { 'X', 'O' };
 	private char bomb = 'B';
 	private char block = '#';
 	final int ROW = 6;
@@ -19,20 +19,23 @@ public class Board {
 				field[z][s] = '_';
 			}
 		}
-		
+
 	}
+
 	public boolean isBlocked(int row, int col) {
-		if(getSignFromField(row,col) == '#') 
+		if (getSignFromField(row, col) == '#')
 			return true;
 		else
 			return false;
 	}
+
 	public boolean isEmpty(int row, int col) {
-		if(getSignFromField(row,col) == '_') 
+		if (getSignFromField(row, col) == '_')
 			return true;
 		else
 			return false;
 	}
+
 	public char getSigns(int pos) {
 		return signs[pos];
 	}
@@ -44,17 +47,19 @@ public class Board {
 	public char getBlock() {
 		return this.block;
 	}
+
 	public void setField(char[][] field) {
 		this.field = field;
 	}
+
 	public char[][] getField() {
 		return this.field;
 	}
-	
-	public void setSignFromField(int row, int column,char sign) {
+
+	public void setSignFromField(int row, int column, char sign) {
 		field[row][column] = sign;
 	}
-	
+
 	public char getSignFromField(int row, int column) {
 		return field[row][column];
 	}
