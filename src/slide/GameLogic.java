@@ -104,31 +104,59 @@ public class GameLogic {
 		while (board.isEmpty(position, i++)) {
 			i++;
 		}
-		// slide method
+		if(board.getSignFromField(position, i++) == '#') {
+			board.setSignFromField(position, i, getPlayerSign());
+		} else if(board.nextFieldIsAToken(position, i++)) {
+			slideNextToken(position, i);
+		} else if(i == 5 ){
+			board.setSignFromField(position, i, getPlayerSign());
+		}
 	}
 
 	public void LastFreeFieldFromRight(int position) {
-		int i = 0;
-		while (board.isEmpty(i++, position)) {
-			i++;
+		int i = 6;
+		while (board.isEmpty(i--, position)) {
+			i--;
 		}
-		// slide method
+		if(board.getSignFromField(i--, position) == '#') {
+			board.setSignFromField(i, position, getPlayerSign());
+		} else if(board.nextFieldIsAToken(i--, position)) {
+			slideNextToken(i, position);
+		} else if(i == 0){
+			board.setSignFromField(i, position, getPlayerSign());
+		}
 	}
 
 	public void LastFreeFieldFromBottom(int position) {
-		int i = 0;
-		while (board.isEmpty(i++, position)) {
-			i++;
+		int i = 5;
+		while (board.isEmpty(position , i--)) {
+			i--;
 		}
-		// slide method
+		if(board.getSignFromField(position, i--) == '#') {
+			board.setSignFromField(position, i, getPlayerSign());
+		} else if(board.nextFieldIsAToken(position, i--)) {
+			slideNextToken(position, i);
+		} else if(i == 0){
+			board.setSignFromField(position, i, getPlayerSign());
+		}
 	}
 
 	public void LastFreeFieldFromLeft(int position) {
 		int i = 0;
-		while (board.isEmpty(position, i++)) {
+		while (board.isEmpty(i++, position)) {
 			i++;
 		}
-		// slide method
+		if(board.getSignFromField(i++, position) == '#') {
+			board.setSignFromField(i, position, getPlayerSign());
+		} else if(board.nextFieldIsAToken(i++, position)) {
+			slideNextToken(i, position);
+		} else if(i == 6){
+			board.setSignFromField(i, position, getPlayerSign());
+		}
+	}
+	
+	public void slideNextToken(int row, int collum) {
+		
 	}
 
 	public void updateMoveCounter() {
