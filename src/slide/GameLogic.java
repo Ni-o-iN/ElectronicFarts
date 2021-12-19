@@ -9,6 +9,7 @@ package slide;
 
 public class GameLogic {
 
+	private InputConversion inputConversion = new InputConversion();
 	private Player currentPlayer;
 	private int moveCounter = 0;
 	private int roundCounter = 1;
@@ -23,15 +24,6 @@ public class GameLogic {
 	public boolean getCOM() { // rdy
 		return COM;
 	}
-
-	// public Player getCurrentPlayer() { // TODO
-	// if (moveCounter % 2 == 1) {
-	// currentPlayer = players[0];
-	// return currentPlayer;
-	// } else
-	// currentPlayer = players[1];
-	// return currentPlayer;
-	// }
 
 	public void addPlayer() { // rdy
 		players[0] = new Player(1, "Spieler1");
@@ -67,11 +59,10 @@ public class GameLogic {
 		System.out.println();
 	}
 
-	public void setBlockField(int row, int column) { // rdy FIXME set from public to private
+	public void setBlockField(int row, int column) {
 		board.setSignFromField(row - 1, column - 1, board.getBlock());
 	}
 
-	// this method will be called every move TODO method to display the winner
 	public boolean isRunning() {
 		char[][] tmp = board.getField();
 		if (searchRow(tmp)) {
@@ -90,51 +81,77 @@ public class GameLogic {
 			return true;
 	}
 
-	public void myMove(String input) { // TODO Nur String!
-		String direction = inputToDirection(input);
-		int position = inputToPosition(input);
+	public void myMove(String input) {
+		String direction = inputConversion.inputToDirection(input);
+		int position = inputConversion.inputToPosition(input);
 
-		printBoard();
-		// int[] coordinates = getCoordinates(direction, position);
-		// if (direction == "links" && isValidMove(coordinates[0], coordinates[1])) {
-		// tokenSlideFromLeftToRight(coordinates[0],coordinates[1]);
-		// }
+		if (direction.equals("top")) {
+			LastFreeFieldFromTop(position);
+		}
+	}
 
-		// if (direction == "rechts" && isValidMove(coordinates[0], coordinates[1])) {
+	public void LastFreeFieldFromTop(int position) {
+		int i = 0;
+		while (board.isEmpty(position, i++)) {
+			i++;
+		}
+		if (board.getSignFromField(position, i++) == '#') {
+			board.setSignFromField(position, i, getPlayerSign());
+		} else if (board.nextFieldIsAToken(position, i++)) {
+			slideNextToken(position, i);
+		} else if (i == 5) {
+			board.setSignFromField(position, i, getPlayerSign());
+		}
+	}
 
-		// }
+	public void LastFreeFieldFromRight(int position) {
+		int i = 6;
+		while (board.isEmpty(i--, position)) {
+			i--;
+		}
+		if (board.getSignFromField(i--, position) == '#') {
+			board.setSignFromField(i, position, getPlayerSign());
+		} else if (board.nextFieldIsAToken(i--, position)) {
+			slideNextToken(i, position);
+		} else if (i == 0) {
+			board.setSignFromField(i, position, getPlayerSign());
+		}
+	}
 
-		// if (direction == "oben" && isValidMove(coordinates[0], coordinates[1])) {
+	public void LastFreeFieldFromBottom(int position) {
+		int i = 5;
+		while (board.isEmpty(position, i--)) {
+			i--;
+		}
+		if (board.getSignFromField(position, i--) == '#') {
+			board.setSignFromField(position, i, getPlayerSign());
+		} else if (board.nextFieldIsAToken(position, i--)) {
+			slideNextToken(position, i);
+		} else if (i == 0) {
+			board.setSignFromField(position, i, getPlayerSign());
+		}
+	}
 
-		// }
+	public void LastFreeFieldFromLeft(int position) {
+		int i = 0;
+		while (board.isEmpty(i++, position)) {
+			i++;
+		}
+		if (board.getSignFromField(i++, position) == '#') {
+			board.setSignFromField(i, position, getPlayerSign());
+		} else if (board.nextFieldIsAToken(i++, position)) {
+			slideNextToken(i, position);
+		} else if (i == 6) {
+			board.setSignFromField(i, position, getPlayerSign());
+		}
+	}
 
-		// if (direction == "unten" && isValidMove(coordinates[0], coordinates[1])) {
+	public void slideNextToken(int row, int collum) {
 
-		// }
 	}
 
 	public void updateMoveCounter() {
 		moveCounter++;
-	}
-
-	public String inputToDirection(String inputString) {
-		String direction = "";
-		for (int i = 0; i < inputString.length(); i++) {
-			if (inputString.charAt(i) >= 'a' && inputString.charAt(i) <= 'z') {
-				direction = direction + inputString.charAt(i);
-			}
-		}
-		return direction;
-	}
-
-	public int inputToPosition(String inputString) {
-		int position = -1;
-		for (int i = 0; i < inputString.length(); i++) {
-			if (inputString.charAt(i) >= '1' && inputString.charAt(i) <= '7') {
-				position = inputString.charAt(i);
-			}
-		}
-		return position;
 	}
 
 	public char getPlayerSign() { // rdy
@@ -214,17 +231,22 @@ public class GameLogic {
 		return coordinates;
 	}
 
-	private boolean isValidMove(String input) { // TODO STRING ALS PARAMETERÜBERGABE
-		String direction = inputToDirection(input);
-		int position = inputToPosition(input);
+	private boolean isValidMove(String input) {
+		String direction = inputConversion.inputToDirection(input);
+		int position = inputConversion.inputToPosition(input);
 
-		//if (board.getSignFromField(row, col) == '_')
+		// if (board.getSignFromField(row, col) == '_')
 		// return true;
 		// else
 		return false;
 	}
 
-	private boolean isValidBombMove(int row, int column) { // TODO STRING ALS PARAMETERÜBERGABE
+	private boolean isValidBombMove(String inputString) {
+		int[] cords = inputConversion.inputToCords(inputString);
+		int row = cords[0] - 1;
+		int column = cords[1] - 1;
+		// row = row - 1;
+		// column = column - 1;
 		char[][] checkField = board.getField();
 		if (checkField[row][column] == '#' || currentPlayer.getPlayerBombStatus() == false) {
 			return false;
@@ -232,12 +254,23 @@ public class GameLogic {
 			return true;
 	}
 
-	public void setBomb(int row, int column) { // ready
-		if (isValidBombMove(row, column)) {
-			board.setSignFromField(row, column, board.getBlock());
-			blast(row, column);
-			currentPlayer.setPlayerBombStatusFalse();
-		}
+	public boolean isValidBlockMove(int row, int column) {
+		row = row - 1;
+		column = column - 1;
+		char[][] checkField = board.getField();
+		if (checkField[row][column] == '#') {
+			return false;
+		} else
+			return true;
+	}
+
+	public void setBomb(int row, int column) { // TODO Lösung überlegen wie man validBombMove und setBomb miteinander
+												// vereinbart (int, int und String)
+		// if (isValidBombMove(row, column)) {
+		// board.setSignFromField(row, column, board.getBlock());
+		// blast(row, column);
+		// currentPlayer.setPlayerBombStatusFalse();
+		// }
 	}
 
 	private void blast(int row, int column) { // rdy
@@ -357,6 +390,18 @@ public class GameLogic {
 		else {
 			return false;
 		}
+	}
+
+	public boolean boardIsFull(char[][] tmp) {
+		for (int z = 0; z < tmp.length; z++) {
+			for (int s = 0; s < tmp[z].length; s++) {
+				if (tmp[z][s] == '_') {
+					return false;
+				} else
+					return true;
+			}
+		}
+		return false;
 	}
 
 }

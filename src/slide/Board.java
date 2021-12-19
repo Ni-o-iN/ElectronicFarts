@@ -21,19 +21,17 @@ public class Board {
 		}
 
 	}
+	
+	public boolean nextFieldIsAToken(int row, int column) {
+		return (getSignFromField(row, column) == 'X') || (getSignFromField(row, column) == 'O');
+	}
 
 	public boolean isBlocked(int row, int col) {
-		if (getSignFromField(row, col) == '#')
-			return true;
-		else
-			return false;
+		return (getSignFromField(row, col) == '#');
 	}
 
 	public boolean isEmpty(int row, int col) {
-		if (getSignFromField(row, col) == '_')
-			return true;
-		else
-			return false;
+		return (getSignFromField(row, col) == '_');
 	}
 
 	public char getSigns(int pos) {
