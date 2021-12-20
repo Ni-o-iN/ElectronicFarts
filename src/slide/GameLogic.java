@@ -86,119 +86,159 @@ public class GameLogic {
 		String direction = inputConversion.inputToDirection(input);
 		int position = inputConversion.inputToPosition(input);
 		if (direction.equals("Oben")) {
-			lastFreeFieldFromTop(position, 0, getPlayerSign());
+			lastFreeFieldFromTop(0, position, getPlayerSign());
 		} else if (direction.equals("Rechts")) {
-			lastFreeFieldFromRight(6, position, getPlayerSign());
+			lastFreeFieldFromRight(position, 6, getPlayerSign());
 		} else if (direction.equals("Unten")) {
-			lastFreeFieldFromBottom(position, 5, getPlayerSign());
+			lastFreeFieldFromBottom(5, position, getPlayerSign());
 		} else if (direction.equals("Links")) {
 			lastFreeFieldFromLeft(position, 0, getPlayerSign());
 		}
 	}
 
 	public void lastFreeFieldFromTop(int row, int column, char tokenSign) {
-		while (board.isEmpty(row, column++)) {
-			column++;
-		}
-		if (column == 5) {
-			board.setSignFromField(row, column, tokenSign);
-		} else if (board.nextFieldIsAToken(row, column)) {
-			slideNextTokenFromTop(row, column);
-		} else if (board.isBlocked(row, column)) {
-			board.setSignFromField(row, column, tokenSign);
+		int test = 0;
+		for (int i = 0; i < 5; i++) {
+			if(board.isEmpty(row, column)) {
+				row++;
+			} else if(board.nextFieldIsAToken(row, column)) {
+				board.setSignFromField(--row, column, getPlayerSign());
+				slideNextTokenFromTop(--row, column);
+				break;
+			} else if (board.isBlocked(row, column)) {
+				board.setSignFromField(--row, column, tokenSign);
+				break;
+			}
+			test++;
+		} 
+		if(test==5) {
+			if(board.nextFieldIsAToken(5, column)) {
+				board.setSignFromField(4, column, getPlayerSign());
+			} else {
+				board.setSignFromField(5, column, getPlayerSign());
+			}
 		}
 	}
 
 	public void lastFreeFieldFromRight(int row, int column, char tokenSign) {
-		while (board.isEmpty(row--, column)) {
-			row--;
-		}
-		if (row == 0) {
-			board.setSignFromField(row, column, tokenSign);
-		} else if (board.nextFieldIsAToken(row--, column)) {
-			slideNextTokenFromRight(row, column);
-		} else if (board.isBlocked(row--, column)) {
-			board.setSignFromField(row, column, tokenSign);
+		int test = 0;
+		for (int i = 6; i > 0; i--) {
+			if(board.isEmpty(row, column)) {
+				column--;
+			} else if(board.nextFieldIsAToken(row, column)) {
+				slideNextTokenFromRight(row, ++column);
+				break;
+			} else if (board.isBlocked(row, column)) {
+				board.setSignFromField(row, ++column, tokenSign);
+				break;
+			}
+			test++;
+		} 
+		if(test==6) {
+			if(board.nextFieldIsAToken(row, 0)) {
+				board.setSignFromField(row, 1, getPlayerSign());
+			} else {
+				board.setSignFromField(row, 0, getPlayerSign());
+			}
 		}
 	}
 
 	public void lastFreeFieldFromBottom(int row, int column, char tokenSign) {
-		while (board.isEmpty(row, column--)) {
-			column--;
-		}
-		if (column == 0) {
-			board.setSignFromField(row, column, tokenSign);
-		} else if (board.nextFieldIsAToken(row, column--)) {
-			slideNextTokenFromBottom(row, column);
-		} else if (board.isBlocked(row, column--)) {
-			board.setSignFromField(row, column, getPlayerSign());
+		int test = 0;
+		for (int i = 5; i > 0; i--) {
+			if(board.isEmpty(row, column)) {
+				row--;
+			} else if(board.nextFieldIsAToken(row, column)) {
+				slideNextTokenFromBottom(++row, column);
+				break;
+			} else if (board.isBlocked(row, column)) {
+				board.setSignFromField(++row, column, tokenSign);
+				break;
+			}
+			test++;
+		} 
+		if(test==5) {
+			if(board.nextFieldIsAToken(0, column)) {
+				board.setSignFromField(1, column, getPlayerSign());
+			} else {
+				board.setSignFromField(0, column, getPlayerSign());
+			}
 		}
 	}
 
 	public void lastFreeFieldFromLeft(int row, int column, char tokenSign) {
-		while (board.isEmpty(row, column) && column < 6) {
-			if (++column == 6) {
-				board.setSignFromField(row, column, tokenSign);
-			} else if (board.nextFieldIsAToken(row, column)) {
+		int test = 0;
+		for (int i = 0; i < 6; i++) {
+			if(board.isEmpty(row, column)) {
+				column++;
+			} else if(board.nextFieldIsAToken(row, column)) {
 				slideNextTokenFromLeft(row, --column);
+				break;
 			} else if (board.isBlocked(row, column)) {
 				board.setSignFromField(row, --column, tokenSign);
+				break;
+			}
+			test++;
+		}
+		if(test==6) {
+			if(board.nextFieldIsAToken(row, 6)) {
+				board.setSignFromField(row, 5, getPlayerSign());
+			} else {
+				board.setSignFromField(row, 6, getPlayerSign());
 			}
 		}
 	}
 
 	public void slideNextTokenFromTop(int row, int column) {
-		int numberOfTokens = 0;
-		while(board.nextFieldIsAToken(row, column++)) {
-			numberOfTokens++;
-		}
-		if(board.isBlocked(row, column+numberOfTokens+1)) {
+		int test = row;
+		if(board.nextFieldIsAToken(++test, column)) {
 			board.setSignFromField(row, column, getPlayerSign());
-		} else if(board.isEmpty(row, column+numberOfTokens+1)) {
-			thisToken = board.getSignFromField(row, column+numberOfTokens);
-			lastFreeFieldFromTop(row, column+numberOfTokens, thisToken);
 		}
+//		int space = 0;
+//		int test2 = column;
+//		int numberOfTokens = 1;
+//		for(int i = 0; i < 6-numberOfTokens; i++) {
+//			if(board.nextFieldIsAToken(row, ++test2)) {
+//				numberOfTokens++;
+//			} else if(board.isEmpty(row, ++test2)) {
+//				space++;
+//				while(board.isEmpty(row, test2) && test2 < 5) {
+//					test2++;
+//					space++;
+//				}
+//				while(numberOfTokens != 0) {
+//					char currentToken = board.getSignFromField(row, test2);
+//					lastFreeFieldFromTop(row, test2, currentToken);
+//					test2--;
+//					space--;
+//				}
+//			} else if(board.isBlocked(row, ++test2)) {
+//				board.setSignFromField(row, column, getPlayerSign());
+//				break;
+//			}
+//		}
 	}
 	
 	public void slideNextTokenFromRight(int row, int column) {
-		int numberOfTokens = 0;
-		while(board.nextFieldIsAToken(row--, column)) {
-			numberOfTokens++;
-		}
-		if(board.isBlocked(row-numberOfTokens-1, column)) {
+		int test = column;
+		if(board.nextFieldIsAToken(row, --test)) {
 			board.setSignFromField(row, column, getPlayerSign());
-		} else if(board.isEmpty(row-numberOfTokens-1, column)) {
-			thisToken = board.getSignFromField(row-numberOfTokens, column);
-			lastFreeFieldFromRight(row-numberOfTokens, column, thisToken);
 		}
 	}
 	
 	public void slideNextTokenFromBottom(int row, int column) {
-		int numberOfTokens = 0;
-		while(board.nextFieldIsAToken(row, column--)) {
-			numberOfTokens++;
-		}
-		if(board.isBlocked(row, column-numberOfTokens-1)) {
+		int test = row;
+		if(board.nextFieldIsAToken(--test, column)) {
 			board.setSignFromField(row, column, getPlayerSign());
-		} else if(board.isEmpty(row, column-numberOfTokens-1)) {
-			thisToken = board.getSignFromField(row, column-numberOfTokens);
-			lastFreeFieldFromTop(row, column-numberOfTokens, thisToken);
 		}
 	}
 	
 	public void slideNextTokenFromLeft(int row, int column) {
-		int numberOfTokens = 1;
-		while(board.nextFieldIsAToken(row, ++column)) {
-			numberOfTokens++;
-		}
-		if(board.isBlocked(row, column+numberOfTokens+1)) {
+		int test = column;
+		if(board.nextFieldIsAToken(row, ++test)) {
 			board.setSignFromField(row, column, getPlayerSign());
-		} else if(board.isEmpty(row, column+numberOfTokens+1)) {
-			thisToken = board.getSignFromField(row, column+numberOfTokens);
-			lastFreeFieldFromRight(row, column+numberOfTokens, thisToken);
 		}
 	}
-	
 	
 
 	public void updateMoveCounter() {
