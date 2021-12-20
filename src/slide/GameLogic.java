@@ -85,7 +85,6 @@ public class GameLogic {
 	public void myMove(String input) {
 		String direction = inputConversion.inputToDirection(input);
 		int position = inputConversion.inputToPosition(input);
-
 		if (direction.equals("Oben")) {
 			lastFreeFieldFromTop(position, 0, getPlayerSign());
 		} else if (direction.equals("Rechts")) {
@@ -93,7 +92,7 @@ public class GameLogic {
 		} else if (direction.equals("Unten")) {
 			lastFreeFieldFromBottom(position, 5, getPlayerSign());
 		} else if (direction.equals("Links")) {
-			lastFreeFieldFromLeft(0, position, getPlayerSign());
+			lastFreeFieldFromLeft(position, 0, getPlayerSign());
 		}
 	}
 
@@ -137,15 +136,14 @@ public class GameLogic {
 	}
 
 	public void lastFreeFieldFromLeft(int row, int column, char tokenSign) {
-		while (board.isEmpty(row++, column)) {
-			row++;
-		}
-		if (row == 6) {
-			board.setSignFromField(row, column, tokenSign);
-		} else if (board.nextFieldIsAToken(row++, column)) {
-			slideNextTokenFromLeft(row, column);
-		} else if (board.isBlocked(row++, column)) {
-			board.setSignFromField(row, column, tokenSign);
+		while (board.isEmpty(row, column) && column < 6) {
+			if (++column == 6) {
+				board.setSignFromField(row, column, tokenSign);
+			} else if (board.nextFieldIsAToken(row, column)) {
+				slideNextTokenFromLeft(row, --column);
+			} else if (board.isBlocked(row, column)) {
+				board.setSignFromField(row, --column, tokenSign);
+			}
 		}
 	}
 
@@ -189,15 +187,15 @@ public class GameLogic {
 	}
 	
 	public void slideNextTokenFromLeft(int row, int column) {
-		int numberOfTokens = 0;
-		while(board.nextFieldIsAToken(row++, column)) {
+		int numberOfTokens = 1;
+		while(board.nextFieldIsAToken(row, ++column)) {
 			numberOfTokens++;
 		}
-		if(board.isBlocked(row+numberOfTokens+1, column)) {
+		if(board.isBlocked(row, column+numberOfTokens+1)) {
 			board.setSignFromField(row, column, getPlayerSign());
-		} else if(board.isEmpty(row+numberOfTokens+1, column)) {
-			thisToken = board.getSignFromField(row+numberOfTokens, column);
-			lastFreeFieldFromRight(row+numberOfTokens, column, thisToken);
+		} else if(board.isEmpty(row, column+numberOfTokens+1)) {
+			thisToken = board.getSignFromField(row, column+numberOfTokens);
+			lastFreeFieldFromRight(row, column+numberOfTokens, thisToken);
 		}
 	}
 	
