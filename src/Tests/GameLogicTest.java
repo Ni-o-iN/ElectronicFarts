@@ -7,7 +7,9 @@ import org.junit.Test;
 
 import slide.Board;
 import slide.GameLogic;
+import slide.InputConversion;
 import slide.Player;
+import slide.Slide;
 
 /**
  * 
@@ -20,12 +22,17 @@ public class GameLogicTest {
 
 	private GameLogic testLogic = new GameLogic(); 
 	private Board testBoard = new Board();
-	
 	private Player spielerTest1 = new Player(1, "Spieler1");
 	private Player spielerTest2 = new Player(0, null);
 	private Player spielerTest3 = new Player(0, null);
+	private Board expectedBoard = new Board();
+	private Slide gameSlide = new Slide();
+	private InputConversion userDirection = new InputConversion();
 	
+
+
 	
+
 	/**
 	 * Test bei dem gecheckt wird, ob SetCOM richtig initialisiert ist und sich auch umstellen lässt
 	 */
@@ -41,8 +48,7 @@ public class GameLogicTest {
 	@Before 
 	public void testInitAddPlayer() {
 		
-		testLogic.addPlayer();
-		testLogic.setCurrentPlayer();
+		
 		
 	}
 	
@@ -82,24 +88,57 @@ public class GameLogicTest {
 	@Test
 	public void testeBombMove() {
 		
-		//testBoard.setBlockField(3, 4);
-		//assertEquals(true, testLogic.isValidBombMove(3, 3)); 
-		//assertEquals(false, testLogic.isValidBombMove(3, 4)); 
-		//isValidBombMove & blockfield evtl sichtbar machen?
+		expectedBoard.getField();
+		
+	
+		
+		testBoard.getField();
+		testBoard.setSignFromField(2, 5, 'X');
+		testBoard.getBomb();
+	
 		
 		
-		testBoard.setField(3, 3, 'X');
-		testBoard.setField(3, 2, 'O');
-		 
-		assertEquals('X', testBoard.getSignFromField(3, 3));
-		assertEquals('O', testBoard.getSignFromField(3, 2));
-		assertEquals('_', testBoard.getSignFromField(3, 1));
+		// Print of Expected Board with expected Slide
+				System.out.println("Expected Slideboard");
+				char[][] fieldExp = expectedBoard.getField();
+				System.out.printf("  ");
+				for (int i = 0; i < fieldExp[0].length; i++) { // print out column numbers
+					System.out.print((i + 1) + " ");
+				}
+
+				System.out.println(); // new line after column numbers
+
+				for (int i = 0; i < fieldExp.length; i++) {
+					System.out.printf("%d ", i + 1);
+					for (int j = 0; j < fieldExp[i].length; j++) {
+						System.out.print(fieldExp[i][j] + " ");
+					}
+					System.out.println();
+				}
+
+				System.out.println();
+
+				// Print of Actual Board
+				System.out.println("Actual Slideboard");
+				char[][] field = testBoard.getField();
+				System.out.printf("  ");
+				for (int i = 0; i < field[0].length; i++) { // print out column numbers
+					System.out.print((i + 1) + " ");
+				}
+
+				System.out.println(); // new line after column numbers
+
+				for (int i = 0; i < field.length; i++) {
+					System.out.printf("%d ", i + 1);
+					for (int j = 0; j < field[i].length; j++) {
+						System.out.print(field[i][j] + " ");
+					}
+					System.out.println();
+				}
+
+				System.out.println();
 		
-			
-		testLogic.setBomb(3, 3);
 		
-		//assertNotEquals('X', testBoard.getSignFromField(3, 3));
-		//assertNotEquals('O', testBoard.getSignFromField(3, 2));
 		
 		//!! unterschiedliche Boards, daher unfunktional!! (bräuchte direkten Zugriff auf Board aus Logic)
 		
@@ -130,5 +169,71 @@ public class GameLogicTest {
 	public void testeMyMoveBlock() {
 		
 	}
+	
+	/**
+	 * Uncomplete testmethod. Still in progress
+	 * Tests the throw from the left side and the slide function.
+	 * @Author emreaydemir
+	 * @version 0.1
+	 */
+	@Test
+	public void testIfSlideFromLeftWorks() {
+
+		// Expected Char at Board Row 3 Column 7 caused by slide from Row 3 Column 1
+
+		expectedBoard.getField();
+		expectedBoard.setSignFromField(2, 6, 'X');
+
+		// Actual testing of slide function.
+		testBoard.getField();
+		testBoard.setSignFromField(2, 0, 'X');
+
+		// Checks if slide function works.
+		// assertArrayEquals(expectedBoard.getField(), testBoard.getField());
+		
+		// Print of Expected Board with expected Slide
+		System.out.println("Expected Slideboard");
+		char[][] fieldExp = expectedBoard.getField();
+		System.out.printf("  ");
+		for (int i = 0; i < fieldExp[0].length; i++) { // print out column numbers
+			System.out.print((i + 1) + " ");
+		}
+
+		System.out.println(); // new line after column numbers
+
+		for (int i = 0; i < fieldExp.length; i++) {
+			System.out.printf("%d ", i + 1);
+			for (int j = 0; j < fieldExp[i].length; j++) {
+				System.out.print(fieldExp[i][j] + " ");
+			}
+			System.out.println();
+		}
+
+		System.out.println();
+
+		// Print of Actual Board
+		System.out.println("Actual Slideboard");
+		char[][] field = testBoard.getField();
+		System.out.printf("  ");
+		for (int i = 0; i < field[0].length; i++) { // print out column numbers
+			System.out.print((i + 1) + " ");
+		}
+
+		System.out.println(); // new line after column numbers
+
+		for (int i = 0; i < field.length; i++) {
+			System.out.printf("%d ", i + 1);
+			for (int j = 0; j < field[i].length; j++) {
+				System.out.print(field[i][j] + " ");
+			}
+			System.out.println();
+		}
+
+		System.out.println();
+
+	}
+	
+	
+	
 }
 
