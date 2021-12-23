@@ -1,12 +1,9 @@
 package Tests;
 
 import static org.junit.Assert.*;
-
 import java.util.Scanner;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import slide.Board;
 import slide.GameLogic;
 import slide.InputConversion;
@@ -15,14 +12,15 @@ import slide.Slide;
 
 /**
  * 
- * @author julianlautenscheidt
- * @version 0.2 Test zu der GameLogic-Klasse
+ * @author julianlautenscheidt, emre aydemir
+ * @version 0.3 Test zu der GameLogic-Klasse
  */
 public class GameLogicTest {
 
 	private GameLogic testLogic = new GameLogic();
 	private Board testBoard = new Board();
 	private Player spielerTest1 = new Player(1, "Spieler1");
+	private Player currentPlayer = new Player();
 	private Scanner input = new Scanner(System.in);
 	private Player spielerTest2 = new Player(0, null);
 	private Player spielerTest3 = new Player(0, null);
@@ -125,27 +123,43 @@ public class GameLogicTest {
 		// Auf Valide Move und Stopps kann noch nicht geprüft werden
 	}
 
+
+
 	/**
-	 * Test bei dem gecheckt wird, ob Mymove valide ist
+	 * @Author emreaydemir
+	 * @version 0.1 
+	 * Tests searchRow-Method. True if a row contains 4 tokens.
 	 */
 	@Test
-	public void testeMyMoveValide() {
+	public void testIsSearchRowAHit() {
+		testBoard.getField();
+		testBoard.setSignFromField(2, 2, 'O');
+		testBoard.setSignFromField(2, 3, 'O');
+		testBoard.setSignFromField(2, 4, 'O');
+		testBoard.setSignFromField(2, 5, 'O');
+
+		testLogic.searchRow(testBoard.getField());
+
+		assertTrue(testLogic.searchRow(testBoard.getField()));
 
 	}
 
-
-	/**
-	 * Uncompleted Tests if the bomb blasts the correct way it should. Problem:
-	 * NullPointerException
-	 */
 	@Test
-	public void testTheBlastFromTheBomb() {
+	/**
+	 * @Author emreaydemir
+	 * @version 0.1 
+	 * Tests if a column contains 4 tokens. Should deliver true if it
+	 *          contains 4 tokens.
+	 */
+	public void testIsSearchColumnAHit() {
 		testBoard.getField();
-		testBoard.setSignFromField(2, 3, 'X');
-		testBoard.setSignFromField(2, 5, 'X');
-		testBoard.setSignFromField(1, 4, 'X');
-		testBoard.setSignFromField(3, 4, 'X');
-		testBoard.setSignFromField(2, 4, 'X');
+
+		testBoard.setSignFromField(1, 0, 'O');
+		testBoard.setSignFromField(2, 0, 'O');
+		testBoard.setSignFromField(3, 0, 'O');
+		testBoard.setSignFromField(4, 0, 'O');
+
+		assertTrue(testLogic.searchCol(testBoard.getField()));
 
 	}
 
@@ -158,18 +172,6 @@ public class GameLogicTest {
 	 */
 	@Test
 	public void testIfSlideFromLeftWorks() {
-
-		// Expected Char at Board Row 3 Column 7 caused by slide from Row 3 Column 1
-
-		expectedBoard.getField();
-		expectedBoard.setSignFromField(2, 6, 'X');
-
-		// Actual testing of slide function.
-		testBoard.getField();
-		testBoard.setSignFromField(2, 0, 'X');
-
-		// Checks if slide function works.
-		// assertArrayEquals(expectedBoard.getField(), testBoard.getField());
 
 	}
 
