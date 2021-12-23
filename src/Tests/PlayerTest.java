@@ -25,9 +25,6 @@ public class PlayerTest {
 		sp2 = new Player(1, "Spieler2");
 	}
 	
-	/**
-	 * Test bei dem die IDs und Namen auf Richtigkeit gecheckt werden
-	 */
 	@Test
 	public void testZweiSpieler() {
 		
@@ -38,9 +35,6 @@ public class PlayerTest {
 		
 	}
 	
-	/**
-	 * Test bei dem Bombemstatus auf Richtigkeit gecheckt wird
-	 */
 	@Test
 	public void testeBombenStatus() {
 		
