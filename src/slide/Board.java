@@ -13,7 +13,7 @@ public class Board {
 	final int COLUMN = 7;
 	private char[][] field = new char[ROW][COLUMN];
 
-	Board() {
+	public Board() {
 		for (int z = 0; z < field.length; z++) {
 			for (int s = 0; s < field[z].length; s++) {
 				field[z][s] = '_';
@@ -21,7 +21,7 @@ public class Board {
 		}
 
 	}
-	
+
 	public boolean nextFieldIsAToken(int row, int column) {
 		return (getSignFromField(row, column) == 'X') || (getSignFromField(row, column) == 'O');
 	}
