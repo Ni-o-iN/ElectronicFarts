@@ -146,19 +146,41 @@ public class GameLogic {
 	}
 
 	public void lastFreeFieldFromLeft(int row, int column) {
-		for (int i = 0; i <= 6; i++) {  // TODO Out of Bounds 
+		
+		for (int i = 0; i <= 6; i++) { 
 			if(board.isEmpty(row, i) && i == 6) {
 				board.setSignFromField(row, i, getPlayerSign());
 			}else if(board.nextFieldIsAToken(row, i)) {
 				board.setSignFromField(row, --i, getPlayerSign());
+				column = i--;
 				break;
 			} else if (board.isBlocked(row, i)) {
 				board.setSignFromField(row, --i, getPlayerSign());
+				column = i--;
 				break;
 			}
 		}
 		//TODO ab hier Slide nachdem Token gesetzt wurde
-
+		slideNextTokenFromLeft(row, column);
+	}
+	
+	public void slideNextTokenFromLeft(int row, int column) {
+		int tokenCounter = 0;
+		for(int i = column; i <= 6; i++) {
+			if(board.isEmpty(row, i) && !board.isBlocked(row, i)) {
+				int colShifter = i, tmpCounter = tokenCounter;
+				while(tmpCounter != 0) {
+					char sign = board.getSignFromField(row,(colShifter - 1)); // get sign before empty field
+					board.setSignFromField(row, (colShifter -1), '_'); // deletes sign because we are moving from left to right 
+					board.setSignFromField(row, colShifter, sign); // sets new sign
+					tmpCounter--;
+					colShifter--;
+				}
+				//TODO if blockiert
+		}else {
+			tokenCounter++;
+			System.out.println(tokenCounter);
+			}}
 	}
 
 	public void slideNextTokenFromTop(int row, int column) {
@@ -205,9 +227,6 @@ public class GameLogic {
 //		}
 	}
 	
-	public void slideNextTokenFromLeft(int row, int column) {
-//			board.setSignFromField(row, column, getPlayerSign());
-	}
 	
 
 	public void updateMoveCounter() {

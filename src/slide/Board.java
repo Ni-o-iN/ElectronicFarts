@@ -55,7 +55,7 @@ public class Board {
 	}
 
 	public void setSignFromField(int row, int column, char sign) {
-		field[row][column] = sign;
+		this.field[row][column] = sign;
 	}
 
 	public char getSignFromField(int row, int column) {
