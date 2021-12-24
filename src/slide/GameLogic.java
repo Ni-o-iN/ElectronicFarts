@@ -65,18 +65,21 @@ public class GameLogic {
 	}
 
 	public boolean isRunning() {
+		String winner = "N/A";
 		char[][] tmp = board.getField();
+		if (whoWon()) winner = "Spieler1";
+		else winner = "Spieler2";
 		if (searchRow(tmp)) {
-			System.out.println("Gewinner ist: " + whoWon());
+			System.out.println("Gewinner ist: " + winner);
 			return false;
 		} else if (searchCol(tmp)) {
-			System.out.println("Gewinner ist: " + whoWon());
+			System.out.println("Gewinner ist: " + winner);
 			return false;
 		} else if (searchDiagonalNorthWest(tmp)) {
-			System.out.println("Gewinner ist: " + whoWon());
+			System.out.println("Gewinner ist: " + winner);
 			return false;
 		} else if (searchDiagonalSouthWest(tmp)) {
-			System.out.println("Gewinner ist: " + whoWon());
+			System.out.println("Gewinner ist: " + winner);
 			return false;
 		} else
 			return true;
@@ -453,15 +456,16 @@ public class GameLogic {
 	}
 
 	public boolean boardIsFull(char[][] tmp) {
+		boolean boardIsFull = false;
 		for (int z = 0; z < tmp.length; z++) {
 			for (int s = 0; s < tmp[z].length; s++) {
 				if (tmp[z][s] == '_') {
-					return false;
+					boardIsFull =  false;
 				} else
-					return true;
+					boardIsFull = true;
 			}
 		}
-		return false;
+		return boardIsFull;
 	}
 
 }
