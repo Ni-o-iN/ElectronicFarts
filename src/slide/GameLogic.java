@@ -35,13 +35,15 @@ public class GameLogic {
 	}
 
 	public String getPlayerName() {
-		int index = (moveCounter % 2);
-		String name = players[index].getName();
-		return name;
+		return getPlayer().getName();
+	}
+
+	public Player getPlayer() {
+		return players[moveCounter % 2];
 	}
 
 	public void printBoard() { // rdy
-		char[][] field = board.getField();
+		char[][] field = board.getBoard();
 		System.out.printf("  ");
 		for (int i = 0; i < field[0].length; i++) { // print out column numbers
 			System.out.print((i + 1) + " ");
@@ -65,21 +67,18 @@ public class GameLogic {
 	}
 
 	public boolean isRunning() {
-		String winner = "N/A";
-		char[][] tmp = board.getField();
-		if (whoWon()) winner = "Spieler1";
-		else winner = "Spieler2";
+		char[][] tmp = board.getBoard();
 		if (searchRow(tmp)) {
-			System.out.println("Gewinner ist: " + winner);
+			System.out.println("Gewinner ist: " + getPlayerName());
 			return false;
 		} else if (searchCol(tmp)) {
-			System.out.println("Gewinner ist: " + winner);
+			System.out.println("Gewinner ist: " + getPlayerName());
 			return false;
 		} else if (searchDiagonalNorthWest(tmp)) {
-			System.out.println("Gewinner ist: " + winner);
+			System.out.println("Gewinner ist: " + getPlayerName());
 			return false;
 		} else if (searchDiagonalSouthWest(tmp)) {
-			System.out.println("Gewinner ist: " + winner);
+			System.out.println("Gewinner ist: " + getPlayerName());
 			return false;
 		} else
 			return true;
@@ -326,7 +325,7 @@ public class GameLogic {
 	public boolean isValidBlockMove(int row, int column) {
 		row = row - 1;
 		column = column - 1;
-		char[][] checkField = board.getField();
+		char[][] checkField = board.getBoard();
 		if (checkField[row][column] == '#') {
 			return false;
 		} else
@@ -339,7 +338,7 @@ public class GameLogic {
 		int column = cords[1] - 1;
 		// row = row - 1;
 		// column = column - 1;
-		char[][] checkField = board.getField();
+		char[][] checkField = board.getBoard();
 		if (checkField[row][column] == '#' || currentPlayer.getPlayerBombStatus() == false) {
 			return false;
 		} else {
@@ -467,7 +466,7 @@ public class GameLogic {
 	}
 
 	public boolean whoWon() {
-		if (currentPlayer.getName().equals("Spieler1"))
+		if (getPlayerName().equals("Spieler1"))
 			return true;
 		else {
 			return false;

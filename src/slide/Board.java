@@ -11,12 +11,12 @@ public class Board {
 	private char block = '#';
 	final int ROW = 6;
 	final int COLUMN = 7;
-	private char[][] field = new char[ROW][COLUMN];
+	private char[][] board = new char[ROW][COLUMN];
 
 	public Board() {
-		for (int z = 0; z < field.length; z++) {
-			for (int s = 0; s < field[z].length; s++) {
-				field[z][s] = '_';
+		for (int z = 0; z < board.length; z++) {
+			for (int s = 0; s < board[z].length; s++) {
+				board[z][s] = '_';
 			}
 		}
 
@@ -34,10 +34,6 @@ public class Board {
 		return (getSignFromField(row, col) == '_');
 	}
 
-	public char getSigns(int pos) {
-		return signs[pos];
-	}
-
 	public char getBomb() {
 		return this.bomb;
 	}
@@ -46,19 +42,15 @@ public class Board {
 		return this.block;
 	}
 
-	public void setField(char[][] field) {
-		this.field = field;
-	}
-
-	public char[][] getField() {
-		return this.field;
+	public char[][] getBoard() {
+		return this.board;
 	}
 
 	public void setSignFromField(int row, int column, char sign) {
-		this.field[row][column] = sign;
+		this.board[row][column] = sign;
 	}
 
 	public char getSignFromField(int row, int column) {
-		return field[row][column];
+		return board[row][column];
 	}
 }
