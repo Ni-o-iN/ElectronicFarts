@@ -42,86 +42,77 @@ public class GameLogicTest {
 	}
 
 	@Test
-	public void testeCurrentPlayer() {
-	}
-
-	@Test
 	public void testDiagonalNorthWest() {
-		testBoard.getField();
+		testBoard.getBoard();
+
 		testBoard.setSignFromField(0, 6, 'X');
 		testBoard.setSignFromField(1, 5, 'X');
 		testBoard.setSignFromField(2, 4, 'X');
 		testBoard.setSignFromField(3, 3, 'X');
 
-		assertTrue(testLogic.searchDiagonalNorthWest(testBoard.getField()));
+		assertTrue(testLogic.searchDiagonalNorthWest(testBoard.getBoard()));
 
 	}
 
 	@Test
 	public void testDiagonalSouthWest() {
 
-		testBoard.getField();
+		testBoard.getBoard();
 		testBoard.setSignFromField(5, 6, 'O');
 		testBoard.setSignFromField(4, 5, 'O');
 		testBoard.setSignFromField(3, 4, 'O');
 		testBoard.setSignFromField(2, 3, 'O');
 		printFieldForTests();
-		assertTrue(testLogic.searchDiagonalSouthWest(testBoard.getField()));
+		assertTrue(testLogic.searchDiagonalSouthWest(testBoard.getBoard()));
 
 	}
 
 	@Test
 	public void testIsSearchRowAHit() {
-		testBoard.getField();
+		testBoard.getBoard();
 		testBoard.setSignFromField(2, 2, 'O');
 		testBoard.setSignFromField(2, 3, 'O');
 		testBoard.setSignFromField(2, 4, 'O');
 		testBoard.setSignFromField(2, 5, 'O');
 
-		testLogic.searchRow(testBoard.getField());
+		testLogic.searchRow(testBoard.getBoard());
 
-		assertTrue(testLogic.searchRow(testBoard.getField()));
+		assertTrue(testLogic.searchRow(testBoard.getBoard()));
 
 	}
 
 	@Test
-
 	public void testIsSearchColumnAHit() {
-		testBoard.getField();
+		testBoard.getBoard();
 
 		testBoard.setSignFromField(1, 0, 'O');
 		testBoard.setSignFromField(2, 0, 'O');
 		testBoard.setSignFromField(3, 0, 'O');
 		testBoard.setSignFromField(4, 0, 'O');
 
-		assertTrue(testLogic.searchCol(testBoard.getField()));
-
-	}
-
-	@Test
-	public void testIfSlideFromLeftWorks() {
+		assertTrue(testLogic.searchCol(testBoard.getBoard()));
 
 	}
 
 	@Test
 	public void testIsBoardFull() {
 
-		testBoard.getField();
+		testBoard.getBoard();
 		for (int r = 0; r < 6; r++) {
 			for (int c = 0; c < 7; c++) {
 				testBoard.setSignFromField(r, c, 'X');
 
 			}
 		}
-		testLogic.boardIsFull(testBoard.getField());
-		assertTrue(testLogic.boardIsFull(testBoard.getField()));
+		testLogic.boardIsFull(testBoard.getBoard());
+		assertTrue(testLogic.boardIsFull(testBoard.getBoard()));
 
 	}
 
 	public void printFieldForTests() {
 		// Print of Expected Board with expected Slide
 		System.out.println("Board");
-		char[][] fieldExp = testBoard.getField();
+		char[][] fieldExp = testBoard.getBoard();
 		System.out.printf("  ");
 		for (int i = 0; i < fieldExp[0].length; i++) { // print out column numbers
 			System.out.print((i + 1) + " ");

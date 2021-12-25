@@ -22,7 +22,7 @@ public class BoardTest {
 		testBoard.setSignFromField(4, 4, 'O');
 	}
 
-	char[][] testField = testBoard.getField();
+	char[][] testField = testBoard.getBoard();
 
 	@Test
 	public void testeBoardGröße() {
@@ -34,21 +34,21 @@ public class BoardTest {
 
 	@Test
 	public void testIsFieldEmpty() {
-		testBoard.getField();
+		testBoard.getBoard();
 		testBoard.setSignFromField(2, 2, '_');
 		assertTrue(testBoard.isEmpty(2, 2));
 	}
 
 	@Test
 	public void testIsFieldBlocked() {
-		testBoard.getField();
+		testBoard.getBoard();
 		testBoard.setSignFromField(2, 2, '#');
 		assertTrue(testBoard.isBlocked(2, 2));
 	}
 
 	@Test
 	public void testIsNextFieldAToken() {
-		testBoard.getField();
+		testBoard.getBoard();
 		testBoard.setSignFromField(2, 2, 'X');
 		testBoard.setSignFromField(2, 3, 'O');
 		assertTrue(testBoard.nextFieldIsAToken(2, 2));
@@ -63,7 +63,7 @@ public class BoardTest {
 
 		for (int a = 0; a < leer.length; a++) {
 			for (int i = 0; i < leer[a].length; i++) {
-				assertNotEquals(leer[a][i], testBoard.getField()[a][i]);
+				assertNotEquals(leer[a][i], testBoard.getBoard()[a][i]);
 			}
 		}
 
