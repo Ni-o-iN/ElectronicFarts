@@ -1,9 +1,8 @@
 package Tests;
 
-import static org.junit.Assert.*;
-
 import java.util.Scanner;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import slide.BlockFields;
@@ -25,5 +24,27 @@ public class BlockFieldsTest {
 	public static void testIfInputIsValid() {
 
 	}
+	// So sollten die Testmethoden zur Klasse BlockFields aussehen:
 
+	/**
+	 * *hier Methodenbeschreibung einfuegen*
+	 */
+	@Ignore
+	@Test
+	public static void testInitBlockFields() {
+		/*
+		 * hier sollte u.A. getestet werden, ob Felder geblockt werden koennen, ob
+		 * falsche Eingaben akzeptiert werden usw...
+		 */
+
+	}
+
+	/**
+	 * *hier Methodenbeschreibung einfuegen*
+	 */
+	@Ignore
+	@Test
+	public static void testPlaceBlock() {
+
+	}
 }
