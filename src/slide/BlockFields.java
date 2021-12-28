@@ -84,9 +84,6 @@ public class BlockFields {
 			row = input.nextInt();
 			System.out.print("SPALTE: ");
 			col = input.nextInt();
-
-//			if (row < 1 || row > 6 || col < 1 || col > 7) {
-//				System.out.println("Fehlerhafte Eingabe bitte korrigieren...");
 			while (row < 1 || row > 6 || col < 1 || col > 7) {
 				System.out.println("Fehlerhafte Eingabe bitte korrigieren...");
 				System.out.print("REIHE: ");
@@ -94,15 +91,6 @@ public class BlockFields {
 				System.out.print("SPALTE: ");
 				col = input.nextInt();
 			}
-
-//				do {
-//					System.out.print("REIHE: ");
-//					row = input.nextInt();
-//					System.out.print("SPALTE: ");
-//					col = input.nextInt();
-//				} while (row < 0 && row > 6 && col < 0 && col > 7);
-//			}
-
 			if (logic.isValidBlockMove(row, col)) {
 				logic.setBlockField(row, col);
 				if (currentplayer == 0) {
@@ -110,13 +98,20 @@ public class BlockFields {
 				} else
 					availableBlockFields2--;
 			} else {
-
 				while (logic.isValidBlockMove(row, col) == false) {
 					System.out.println("\nFeld ist besetzt\n");
 					System.out.print("REIHE: ");
 					row = input.nextInt();
 					System.out.print("SPALTE: ");
 					col = input.nextInt();
+					while (row < 1 || row > 6 || col < 1 || col > 7) {
+						System.out.println("Fehlerhafte Eingabe bitte korrigieren...");
+						System.out.print("REIHE: ");
+						row = input.nextInt();
+						System.out.print("SPALTE: ");
+						col = input.nextInt();
+
+					}
 				}
 				logic.setBlockField(row, col);
 				if (currentplayer == 0)
