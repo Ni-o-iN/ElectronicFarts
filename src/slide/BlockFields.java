@@ -85,7 +85,7 @@ public class BlockFields {
 			System.out.print("SPALTE: ");
 			col = input.nextInt();
 			while (row < 1 || row > 6 || col < 1 || col > 7) {
-				System.out.println("Fehlerhafte Eingabe bitte korrigieren...");
+				System.out.println("\nFehlerhafte Eingabe bitte korrigieren...\n");
 				System.out.print("REIHE: ");
 				row = input.nextInt();
 				System.out.print("SPALTE: ");
@@ -105,7 +105,7 @@ public class BlockFields {
 					System.out.print("SPALTE: ");
 					col = input.nextInt();
 					while (row < 1 || row > 6 || col < 1 || col > 7) {
-						System.out.println("Fehlerhafte Eingabe bitte korrigieren...");
+						System.out.println("\nFehlerhafte Eingabe bitte korrigieren...\n");
 						System.out.print("REIHE: ");
 						row = input.nextInt();
 						System.out.print("SPALTE: ");
