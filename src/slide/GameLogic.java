@@ -1,5 +1,7 @@
 package slide;
 
+import java.util.Iterator;
+
 /**
  * 
  * @author Team
@@ -17,6 +19,7 @@ public class GameLogic {
 	private Board board = new Board();
 	private boolean COM = false;
 	private char thisToken;
+	private char[][] checkField = board.getBoard(); 
 
 	public void setCOM() { // rdy
 		COM = true;
@@ -360,11 +363,13 @@ public class GameLogic {
 	public boolean isValidBlockMove(int row, int column) {
 		row = row - 1;
 		column = column - 1;
-		char[][] checkField = board.getBoard();
+	//	char[][] checkField = board.getBoard();
+		
 		if (checkField[row][column] == '#') {
 			return false;
-		} else
+		} else 
 			return true;
+		
 	}
 
 	private boolean isValidBombMove(String inputString) {

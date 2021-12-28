@@ -1,11 +1,14 @@
 package slide;
 
+/** using the Scanner Library for input from Terminal */
 import java.util.Scanner;
 
 /**
+ * This class implements the blocking of fields
  * 
- * @author
- *
+ * @author Ch
+ * @version 1.0
+ * 
  */
 public class BlockFields {
 
@@ -18,12 +21,19 @@ public class BlockFields {
 	private int countBlock;
 
 	/**
-	 * This method ...
+	 * This method initializes the blocking of fields
 	 * 
-	 * @param logic
+	 * It initializes the current player und counts their availbale moves they have
+	 * for block fields. Further this method let the player decides if they want to
+	 * block fields. If the player says yes the placeBlock method is called
+	 * ortherwise the player is changed and this method starts again.
+	 * 
+	 * @param logic includes the game logic
 	 * @param input
+	 * 
 	 */
 	public void initBlockFields(GameLogic logic, Scanner input) {
+
 		for (int i = 1; i < 7; i++) {
 			currentplayer = playercounter % 2;
 			if (currentplayer == 0)
@@ -59,12 +69,14 @@ public class BlockFields {
 	}
 
 	/**
-	 * This method ...
+	 * This method places the Block from given Directions from Player (input).
+	 * 
 	 * 
 	 * @param input
 	 * @param logic
 	 */
 	public void placeBlock(Scanner input, GameLogic logic) {
+
 		if (countBlock > 0) {
 			System.out.println("Bitte wählen Sie drei Felder, die Sie blockieren möchten:\n");
 			logic.printBoard();
@@ -72,15 +84,24 @@ public class BlockFields {
 			row = input.nextInt();
 			System.out.print("SPALTE: ");
 			col = input.nextInt();
-			if (row < 1 || row > 6 || col < 1 || col > 7) {
+
+//			if (row < 1 || row > 6 || col < 1 || col > 7) {
+//				System.out.println("Fehlerhafte Eingabe bitte korrigieren...");
+			while (row < 1 || row > 6 || col < 1 || col > 7) {
 				System.out.println("Fehlerhafte Eingabe bitte korrigieren...");
-				do {
-					System.out.print("REIHE: ");
-					row = input.nextInt();
-					System.out.print("SPALTE: ");
-					col = input.nextInt();
-				} while (row < 0 && row > 6 && col < 0 && col > 7);
+				System.out.print("REIHE: ");
+				row = input.nextInt();
+				System.out.print("SPALTE: ");
+				col = input.nextInt();
 			}
+
+//				do {
+//					System.out.print("REIHE: ");
+//					row = input.nextInt();
+//					System.out.print("SPALTE: ");
+//					col = input.nextInt();
+//				} while (row < 0 && row > 6 && col < 0 && col > 7);
+//			}
 
 			if (logic.isValidBlockMove(row, col)) {
 				logic.setBlockField(row, col);
@@ -89,13 +110,14 @@ public class BlockFields {
 				} else
 					availableBlockFields2--;
 			} else {
-				do {
+
+				while (logic.isValidBlockMove(row, col) == false) {
 					System.out.println("\nFeld ist besetzt\n");
 					System.out.print("REIHE: ");
 					row = input.nextInt();
 					System.out.print("SPALTE: ");
 					col = input.nextInt();
-				} while (row < 0 && row > 6 && col < 0 && col > 7);
+				}
 				logic.setBlockField(row, col);
 				if (currentplayer == 0)
 					availableBlockFields1--;
