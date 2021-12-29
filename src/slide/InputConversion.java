@@ -18,8 +18,8 @@ public class InputConversion {
 
     public int[] inputToCords(String inputString) {
         int[] cords = new int[2];
-        cords[0] = inputString.charAt(1);
-        cords[1] = inputString.charAt(3);
+        cords[0] = Character.getNumericValue(inputString.charAt(1));
+        cords[1] = Character.getNumericValue(inputString.charAt(3));
         return cords;
     }
 }

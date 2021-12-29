@@ -44,8 +44,7 @@ public class BlockFields {
 				playercounter++;
 				continue;
 			}
-			System.out.println(
-					"Spieler" + (currentplayer + 1) + " ist dran, du darfst [" + countBlock + "] Feld(er) blockieren");
+			System.out.println("Spieler" + (currentplayer + 1) + " ist dran, du darfst [" + countBlock + "] Feld(er) blockieren");
 			System.out.println("Soll ein Feld geblockt werden? (j/n)");
 			String block = input.next();
 			while (!block.equals("j") && !block.equals("n")) {
@@ -84,41 +83,18 @@ public class BlockFields {
 			row = input.nextInt();
 			System.out.print("SPALTE: ");
 			col = input.nextInt();
-			while (row < 1 || row > 6 || col < 1 || col > 7) {
-				System.out.println("\nFehlerhafte Eingabe bitte korrigieren...\n");
+			while ((row < 1 || row > 6 || col < 1 || col > 7) || !logic.isValidBlockMove(row, col)) {
+				System.out.println("\nFehlerhafte Eingabe bzw. Feld besetzt bitte korrigieren...\n");
 				System.out.print("REIHE: ");
 				row = input.nextInt();
 				System.out.print("SPALTE: ");
 				col = input.nextInt();
 			}
-			if (logic.isValidBlockMove(row, col)) {
-				logic.setBlockField(row, col);
-				if (currentplayer == 0) {
-					availableBlockFields1--;
-				} else
-					availableBlockFields2--;
-			} else {
-				while (logic.isValidBlockMove(row, col) == false) {
-					System.out.println("\nFeld ist besetzt\n");
-					System.out.print("REIHE: ");
-					row = input.nextInt();
-					System.out.print("SPALTE: ");
-					col = input.nextInt();
-					while (row < 1 || row > 6 || col < 1 || col > 7) {
-						System.out.println("\nFehlerhafte Eingabe bitte korrigieren...\n");
-						System.out.print("REIHE: ");
-						row = input.nextInt();
-						System.out.print("SPALTE: ");
-						col = input.nextInt();
-
-					}
-				}
-				logic.setBlockField(row, col);
-				if (currentplayer == 0)
-					availableBlockFields1--;
-				else
-					availableBlockFields2--;
-			}
+			logic.setBlockField(row, col);
+			if (currentplayer == 0) {
+				availableBlockFields1--;
+			} else
+				availableBlockFields2--;
 			logic.printBoard();
 			playercounter++;
 		}
