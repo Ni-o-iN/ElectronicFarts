@@ -42,6 +42,26 @@ public class GameLogicTest {
 	}
 
 	@Test
+	public void testIfRowIsOutOfBounds() {
+		
+		for(int a = 0; a < testBoard.getBoard().length+2; a++) {
+			testBoard.setSignFromField(0, a, 'O');
+			
+		}
+		
+		printFieldForTests();
+
+	}
+	
+	@Test
+	public void testIfColumnIsOutOfBounds() {
+		for(int a = 0; a < testBoard.getBoard().length+2; a++) {
+			testBoard.setSignFromField(a, 0, 'O');
+			
+		}
+	}
+
+	@Test
 	public void testDiagonalNorthWest() {
 		testBoard.getBoard();
 
