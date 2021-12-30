@@ -53,7 +53,7 @@ public class Player {
 	public boolean getPlayerBombStatus() {
 		return this.bombAvailable;
 	}
-	public void setPlayerBombStatusFalse() {
-		this.bombAvailable = false;
+	public void setPlayerBombStatus(boolean bombStatus) {
+		this.bombAvailable = bombStatus;
 	}
 }

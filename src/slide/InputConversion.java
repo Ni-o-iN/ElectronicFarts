@@ -5,7 +5,7 @@ public class InputConversion {
     public String inputToDirection(String inputString) {
         String direction = "";
         for (int i = 0; i < inputString.length(); i++) {
-            if (inputString.charAt(i) >= 'a' && inputString.charAt(i) <= 'z') {
+            if (inputString.charAt(i) >= 'A' && inputString.charAt(i) <= 'z') {
                 direction = direction + inputString.charAt(i);
             }
         }
@@ -13,13 +13,13 @@ public class InputConversion {
     }
 
     public int inputToPosition(String inputString) {
-        return inputString.charAt((inputString.length() - 1));
+        return Character.getNumericValue(inputString.charAt((inputString.length() - 1))-1);
     }
 
     public int[] inputToCords(String inputString) {
         int[] cords = new int[2];
-        cords[0] = inputString.charAt(1);
-        cords[1] = inputString.charAt(3);
+        cords[0] = Character.getNumericValue(inputString.charAt(1));
+        cords[1] = Character.getNumericValue(inputString.charAt(3));
         return cords;
     }
 }

@@ -10,12 +10,11 @@ package slide;
 public class GameLogic {
 
 	private InputConversion inputConversion = new InputConversion();
-	private Player currentPlayer;
 	private int moveCounter = 0;
-	private int roundCounter = 1;
 	private Player[] players = new Player[2];
 	private Board board = new Board();
 	private boolean COM = false;
+	private char[][] checkField = board.getBoard();
 
 	public void setCOM() { // rdy
 		COM = true;
@@ -34,13 +33,19 @@ public class GameLogic {
 	}
 
 	public String getPlayerName() {
-		int index = (moveCounter % 2);
-		String name = players[index].getName();
-		return name;
+		return getPlayer().getName();
+	}
+
+	public Player getPlayer() {
+		return players[moveCounter % 2];
+	}
+
+	public Player getPlayers(int i) {
+		return players[i];
 	}
 
 	public void printBoard() { // rdy
-		char[][] field = board.getField();
+		char[][] field = board.getBoard();
 		System.out.printf("  ");
 		for (int i = 0; i < field[0].length; i++) { // print out column numbers
 			System.out.print((i + 1) + " ");
@@ -64,18 +69,18 @@ public class GameLogic {
 	}
 
 	public boolean isRunning() {
-		char[][] tmp = board.getField();
+		char[][] tmp = board.getBoard();
 		if (searchRow(tmp)) {
-			System.out.println("Gewinner ist: " + whoWon());
+			System.out.println("Gewinner ist: " + getPlayerName());
 			return false;
 		} else if (searchCol(tmp)) {
-			System.out.println("Gewinner ist: " + whoWon());
+			System.out.println("Gewinner ist: " + getPlayerName());
 			return false;
 		} else if (searchDiagonalNorthWest(tmp)) {
-			System.out.println("Gewinner ist: " + whoWon());
+			System.out.println("Gewinner ist: " + getPlayerName());
 			return false;
 		} else if (searchDiagonalSouthWest(tmp)) {
-			System.out.println("Gewinner ist: " + whoWon());
+			System.out.println("Gewinner ist: " + getPlayerName());
 			return false;
 		} else
 			return true;
@@ -84,70 +89,207 @@ public class GameLogic {
 	public void myMove(String input) {
 		String direction = inputConversion.inputToDirection(input);
 		int position = inputConversion.inputToPosition(input);
-
-		if (direction.equals("top")) {
-			LastFreeFieldFromTop(position);
+		if (direction.equals("Oben")) {
+			lastFreeFieldFromTop(0, position);
+		} else if (direction.equals("Rechts")) {
+			lastFreeFieldFromRight(position, 6);
+		} else if (direction.equals("Unten")) {
+			lastFreeFieldFromBottom(5, position);
+		} else if (direction.equals("Links")) {
+			lastFreeFieldFromLeft(position, 0);
 		}
 	}
 
-	public void LastFreeFieldFromTop(int position) {
-		int i = 0;
-		while (board.isEmpty(position, i++)) {
-			i++;
+	public boolean isValidMove(String input) {
+		int row = -1, column = -1;
+		String direction = inputConversion.inputToDirection(input);
+		int position = inputConversion.inputToPosition(input);
+		if (direction.equals("Oben")) {
+			row = 0;
+			column = position;
+		} else if (direction.equals("Rechts")) {
+			row = position;
+			column = 6;
+		} else if (direction.equals("Unten")) {
+			row = 5;
+			column = position;
+		} else if (direction.equals("Links")) {
+			row = position;
+			column = 0;
 		}
-		if (board.getSignFromField(position, i++) == '#') {
-			board.setSignFromField(position, i, getPlayerSign());
-		} else if (board.nextFieldIsAToken(position, i++)) {
-			slideNextToken(position, i);
-		} else if (i == 5) {
-			board.setSignFromField(position, i, getPlayerSign());
+		if (board.getSignFromField(row, column) == '_')
+			return true;
+		else
+			return false;
+	}
+
+	/*
+	 * Habe alle Last FreeField Methoden gefixt und getestet ( optimiert)
+	 * unnötige Zähler wurden entfernt. ggf. schauen wegen den übergabe parameter
+	 * tokenSign wurde
+	 * ebenfalls entfernt
+	 */
+	public void lastFreeFieldFromTop(int row, int column) {
+		for (int i = 0; i <= 5; i++) {
+			if (board.isEmpty(i, column) && i == 5) {
+				board.setSignFromField(i, column, getPlayerSign());
+			} else if (board.nextFieldIsAToken(i, column)) {
+				board.setSignFromField(--i, column, getPlayerSign());
+				row = i--;
+				break;
+			} else if (board.isBlocked(i, column)) {
+				board.setSignFromField(--i, column, getPlayerSign());
+				row = i--;
+				break;
+			}
+		}
+		slideNextTokenFromTop(row, column);
+	}
+
+	public void slideNextTokenFromTop(int row, int column) {
+		int tokenCounter = 0;
+		for (int i = row; i <= 5; i++) {
+			if (board.isBlocked(i, column))
+				break;
+			else if (board.isEmpty(i, column) && !board.isBlocked(i, column)) {
+				int colShifter = i, tmpCounter = tokenCounter;
+				while (tmpCounter != 0) {
+					char sign = board.getSignFromField((colShifter - 1), column); // get sign before empty field
+					board.setSignFromField((colShifter - 1), column, '_'); // deletes sign because we are moving from
+																			// left to right
+					board.setSignFromField(colShifter, column, sign); // sets new sign
+					tmpCounter--;
+					colShifter--;
+				}
+			} else {
+				tokenCounter++;
+
+			}
 		}
 	}
 
-	public void LastFreeFieldFromRight(int position) {
-		int i = 6;
-		while (board.isEmpty(i--, position)) {
-			i--;
+	public void lastFreeFieldFromBottom(int row, int column) {
+		for (int i = 5; i >= 0; i--) {
+			if (board.isEmpty(i, column) && i == 0) {
+				board.setSignFromField(i, column, getPlayerSign());
+			} else if (board.nextFieldIsAToken(i, column)) {
+				board.setSignFromField(++i, column, getPlayerSign());
+				row = i++;
+				break;
+			} else if (board.isBlocked(i, column)) {
+				board.setSignFromField(++i, column, getPlayerSign());
+				row = i++;
+				break;
+			}
 		}
-		if (board.getSignFromField(i--, position) == '#') {
-			board.setSignFromField(i, position, getPlayerSign());
-		} else if (board.nextFieldIsAToken(i--, position)) {
-			slideNextToken(i, position);
-		} else if (i == 0) {
-			board.setSignFromField(i, position, getPlayerSign());
+		slideNextTokenFromBottom(row, column);
+	}
+
+	public void slideNextTokenFromBottom(int row, int column) {
+		int tokenCounter = 0;
+		for (int i = row; i >= 0; i--) {
+			if (board.isBlocked(i, column))
+				break;
+			else if (board.isEmpty(i, column) && !board.isBlocked(i, column)) {
+				int colShifter = i, tmpCounter = tokenCounter;
+				while (tmpCounter != 0) {
+					char sign = board.getSignFromField((colShifter + 1), column); // get sign before empty field
+					board.setSignFromField((colShifter + 1), column, '_'); // deletes sign because we are moving from
+																			// left to right
+					board.setSignFromField(colShifter, column, sign); // sets new sign
+					tmpCounter--;
+					colShifter++;
+				}
+			} else {
+				tokenCounter++;
+
+			}
 		}
 	}
 
-	public void LastFreeFieldFromBottom(int position) {
-		int i = 5;
-		while (board.isEmpty(position, i--)) {
-			i--;
+	public void lastFreeFieldFromRight(int row, int column) {
+		for (int i = 6; i >= 0; i--) { // TODO Out of Bounds
+			if (board.isEmpty(row, i) && i == 0) {
+				board.setSignFromField(row, i, getPlayerSign());
+			} else if (board.nextFieldIsAToken(row, i)) {
+				board.setSignFromField(row, ++i, getPlayerSign());
+				column = i++;
+				break;
+			} else if (board.isBlocked(row, i)) {
+				if (i == 6) {
+					break;
+				} else {
+					board.setSignFromField(row, ++i, getPlayerSign());
+					column = i++;
+					break;
+				}
+			}
 		}
-		if (board.getSignFromField(position, i--) == '#') {
-			board.setSignFromField(position, i, getPlayerSign());
-		} else if (board.nextFieldIsAToken(position, i--)) {
-			slideNextToken(position, i);
-		} else if (i == 0) {
-			board.setSignFromField(position, i, getPlayerSign());
+		slideNextTokenFromRight(row, column);
+	}
+
+	public void slideNextTokenFromRight(int row, int column) {
+		int tokenCounter = 0;
+		for (int i = column; i >= 0; i--) {
+			if (board.isBlocked(row, i))
+				break;
+			else if (board.isEmpty(row, i) && !board.isBlocked(row, i)) {
+				int colShifter = i, tmpCounter = tokenCounter;
+				while (tmpCounter != 0) {
+					char sign = board.getSignFromField(row, (colShifter + 1)); // get sign before empty field
+					board.setSignFromField(row, (colShifter + 1), '_'); // deletes sign because we are moving from left
+																		// to right
+					board.setSignFromField(row, colShifter, sign); // sets new sign
+					tmpCounter--;
+					colShifter++;
+				}
+			} else {
+				tokenCounter++;
+			}
 		}
 	}
 
-	public void LastFreeFieldFromLeft(int position) {
-		int i = 0;
-		while (board.isEmpty(i++, position)) {
-			i++;
+	public void lastFreeFieldFromLeft(int row, int column) {
+
+		for (int i = 0; i <= 6; i++) {
+			if (board.isEmpty(row, i) && i == 6) {
+				board.setSignFromField(row, i, getPlayerSign());
+			} else if (board.nextFieldIsAToken(row, i)) {
+				board.setSignFromField(row, --i, getPlayerSign());
+				column = i--;
+				break;
+			} else if (board.isBlocked(row, i)) {
+				if (i == 0) { // abort because entrence is blocked
+					break;
+				} else {
+					board.setSignFromField(row, --i, getPlayerSign());
+					column = i--;
+					break;
+				}
+			}
 		}
-		if (board.getSignFromField(i++, position) == '#') {
-			board.setSignFromField(i, position, getPlayerSign());
-		} else if (board.nextFieldIsAToken(i++, position)) {
-			slideNextToken(i, position);
-		} else if (i == 6) {
-			board.setSignFromField(i, position, getPlayerSign());
-		}
+		slideNextTokenFromLeft(row, column);
 	}
 
-	public void slideNextToken(int row, int collum) {
-
+	public void slideNextTokenFromLeft(int row, int column) {
+		int tokenCounter = 0;
+		for (int i = column; i <= 6; i++) {
+			if (board.isBlocked(row, i))
+				break;
+			else if (board.isEmpty(row, i) && !board.isBlocked(row, i)) {
+				int colShifter = i, tmpCounter = tokenCounter;
+				while (tmpCounter != 0) {
+					char sign = board.getSignFromField(row, (colShifter - 1)); // get sign before empty field
+					board.setSignFromField(row, (colShifter - 1), '_'); // deletes sign because we are moving from left
+																		// to right
+					board.setSignFromField(row, colShifter, sign); // sets new sign
+					tmpCounter--;
+					colShifter--;
+				}
+			} else {
+				tokenCounter++;
+			}
+		}
 	}
 
 	public void updateMoveCounter() {
@@ -159,57 +301,6 @@ public class GameLogic {
 			return 'O';
 		} else
 			return 'X';
-	}
-
-	// TODO Methode damit die Steine durchsliden
-	/**
-	 * Throws stone until it hits first unempty field (haven't slided yet)
-	 * 
-	 * @param row
-	 * @param col
-	 * @return
-	 */
-	private int connectToRowLR(int row, int col) {
-		int touch = 0;
-		for (int i = 0; i < col; i++) {
-			if (!board.isEmpty(row, i)) {
-				touch = i - 1;
-				board.setSignFromField(row, touch, getPlayerSign());
-				break;
-			}
-		}
-		return touch;
-	}
-
-	/**
-	 * Help Method to slide stone one position forward
-	 * 
-	 * @param row
-	 * @param firstSign
-	 * @param lastSign
-	 */
-	private void slideLeftToRight(int row, int firstSign, int lastSign) {
-		while (lastSign >= firstSign && lastSign < 6) {
-			char ch = board.getSignFromField(row, lastSign);
-			board.setSignFromField(row, lastSign + 1, ch);
-			lastSign--;
-		}
-	}
-
-	public void tokenSlideFromLeftToRight(int row, int col) {
-		int firstSign = connectToRowLR(row, col);
-		int lastSign = firstSign, counter = firstSign;
-		int empty = 0;
-		for (int i = counter; i < col; i++) {
-			if (board.isEmpty(row, i)) {
-				slideLeftToRight(row, firstSign, lastSign);
-				lastSign++;
-				firstSign++;
-			} else if (!board.isBlocked(row, i) && !board.isEmpty(row, i)) {
-				lastSign = i;
-			} else
-				break;
-		}
 	}
 
 	public int[] getCoordinates(String direction, int position) {
@@ -231,54 +322,42 @@ public class GameLogic {
 		return coordinates;
 	}
 
-	private boolean isValidMove(String input) {
-		String direction = inputConversion.inputToDirection(input);
-		int position = inputConversion.inputToPosition(input);
-
-		// if (board.getSignFromField(row, col) == '_')
-		// return true;
-		// else
-		return false;
-	}
-
-	private boolean isValidBombMove(String inputString) {
-		int[] cords = inputConversion.inputToCords(inputString);
-		int row = cords[0] - 1;
-		int column = cords[1] - 1;
-		// row = row - 1;
-		// column = column - 1;
-		char[][] checkField = board.getField();
-		if (checkField[row][column] == '#' || currentPlayer.getPlayerBombStatus() == false) {
-			return false;
-		} else
-			return true;
-	}
-
 	public boolean isValidBlockMove(int row, int column) {
 		row = row - 1;
 		column = column - 1;
-		char[][] checkField = board.getField();
+		// char[][] checkField = board.getBoard();
+
 		if (checkField[row][column] == '#') {
 			return false;
 		} else
 			return true;
+
 	}
 
-	public void setBomb(int row, int column) { // TODO Lösung überlegen wie man validBombMove und setBomb miteinander
-												// vereinbart (int, int und String)
-		// if (isValidBombMove(row, column)) {
-		// board.setSignFromField(row, column, board.getBlock());
-		// blast(row, column);
-		// currentPlayer.setPlayerBombStatusFalse();
-		// }
+	public boolean isValidBombMove(String inputString) {
+		int[] cords = inputConversion.inputToCords(inputString);
+		int row = cords[0];
+		int column = cords[1];
+
+		if (checkField[row][column] == '#' || getPlayer().getPlayerBombStatus() == false) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
-	private void blast(int row, int column) { // rdy
-		board.setSignFromField(row, column, '_'); // deletes field where bomb got placed
-		board.setSignFromField(row + 1, column, '_'); // deletes field below bomb
-		board.setSignFromField(row - 1, column, '_'); // deletes field above bomb
-		board.setSignFromField(row, column + 1, '_'); // deletes field right next to bomb
-		board.setSignFromField(row, column - 1, '_'); // deletes field left next to bomb
+	public void setBomb(int row, int column) {
+		blast(row, column);
+		blast(row, column);
+		blast(row + 1, column);
+		blast(row - 1, column);
+		blast(row, column + 1);
+		blast(row, column - 1);
+	}
+
+	public void blast(int row, int column) {
+		if (board.getSignFromField(row, column) != '#')
+		board.setSignFromField(row, column, '_');
 	}
 
 	public boolean searchRow(char[][] tmp) { // (rdy) -> Test
@@ -385,7 +464,7 @@ public class GameLogic {
 	}
 
 	public boolean whoWon() {
-		if (currentPlayer.getName().equals("Spieler1"))
+		if (getPlayerName().equals("Spieler1"))
 			return true;
 		else {
 			return false;
@@ -393,15 +472,16 @@ public class GameLogic {
 	}
 
 	public boolean boardIsFull(char[][] tmp) {
+		boolean boardIsFull = false;
 		for (int z = 0; z < tmp.length; z++) {
 			for (int s = 0; s < tmp[z].length; s++) {
 				if (tmp[z][s] == '_') {
-					return false;
+					boardIsFull = false;
 				} else
-					return true;
+					boardIsFull = true;
 			}
 		}
-		return false;
+		return boardIsFull;
 	}
 
 }
