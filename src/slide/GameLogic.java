@@ -82,6 +82,8 @@ public class GameLogic {
 		} else if (searchDiagonalSouthWest(tmp)) {
 			System.out.println("Gewinner ist: " + getPlayerName());
 			return false;
+		} else if (boardIsFull(tmp)) {
+			return false;
 		} else
 			return true;
 	}
@@ -101,26 +103,32 @@ public class GameLogic {
 	}
 
 	public boolean isValidMove(String input) {
-		int row = -1, column = -1;
-		String direction = inputConversion.inputToDirection(input);
-		int position = inputConversion.inputToPosition(input);
-		if (direction.equals("Oben")) {
-			row = 0;
-			column = position;
-		} else if (direction.equals("Rechts")) {
-			row = position;
-			column = 6;
-		} else if (direction.equals("Unten")) {
-			row = 5;
-			column = position;
-		} else if (direction.equals("Links")) {
-			row = position;
-			column = 0;
-		}
+		int row = directionInterpreter(inputConversion.inputToDirection(input),
+				inputConversion.inputToPosition(input))[0];
+		int column = directionInterpreter(inputConversion.inputToDirection(input),
+				inputConversion.inputToPosition(input))[1];
 		if (board.getSignFromField(row, column) == '_')
 			return true;
 		else
 			return false;
+	}
+
+	public int[] directionInterpreter(String direction, int position) {
+		int[] arr = new int[2];
+		if (direction.equals("Oben")) {
+			arr[0] = 0;
+			arr[1] = position;
+		} else if (direction.equals("Rechts")) {
+			arr[0] = position;
+			arr[1] = 6;
+		} else if (direction.equals("Unten")) {
+			arr[0] = 5;
+			arr[1] = position;
+		} else if (direction.equals("Links")) {
+			arr[0] = position;
+			arr[1] = 0;
+		}
+		return arr;
 	}
 
 	/*
@@ -208,7 +216,7 @@ public class GameLogic {
 	}
 
 	public void lastFreeFieldFromRight(int row, int column) {
-		for (int i = 6; i >= 0; i--) { // TODO Out of Bounds
+		for (int i = 6; i >= 0; i--) {
 			if (board.isEmpty(row, i) && i == 0) {
 				board.setSignFromField(row, i, getPlayerSign());
 			} else if (board.nextFieldIsAToken(row, i)) {
@@ -296,6 +304,10 @@ public class GameLogic {
 		moveCounter++;
 	}
 
+	public int getMoveCounter() {
+		return moveCounter;
+	}
+
 	public char getPlayerSign() { // rdy
 		if (moveCounter % 2 == 0) {
 			return 'O';
@@ -303,30 +315,9 @@ public class GameLogic {
 			return 'X';
 	}
 
-	public int[] getCoordinates(String direction, int position) {
-		int row, col;
-		if (direction.equals("links")) {
-			col = 0;
-			row = position;
-		} else if (direction.equals("rechts")) {
-			col = 6;
-			row = position;
-		} else if (direction.equals("oben")) {
-			col = position;
-			row = 0;
-		} else {
-			col = position;
-			row = 5;
-		}
-		int[] coordinates = new int[] { row, col };
-		return coordinates;
-	}
-
 	public boolean isValidBlockMove(int row, int column) {
 		row = row - 1;
 		column = column - 1;
-		// char[][] checkField = board.getBoard();
-
 		if (checkField[row][column] == '#') {
 			return false;
 		} else
@@ -339,28 +330,50 @@ public class GameLogic {
 		int row = cords[0];
 		int column = cords[1];
 
-		if (checkField[row][column] == '#' || getPlayer().getPlayerBombStatus() == false) {
+		if (!inputCorrect(row, column)) {
 			return false;
 		} else {
 			return true;
 		}
 	}
 
-	public void setBomb(int row, int column) {
-		blast(row, column);
-		blast(row, column);
-		blast(row + 1, column);
-		blast(row - 1, column);
-		blast(row, column + 1);
-		blast(row, column - 1);
+	public void setBomb(int row, int column) { //bitte effizienter wenn möglich
+		if (inputCorrect(row, column)) {
+			boolean anObereUntereGrenze = (row == 1 || row == 6);
+			boolean anLinkeRechteGrenze = (column == 1 || row == 6);
+			if (anObereUntereGrenze && !anLinkeRechteGrenze) {
+				blast(row, column);
+				blast(row, column + 1);
+				blast(row, column - 1);
+			} else if (anLinkeRechteGrenze && !anObereUntereGrenze) {
+				blast(row, column);
+				blast(row + 1, column);
+				blast(row - 1, column);
+			} else if (anObereUntereGrenze && anLinkeRechteGrenze) {
+				blast(row, column);
+			} else {
+				blast(row, column);
+				blast(row + 1, column);
+				blast(row - 1, column);
+				blast(row, column + 1);
+				blast(row, column - 1);
+			}
+		}
+
 	}
 
 	public void blast(int row, int column) {
-		if (board.getSignFromField(row, column) != '#')
-		board.setSignFromField(row, column, '_');
+		board.setSignFromField(row-1, column-1, '_');
 	}
 
-	public boolean searchRow(char[][] tmp) { // (rdy) -> Test
+	public boolean inputCorrect(int row, int column) {
+		if (row > 0 && row < 7 && column > 0 && column < 8 && checkField[row - 1][column - 1] != '#')
+			return true;
+		else
+			return false;
+	}
+
+	public boolean searchRow(char[][] tmp) {
 
 		// check every row from left to right
 		int countHit = 0;
@@ -368,10 +381,10 @@ public class GameLogic {
 			if (countHit >= 4)
 				return true;
 			countHit = 0;
-			for (int col = 0; col < tmp[row].length; col++) {
+			for (int column = 0; column < tmp[row].length; column++) {
 				if (countHit >= 4)
 					return true;
-				else if (tmp[row][col] == getPlayerSign()) {
+				else if (tmp[row][column] == getPlayerSign()) {
 					countHit++;
 				} else
 					countHit = 0;
@@ -380,18 +393,18 @@ public class GameLogic {
 		return false;
 	}
 
-	public boolean searchCol(char[][] tmp) { // (rdy) -> Test
+	public boolean searchCol(char[][] tmp) {
 
 		// check every column from top to bottom
 		int countHit = 0;
-		for (int col = 0; col < tmp[0].length; col++) {
+		for (int column = 0; column < tmp[0].length; column++) {
 			if (countHit >= 4)
 				return true;
 			countHit = 0;
 			for (int row = 0; row < tmp.length; row++) {
 				if (countHit >= 4)
 					return true;
-				else if (tmp[row][col] == getPlayerSign()) {
+				else if (tmp[row][column] == getPlayerSign()) {
 					countHit++;
 				} else
 					countHit = 0;
@@ -400,29 +413,26 @@ public class GameLogic {
 		return false;
 	}
 
-	/**
+	/*
 	 * for detecting if game is won. While loop row <= 2 please mind the array index
 	 * 2 = (3)
-	 * 
-	 * @param tmp
-	 * @return
 	 */
-	public boolean searchDiagonalNorthWest(char[][] tmp) { // North-west ---> south-east (rdy) -> Testen
+	public boolean searchDiagonalNorthWest(char[][] tmp) {
 		int countHit = 0;
-		int row = 0, col = 0;
+		int row = 0, column = 0;
 
-		while (row < 2 && col < 3) {
+		while (row < 2 && column < 3) {
 			if (countHit >= 4)
 				return true;
-			if (col > 3) {
+			if (column > 3) {
 				row++;
-				col = 0;
+				column = 0;
 			}
-			if (tmp[row][col] == getPlayerSign())
+			if (tmp[row][column] == getPlayerSign())
 				countHit++;
 			else
 				countHit = 0;
-			col++;
+			column++;
 		}
 		if (countHit >= 4)
 			return true;
@@ -431,30 +441,26 @@ public class GameLogic {
 
 	}
 
-	// TODO check if diagonal works
-	/**
+	/*
 	 * for detecting if game is won. While loop row >= please mind the array index 5
 	 * = (6)
-	 * 
-	 * @param tmp
-	 * @return
 	 */
-	public boolean searchDiagonalSouthWest(char[][] tmp) { // South-west ---> North-east (rdy) --> Testen
+	public boolean searchDiagonalSouthWest(char[][] tmp) {
 		int countHit = 0;
-		int row = 5, col = 0;
+		int row = 5, column = 0;
 
-		while (row > 3 && col < 3) {
+		while (row > 3 && column < 3) {
 			if (countHit >= 4)
 				return true;
-			if (col > 3) {
+			if (column > 3) {
 				row--;
-				col = 0;
+				column = 0;
 			}
-			if (tmp[row][col] == getPlayerSign())
+			if (tmp[row][column] == getPlayerSign())
 				countHit++;
 			else
 				countHit = 0;
-			col++;
+			column++;
 		}
 		if (countHit >= 4)
 			return true;
@@ -476,7 +482,7 @@ public class GameLogic {
 		for (int z = 0; z < tmp.length; z++) {
 			for (int s = 0; s < tmp[z].length; s++) {
 				if (tmp[z][s] == '_') {
-					boardIsFull = false;
+					return false;
 				} else
 					boardIsFull = true;
 			}
