@@ -22,4 +22,11 @@ public class InputConversion {
         cords[1] = Character.getNumericValue(inputString.charAt(3));
         return cords;
     }
+
+    public boolean checkInputBomb(String bombCordString) {
+        if(bombCordString.charAt(0) == '(' && bombCordString.charAt(1) > '0' && bombCordString.charAt(1) < '7' &&  bombCordString.charAt(2) == ',' && bombCordString.charAt(3) > '0' && bombCordString.charAt(1) < '8' && bombCordString.charAt(4) == ')') {
+        return true;
+        }
+        else return false;
+    }
 }

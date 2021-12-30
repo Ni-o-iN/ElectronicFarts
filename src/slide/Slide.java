@@ -44,7 +44,9 @@ public class Slide {
 
 	public void playGame(GameLogic logic, Scanner input, BombFields bombFields) {
 		while (logic.isRunning()) {
+			if(logic.getMoveCounter() > 0) {
 			bombFields.initBomb(logic, input);
+			}
 			System.out.println("Es ist " + logic.getPlayerName() + " dran");
 			String inputString = input.next() + input.nextLine();
 			if(logic.isValidMove(inputString)) {
