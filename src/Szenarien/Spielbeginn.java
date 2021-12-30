@@ -1,10 +1,7 @@
 package Szenarien;
 
-	import slide.Board; 
-	import slide.Difficulty;
 	import slide.GameLogic;
-	import slide.Player;
-	import slide.Slide;
+
 
 	public class Spielbeginn {
 		
@@ -14,9 +11,31 @@ package Szenarien;
 			
 			szLogic.addPlayer(); 
 			
-			Player testPlayer1 = szLogic.getCurrentPlayer();
-			String testString1 = testPlayer1.toString(); 
-			System.out.println(testString1);	
+			szLogic.printBoard();
+			
+			
+			szLogic.setBlockField(1, 1);
+			szLogic.setBlockField(1, 2);
+			szLogic.setBlockField(1, 3);
+			szLogic.setBlockField(3, 1);
+			szLogic.setBlockField(3, 2);
+			szLogic.setBlockField(3, 3);
+			
+			szLogic.printBoard();
+			
+			szLogic.myMove("Oben4");
+			szLogic.updateMoveCounter(); //Soll so bleiben oder change in myMove?
+			
+			szLogic.myMove("Unten6");
+			szLogic.updateMoveCounter();
+			
+			szLogic.myMove("Rechts2");
+			szLogic.updateMoveCounter();
+			
+			szLogic.myMove("Links5");
+			szLogic.updateMoveCounter();
+			
+			szLogic.printBoard();
 			}
 		
 
