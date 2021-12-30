@@ -27,6 +27,12 @@ public class Bombe {
 		szLogic.myMove("Unten2");
 		szLogic.updateMoveCounter();
 		
+		szLogic.myMove("Unten2");
+		szLogic.updateMoveCounter();
+		
+		szLogic.myMove("Unten1");
+		szLogic.updateMoveCounter();
+		
 		szLogic.printBoard();
 		
 		szLogic.setBomb(2, 2);

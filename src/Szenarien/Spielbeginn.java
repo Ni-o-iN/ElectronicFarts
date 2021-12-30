@@ -29,7 +29,7 @@ package Szenarien;
 			szLogic.myMove("Unten6");
 			szLogic.updateMoveCounter();
 			
-			szLogic.myMove("Rechts2");
+			szLogic.myMove("Rechts4");
 			szLogic.updateMoveCounter();
 			
 			szLogic.myMove("Links5");
