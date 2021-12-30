@@ -1,13 +1,24 @@
 package Szenarien;
 
 import slide.GameLogic;
-import slide.Player;
-
+/**
+ * 
+ * @author julianlautenscheidt
+ * @version 0.2
+ * Bombenszenario
+ *
+ */
 public class Bombe {
 
-	
 	private static GameLogic szLogic = new GameLogic(); 
-	
+	/**
+	 * 
+	 * @param args
+	 * Szenario in dem die Bombe simuliert wird. 
+	 * 1. Ein paar Blockfelder setzen (wichtig ist hierbei nur (2,2), dann ein paar Steine einwerfen. 
+	 * 2. Steine sollten auf (2,2) (2,1) (3,2) & (3,1) liegen.
+	 * 3. Bombe auf (2,2). Blockfelder sollten unverändert sein, ebenso Stein auf (3,1). 
+	 */
 	public static void main (String[] args) {
 		
 		szLogic.addPlayer(); 

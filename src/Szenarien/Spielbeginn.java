@@ -2,17 +2,26 @@ package Szenarien;
 
 	import slide.GameLogic;
 
-
+	/**
+	 * @author julianlautenscheidt
+	 * @version 0.3
+	 * Szenario zu Spielbeginn
+	 */
 	public class Spielbeginn {
 		
 		private static GameLogic szLogic = new GameLogic(); 
-		
+		/**
+		 * @param args
+		 * Szenariomethode in der der Spielbeginn mit 4 einfachen Zügen simuliert wird
+		 * 1. Leeres Board anzeigen
+		 * 2. 6 Blockfelder setzen
+		 * 3. 4 einfache Züge ohne Interaktionen
+		 */
 		public static void main (String[] args) {
 			
 			szLogic.addPlayer(); 
 			
-			szLogic.printBoard();
-			
+			szLogic.printBoard();		
 			
 			szLogic.setBlockField(1, 1);
 			szLogic.setBlockField(1, 2);
