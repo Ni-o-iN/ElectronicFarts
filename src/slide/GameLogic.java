@@ -363,7 +363,9 @@ public class GameLogic {
 	}
 
 	public void blast(int row, int column) {
-		board.setSignFromField(row-1, column-1, '_');
+		if(board.nextFieldIsAToken(row-1, column-1)) {
+			board.setSignFromField(row-1, column-1, '_');
+		}
 	}
 
 	public boolean inputCorrect(int row, int column) {
