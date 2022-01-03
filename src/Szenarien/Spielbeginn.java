@@ -33,16 +33,16 @@ package Szenarien;
 			szLogic.printBoard();
 			
 			szLogic.myMove("Oben4");
-			szLogic.updateMoveCounter(); //Soll so bleiben oder change in myMove?
+			szLogic.incrementMoveCounter(); //Soll so bleiben oder change in myMove?
 			
 			szLogic.myMove("Unten6");
-			szLogic.updateMoveCounter();
+			szLogic.incrementMoveCounter();
 			
 			szLogic.myMove("Rechts4");
-			szLogic.updateMoveCounter();
+			szLogic.incrementMoveCounter();
 			
 			szLogic.myMove("Links5");
-			szLogic.updateMoveCounter();
+			szLogic.incrementMoveCounter();
 			
 			szLogic.printBoard();
 			}

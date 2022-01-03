@@ -30,37 +30,37 @@ public class FeldVoll {
 		
 		for(int i = 1; i<=5; i++) {
 			szLogic.myMove("Unten1");
-			szLogic.updateMoveCounter();
+			szLogic.incrementMoveCounter();
 		}
 		
 		for(int i2 = 1; i2<=5; i2++) {
 			szLogic.myMove("Unten2");
-			szLogic.updateMoveCounter();
+			szLogic.incrementMoveCounter();
 		}
 		
 		for(int i3 = 1; i3<=5; i3++) {
 			szLogic.myMove("Unten3");
-			szLogic.updateMoveCounter();
+			szLogic.incrementMoveCounter();
 		}
 		
 		for(int i4 = 1; i4<=5; i4++) {
 			szLogic.myMove("Unten4");
-			szLogic.updateMoveCounter();
+			szLogic.incrementMoveCounter();
 		}
 		
 		for(int i5 = 1; i5<=5; i5++) {
 			szLogic.myMove("Unten5");
-			szLogic.updateMoveCounter();
+			szLogic.incrementMoveCounter();
 		}
 		
 		for(int i6 = 1; i6<=5; i6++) {
 			szLogic.myMove("Unten6");
-			szLogic.updateMoveCounter();
+			szLogic.incrementMoveCounter();
 		}
 		
 		for(int i7 = 1; i7<=6; i7++) {
 			szLogic.myMove("Unten7");
-			szLogic.updateMoveCounter();
+			szLogic.incrementMoveCounter();
 		}
 		
 		szLogic.printBoard();

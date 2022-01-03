@@ -27,7 +27,7 @@ public class Slide {
 		int gameMode = Integer.parseInt(input.nextLine());
 		switch (gameMode) {
 			case 1:
-				logic.setCOM();
+				logic.setCom(true);
 				logic.addPlayer();
 				break;
 			case 2:
@@ -52,7 +52,7 @@ public class Slide {
 			if(logic.isValidMove(inputString)) {
 			logic.myMove(inputString);
 			logic.printBoard();
-			logic.updateMoveCounter();
+			logic.incrementMoveCounter();
 			} else {
 				System.out.println("\nFeld ist besetzt!\n");
 			}

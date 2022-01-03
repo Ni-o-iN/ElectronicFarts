@@ -13,20 +13,20 @@ public class GameLogic {
 	private int moveCounter = 0;
 	private Player[] players = new Player[2];
 	private Board board = new Board();
-	private boolean COM = false;
+	private boolean com = false;
 	private char[][] checkField = board.getBoard();
 
-	public void setCOM() { // rdy
-		COM = true;
+	public void setCom(boolean com) { // rdy
+		this.com = com;
 	}
 
-	public boolean getCOM() { // rdy
-		return COM;
+	public boolean getCom() { // rdy
+		return this.com;
 	}
 
 	public void addPlayer() { // rdy
 		players[0] = new Player(1, "Spieler1");
-		if (getCOM())
+		if (getCom())
 			players[1] = new Player(2, "COM");
 		else
 			players[1] = new Player(2, "Spieler2");
@@ -50,9 +50,7 @@ public class GameLogic {
 		for (int i = 0; i < field[0].length; i++) { // print out column numbers
 			System.out.print((i + 1) + " ");
 		}
-
 		System.out.println(); // new line after column numbers
-
 		for (int i = 0; i < field.length; i++) {
 			System.out.printf("%d ", i + 1);
 			for (int j = 0; j < field[i].length; j++) {
@@ -60,7 +58,6 @@ public class GameLogic {
 			}
 			System.out.println();
 		}
-
 		System.out.println();
 	}
 
@@ -141,7 +138,7 @@ public class GameLogic {
 		for (int i = 0; i <= 5; i++) {
 			if (board.isEmpty(i, column) && i == 5) {
 				board.setSignFromField(i, column, getPlayerSign());
-			} else if (board.nextFieldIsAToken(i, column)) {
+			} else if (board.isToken(i, column)) {
 				board.setSignFromField(--i, column, getPlayerSign());
 				row = i--;
 				break;
@@ -180,7 +177,7 @@ public class GameLogic {
 		for (int i = 5; i >= 0; i--) {
 			if (board.isEmpty(i, column) && i == 0) {
 				board.setSignFromField(i, column, getPlayerSign());
-			} else if (board.nextFieldIsAToken(i, column)) {
+			} else if (board.isToken(i, column)) {
 				board.setSignFromField(++i, column, getPlayerSign());
 				row = i++;
 				break;
@@ -219,7 +216,7 @@ public class GameLogic {
 		for (int i = 6; i >= 0; i--) {
 			if (board.isEmpty(row, i) && i == 0) {
 				board.setSignFromField(row, i, getPlayerSign());
-			} else if (board.nextFieldIsAToken(row, i)) {
+			} else if (board.isToken(row, i)) {
 				board.setSignFromField(row, ++i, getPlayerSign());
 				column = i++;
 				break;
@@ -262,7 +259,7 @@ public class GameLogic {
 		for (int i = 0; i <= 6; i++) {
 			if (board.isEmpty(row, i) && i == 6) {
 				board.setSignFromField(row, i, getPlayerSign());
-			} else if (board.nextFieldIsAToken(row, i)) {
+			} else if (board.isToken(row, i)) {
 				board.setSignFromField(row, --i, getPlayerSign());
 				column = i--;
 				break;
@@ -300,7 +297,7 @@ public class GameLogic {
 		}
 	}
 
-	public void updateMoveCounter() {
+	public void incrementMoveCounter() {
 		moveCounter++;
 	}
 
@@ -309,74 +306,51 @@ public class GameLogic {
 	}
 
 	public char getPlayerSign() { // rdy
-		if (moveCounter % 2 == 0) {
-			return 'O';
-		} else
-			return 'X';
+		return (moveCounter % 2 == 0) ? 'O' : 'X';
 	}
 
 	public boolean isValidBlockMove(int row, int column) {
-		row = row - 1;
-		column = column - 1;
-		if (checkField[row][column] == '#') {
-			return false;
-		} else
-			return true;
-
+		return checkField[row - 1][column - 1] == '#';
 	}
 
 	public boolean isValidBombMove(String inputString) {
 		int[] cords = inputConversion.inputToCords(inputString);
 		int row = cords[0];
 		int column = cords[1];
+		return isInputValid(row, column);
+	}
 
-		if (!inputCorrect(row, column)) {
-			return false;
-		} else {
-			return true;
+	public void setBomb(int row, int column) {
+		if (isInputValid(row, column)) {
+			blast(row, column);
+			if (row > 1 && isBlockField(row - 1, column)) { // Check if top field is free
+				blast(row - 1, column);
+			}
+			if (row < 6 && isBlockField(row + 1, column)) { // Check if bottom field is free
+				blast(row + 1, column);
+			}
+			if (column > 1 && isBlockField(row, column - 1)) { // Check if left field is free
+				blast(row, column - 1);
+			}
+			if (column < 7 && isBlockField(row, column + 1)) { // Check if right field is free
+				blast(row, column + 1);
+			}
 		}
 	}
 
-	public void setBomb(int row, int column) { //bitte effizienter wenn möglich
-		if (inputCorrect(row, column)) {
-			boolean anObereUntereGrenze = (row == 1 || row == 6);
-			boolean anLinkeRechteGrenze = (column == 1 || row == 6);
-			if (anObereUntereGrenze && !anLinkeRechteGrenze) {
-				blast(row, column);
-				blast(row, column + 1);
-				blast(row, column - 1);
-			} else if (anLinkeRechteGrenze && !anObereUntereGrenze) {
-				blast(row, column);
-				blast(row + 1, column);
-				blast(row - 1, column);
-			} else if (anObereUntereGrenze && anLinkeRechteGrenze) {
-				blast(row, column);
-			} else {
-				blast(row, column);
-				blast(row + 1, column);
-				blast(row - 1, column);
-				blast(row, column + 1);
-				blast(row, column - 1);
-			}
-		}
-
+	private boolean isBlockField(int row, int column) {
+		return checkField[row][column] == '#';
 	}
 
 	public void blast(int row, int column) {
-		if(board.nextFieldIsAToken(row-1, column-1)) {
-			board.setSignFromField(row-1, column-1, '_');
-		}
+		board.setSignFromField(row - 1, column - 1, '_');
 	}
 
-	public boolean inputCorrect(int row, int column) {
-		if (row > 0 && row < 7 && column > 0 && column < 8 && checkField[row - 1][column - 1] != '#')
-			return true;
-		else
-			return false;
+	public boolean isInputValid(int row, int column) {
+		return (row > 0 && row < 7 && column > 0 && column < 8 && !isBlockField(row, column));
 	}
 
 	public boolean searchRow(char[][] tmp) {
-
 		// check every row from left to right
 		int countHit = 0;
 		for (int row = 0; row < tmp.length; row++) {

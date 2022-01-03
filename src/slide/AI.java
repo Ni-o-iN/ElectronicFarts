@@ -1,14 +1,14 @@
 package slide;
 
-import java.util.Random;
+// import java.util.Random;
 
 public class AI extends GameLogic {
 
-	Random random = new Random();
+	// Random random = new Random();
 	
-	final int ROW = 6;
-	final int COLUMN = 7;
-	private char[][] field = new char[ROW][COLUMN];
+	// final int ROW = 6;
+	// final int COLUMN = 7;
+	// private char[][] field = new char[ROW][COLUMN];
 	
 	//TODO Spielfeld kopieren
 //	AI() {
