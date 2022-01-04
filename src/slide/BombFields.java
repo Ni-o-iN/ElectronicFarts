@@ -39,7 +39,7 @@ public class BombFields {
      */
     public void placeBomb(Scanner input, GameLogic logic) {
         if (bombAvailable) {
-            System.out.println("Bitte wählen Sie ein Feld, auf dem Sie die Bombe platzieren möchten");
+            System.out.println("Bitte waehlen Sie ein Feld, auf dem Sie die Bombe platzieren moechten");
             logic.printBoard();
             System.out.println("mit folgendem Format: (REIHE,SPALTE)\n" +
             "Beispiel: (2,3)\n");
