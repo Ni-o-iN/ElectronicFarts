@@ -16,25 +16,16 @@ public class GameLogic {
 	private boolean com = false;
 	private char[][] checkField = board.getBoard();
 
-<<<<<<< HEAD
-	public void setCOM() { 
-		COM = true;
-=======
 	public void setCom(boolean com) { // rdy
 		this.com = com;
->>>>>>> branch 'main' of https://github.com/Maulesel42/ElectronicFarts.git
 	}
 
-<<<<<<< HEAD
-	public boolean getCOM() { 
-		return COM;
-=======
 	public boolean getCom() { // rdy
 		return this.com;
->>>>>>> branch 'main' of https://github.com/Maulesel42/ElectronicFarts.git
+
 	}
 
-	public void addPlayer() { 
+	public void addPlayer() {
 		players[0] = new Player(1, "Spieler1");
 		if (getCom())
 			players[1] = new Player(2, "COM");
@@ -54,7 +45,7 @@ public class GameLogic {
 		return players[i];
 	}
 
-	public void printBoard() { 
+	public void printBoard() {
 		char[][] field = board.getBoard();
 		System.out.printf("  ");
 		for (int i = 0; i < field[0].length; i++) { // print out column numbers
@@ -74,9 +65,11 @@ public class GameLogic {
 	public void setBlockField(int row, int column) {
 		board.setSignFromField(row - 1, column - 1, board.getBlock());
 	}
-/*
- * checks if in any direction is a winning stone-combination and outputs the winner
- */
+
+	/*
+	 * checks if in any direction is a winning stone-combination and outputs the
+	 * winner
+	 */
 	public boolean isRunning() {
 		char[][] tmp = board.getBoard();
 		if (searchRow(tmp)) {
@@ -96,12 +89,13 @@ public class GameLogic {
 		} else
 			return true;
 	}
-/*
- * Recieve Player input and throws the token into the line wich was 
- * chosen by the Player
- */
+
+	/*
+	 * Recieve Player input and throws the token into the line wich was chosen by
+	 * the Player
+	 */
 	public void myMove(String input) {
-		String direction = inputConversion.inputToDirection(input); // 
+		String direction = inputConversion.inputToDirection(input); //
 		int position = inputConversion.inputToPosition(input);
 		if (direction.equals("Oben")) {
 			lastFreeFieldFromTop(0, position);
@@ -113,9 +107,10 @@ public class GameLogic {
 			lastFreeFieldFromLeft(position, 0);
 		}
 	}
-/*
- * 
- */
+
+	/*
+	 * 
+	 */
 	public boolean isValidMove(String input) {
 		int row = directionInterpreter(inputConversion.inputToDirection(input),
 				inputConversion.inputToPosition(input))[0];
@@ -126,10 +121,10 @@ public class GameLogic {
 		else
 			return false;
 	}
-/*
- * Assign's the number to the correct array position for
- * further calculation 
- */
+
+	/*
+	 * Assign's the number to the correct array position for further calculation
+	 */
 	public int[] directionInterpreter(String direction, int position) {
 		int[] arr = new int[2];
 		if (direction.equals("Oben")) {
@@ -149,10 +144,9 @@ public class GameLogic {
 	}
 
 	/*
-	 * Habe alle Last FreeField Methoden gefixt und getestet ( optimiert)
-	 * unnötige Zähler wurden entfernt. ggf. schauen wegen den übergabe parameter
-	 * tokenSign wurde
-	 * ebenfalls entfernt
+	 * Habe alle Last FreeField Methoden gefixt und getestet ( optimiert) unnötige
+	 * Zähler wurden entfernt. ggf. schauen wegen den übergabe parameter tokenSign
+	 * wurde ebenfalls entfernt
 	 */
 	private void lastFreeFieldFromTop(int row, int column) {
 		for (int i = 0; i <= 5; i++) {
@@ -325,16 +319,8 @@ public class GameLogic {
 		return moveCounter;
 	}
 
-<<<<<<< HEAD
-	public char getPlayerSign() { 
-		if (moveCounter % 2 == 0) {
-			return 'O';
-		} else
-			return 'X';
-=======
 	public char getPlayerSign() { // rdy
 		return (moveCounter % 2 == 0) ? 'O' : 'X';
->>>>>>> branch 'main' of https://github.com/Maulesel42/ElectronicFarts.git
 	}
 
 	public boolean isValidBlockMove(int row, int column) {
