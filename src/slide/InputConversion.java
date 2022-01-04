@@ -2,6 +2,9 @@ package slide;
 
 public class InputConversion {
 
+	/*
+	 * Method removes number from direction 
+	 */
     public String inputToDirection(String inputString) {
         String direction = "";
         for (int i = 0; i < inputString.length(); i++) {
