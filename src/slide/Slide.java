@@ -39,22 +39,25 @@ public class Slide {
 				System.out.println("COM vs COM und der Gewinner ist: COM");
 				break;
 		}
-
 	}
 
 	public void playGame(GameLogic logic, Scanner input, BombFields bombFields) {
+		logic.printBoard();
 		while (logic.isRunning()) {
-			if(logic.getMoveCounter() > 0) {
-			bombFields.initBomb(logic, input);
+			if (logic.getMoveCounter() > 0) {
+				bombFields.initBomb(logic, input);
 			}
-			System.out.println("Es ist " + logic.getPlayerName() + " dran");
+			System.out.println("Es ist " + logic.getPlayerName() + " dran\n" +
+			"Bitte setzen Sie Ihren Spielstein im folgenden Format:\n"+
+			"Links5 (Sie können aber auch von Oben, Unten oder Rechts einwerfen\n"+
+			"und die Zahl muss innerhalb des Spielfelds oben gezeigten Spielfelds sein)\n");
 			String inputString = input.next() + input.nextLine();
-			if(logic.isValidMove(inputString)) {
-			logic.myMove(inputString);
-			logic.printBoard();
-			logic.incrementMoveCounter();
+			if (logic.isValidMove(inputString)) {
+				logic.myMove(inputString);
+				logic.printBoard();
+				logic.incrementMoveCounter();
 			} else {
-				System.out.println("\nFeld ist besetzt!\n");
+				System.out.println("\nFeld ist besetzt oder falsche Eingabe!\n");
 			}
 		}
 		input.close();

@@ -2,21 +2,35 @@ package slide;
 
 public class InputConversion {
 
-	/*
-	 * Method removes number from direction 
-	 */
+    /*
+     * Method removes number from direction
+     */
     public String inputToDirection(String inputString) {
         String direction = "";
         for (int i = 0; i < inputString.length(); i++) {
             if (inputString.charAt(i) >= 'A' && inputString.charAt(i) <= 'z') {
-                direction = direction + inputString.charAt(i);
+                direction += inputString.charAt(i);
             }
         }
-        return direction;
+        if (direction.equals("Links") || direction.equals("Rechts") || direction.equals("Oben")
+                || direction.equals("Unten")) {
+            return direction;
+        } else {
+            return null;
+        }
     }
 
     public int inputToPosition(String inputString) {
-        return Character.getNumericValue(inputString.charAt((inputString.length() - 1))-1);
+        int intCounter = 0;
+        for (int i = 0; i < inputString.length(); i++) {
+            if (inputString.charAt(i) >= '0' && inputString.charAt(i) <= '9') {
+                intCounter++;
+            }
+        }
+        if (intCounter == 1) {
+            return Character.getNumericValue(inputString.charAt(inputString.length() - 1));
+        } else
+            return -1;
     }
 
     public int[] inputToCords(String inputString) {
@@ -27,9 +41,8 @@ public class InputConversion {
     }
 
     public boolean checkInputBomb(String bombCordString) {
-        if(bombCordString.charAt(0) == '(' && bombCordString.charAt(1) > '0' && bombCordString.charAt(1) < '7' &&  bombCordString.charAt(2) == ',' && bombCordString.charAt(3) > '0' && bombCordString.charAt(1) < '8' && bombCordString.charAt(4) == ')') {
-        return true;
-        }
-        else return false;
+        return (bombCordString.charAt(0) == '(' && bombCordString.charAt(1) > '0' && bombCordString.charAt(1) < '7'
+                && bombCordString.charAt(2) == ',' && bombCordString.charAt(3) > '0' && bombCordString.charAt(1) < '8'
+                && bombCordString.charAt(4) == ')');
     }
 }

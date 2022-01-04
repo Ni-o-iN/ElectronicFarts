@@ -73,16 +73,16 @@ public class GameLogic {
 	public boolean isRunning() {
 		char[][] tmp = board.getBoard();
 		if (searchRow(tmp)) {
-			System.out.println("Gewinner ist: " + getPlayerName());
+			System.out.println("Gewinner ist: " + getWinnerName(whoWon()));
 			return false;
 		} else if (searchCol(tmp)) {
-			System.out.println("Gewinner ist: " + getPlayerName());
+			System.out.println("Gewinner ist: " + getWinnerName(whoWon()));
 			return false;
 		} else if (searchDiagonalNorthWest(tmp)) {
-			System.out.println("Gewinner ist: " + getPlayerName());
+			System.out.println("Gewinner ist: " + getWinnerName(whoWon()));
 			return false;
 		} else if (searchDiagonalSouthWest(tmp)) {
-			System.out.println("Gewinner ist: " + getPlayerName());
+			System.out.println("Gewinner ist: " + getWinnerName(whoWon()));
 			return false;
 		} else if (boardIsFull(tmp)) {
 			return false;
@@ -91,20 +91,20 @@ public class GameLogic {
 	}
 
 	/*
-	 * Recieve Player input and throws the token into the line wich was chosen by
+	 * Receive Player input and throws the token into the line wich was chosen by
 	 * the Player
 	 */
 	public void myMove(String input) {
 		String direction = inputConversion.inputToDirection(input); //
 		int position = inputConversion.inputToPosition(input);
 		if (direction.equals("Oben")) {
-			lastFreeFieldFromTop(0, position);
+			lastFreeFieldFromTop(0, position - 1);
 		} else if (direction.equals("Rechts")) {
-			lastFreeFieldFromRight(position, 6);
+			lastFreeFieldFromRight(position - 1, 6);
 		} else if (direction.equals("Unten")) {
-			lastFreeFieldFromBottom(5, position);
+			lastFreeFieldFromBottom(5, position - 1);
 		} else if (direction.equals("Links")) {
-			lastFreeFieldFromLeft(position, 0);
+			lastFreeFieldFromLeft(position - 1, 0);
 		}
 	}
 
@@ -112,14 +112,14 @@ public class GameLogic {
 	 * 
 	 */
 	public boolean isValidMove(String input) {
-		int row = directionInterpreter(inputConversion.inputToDirection(input),
-				inputConversion.inputToPosition(input))[0];
-		int column = directionInterpreter(inputConversion.inputToDirection(input),
-				inputConversion.inputToPosition(input))[1];
-		if (board.getSignFromField(row, column) == '_')
-			return true;
-		else
+		String direction = inputConversion.inputToDirection(input);
+		if (null == direction){
 			return false;
+		}
+		int position = inputConversion.inputToPosition(input);
+		int row = directionInterpreter(direction, position)[0];
+		int column = directionInterpreter(direction, position)[1];
+		return (isInputValid(row, column) && inputConversion.inputToDirection(input) != null);
 	}
 
 	/*
@@ -128,7 +128,7 @@ public class GameLogic {
 	public int[] directionInterpreter(String direction, int position) {
 		int[] arr = new int[2];
 		if (direction.equals("Oben")) {
-			arr[0] = 0;
+			arr[0] = 1;
 			arr[1] = position;
 		} else if (direction.equals("Rechts")) {
 			arr[0] = position;
@@ -138,7 +138,7 @@ public class GameLogic {
 			arr[1] = position;
 		} else if (direction.equals("Links")) {
 			arr[0] = position;
-			arr[1] = 0;
+			arr[1] = 1;
 		}
 		return arr;
 	}
@@ -269,7 +269,6 @@ public class GameLogic {
 	}
 
 	private void lastFreeFieldFromLeft(int row, int column) {
-
 		for (int i = 0; i <= 6; i++) {
 			if (board.isEmpty(row, i) && i == 6) {
 				board.setSignFromField(row, i, getPlayerSign());
@@ -324,7 +323,7 @@ public class GameLogic {
 	}
 
 	public boolean isValidBlockMove(int row, int column) {
-		return checkField[row - 1][column - 1] == '#';
+		return checkField[row - 1][column - 1] != '#';
 	}
 
 	public boolean isValidBombMove(String inputString) {
@@ -353,7 +352,7 @@ public class GameLogic {
 	}
 
 	private boolean isBlockField(int row, int column) {
-		return checkField[row][column] == '#';
+		return checkField[row - 1][column - 1] == '#';
 	}
 
 	public void blast(int row, int column) {
@@ -460,11 +459,11 @@ public class GameLogic {
 	}
 
 	public boolean whoWon() {
-		if (getPlayerName().equals("Spieler1"))
-			return true;
-		else {
-			return false;
-		}
+		return getPlayerName().equals("Spieler1");
+	}
+
+	public String getWinnerName(boolean whoWon) {
+		return whoWon ? "Spieler2" : "Spieler1";
 	}
 
 	public boolean boardIsFull(char[][] tmp) {

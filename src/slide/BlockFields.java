@@ -42,8 +42,9 @@ public class BlockFields {
 				continue;
 			}
 			System.out.println(
-					"Spieler" + (currentplayer + 1) + " ist dran, du darfst [" + countBlock + "] Feld(er) blockieren\n" + 
-					"Soll ein Feld geblockt werden? (j/n)");
+					"Spieler" + (currentplayer + 1) + " ist dran, du darfst [" + countBlock + "] Feld(er) blockieren\n"
+							+
+							"Soll ein Feld geblockt werden? (j/n)");
 			String block = input.next();
 			while (!block.equals("j") && !block.equals("n")) {
 				System.out.println("Soll ein Feld geblockt werden? (j/n)");
@@ -73,7 +74,7 @@ public class BlockFields {
 	public void placeBlock(Scanner input, GameLogic logic) {
 
 		if (countBlock > 0) {
-			System.out.println("Bitte wählen Sie drei Felder, die Sie blockieren möchten:\n");
+			System.out.println("Bitte wählen Sie " + countBlock + " Feld(er), die/welches Sie blockieren möchten:\n");
 			logic.printBoard();
 			System.out.print("REIHE: ");
 			row = input.nextInt();
