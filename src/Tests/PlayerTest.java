@@ -39,7 +39,7 @@ public class PlayerTest {
 
 		assertEquals(true, sp1.getPlayerBombStatus());
 
-		sp2.setPlayerBombStatusFalse();
+		sp2.setPlayerBombStatus(false);
 		assertEquals(false, sp2.getPlayerBombStatus());
 	}
 }

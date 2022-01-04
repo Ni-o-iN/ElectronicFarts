@@ -41,7 +41,8 @@ public class BombFields {
         if (bombAvailable) {
             System.out.println("Bitte wählen Sie ein Feld, auf dem Sie die Bombe platzieren möchten");
             logic.printBoard();
-            System.out.println("mit folgendem Format: \"(REIHE,SPALTE)\"\n");
+            System.out.println("mit folgendem Format: (REIHE,SPALTE)\n" +
+            "Beispiel: (2,3)\n");
             String bombCordString = input.next();
             if(inputConversion.checkInputBomb(bombCordString)) {
                 row = inputConversion.inputToCords(bombCordString)[0];

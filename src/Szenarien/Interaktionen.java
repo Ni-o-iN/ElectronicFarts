@@ -32,21 +32,21 @@ public class Interaktionen {
 		szLogic.setBlockField(1, 1);
 		
 		szLogic.myMove("Unten2");
-		szLogic.updateMoveCounter();
+		szLogic.incrementMoveCounter();
 		
 		szLogic.myMove("Oben5");
-		szLogic.updateMoveCounter();
+		szLogic.incrementMoveCounter();
 		
 		szLogic.myMove("Oben5");
-		szLogic.updateMoveCounter();
+		szLogic.incrementMoveCounter();
 		
 		szLogic.printBoard();
 		
 		szLogic.myMove("Rechts3");
-		szLogic.updateMoveCounter();
+		szLogic.incrementMoveCounter();
 		
 		szLogic.myMove("Links4");
-		szLogic.updateMoveCounter();
+		szLogic.incrementMoveCounter();
 		
 		szLogic.printBoard();
 		
@@ -54,7 +54,7 @@ public class Interaktionen {
 		//szLogic.updateMoveCounter();
 		
 		szLogic.myMove("Unten3");
-		szLogic.updateMoveCounter();
+		szLogic.incrementMoveCounter();
 		
 		szLogic.printBoard();
 	}

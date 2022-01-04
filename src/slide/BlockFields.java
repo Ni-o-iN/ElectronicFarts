@@ -36,16 +36,14 @@ public class BlockFields {
 
 		for (int i = 1; i < 7; i++) {
 			currentplayer = playercounter % 2;
-			if (currentplayer == 0)
-				countBlock = availableBlockFields1;
-			else
-				countBlock = availableBlockFields2;
+			countBlock = currentplayer == 0 ? availableBlockFields1 : availableBlockFields2;
 			if (countBlock == 0) {
 				playercounter++;
 				continue;
 			}
-			System.out.println("Spieler" + (currentplayer + 1) + " ist dran, du darfst [" + countBlock + "] Feld(er) blockieren");
-			System.out.println("Soll ein Feld geblockt werden? (j/n)");
+			System.out.println(
+					"Spieler" + (currentplayer + 1) + " ist dran, du darfst [" + countBlock + "] Feld(er) blockieren\n" + 
+					"Soll ein Feld geblockt werden? (j/n)");
 			String block = input.next();
 			while (!block.equals("j") && !block.equals("n")) {
 				System.out.println("Soll ein Feld geblockt werden? (j/n)");
@@ -57,11 +55,9 @@ public class BlockFields {
 				if (currentplayer == 0) {
 					availableBlockFields1 = 0;
 					playercounter++;
-					continue;
 				} else {
 					availableBlockFields2 = 0;
 					playercounter++;
-					continue;
 				}
 			}
 		}

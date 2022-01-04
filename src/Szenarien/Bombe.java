@@ -33,16 +33,16 @@ public class Bombe {
 		szLogic.printBoard();
 		
 		szLogic.myMove("Rechts2");
-		szLogic.updateMoveCounter();
+		szLogic.incrementMoveCounter();
 		
 		szLogic.myMove("Unten2");
-		szLogic.updateMoveCounter();
+		szLogic.incrementMoveCounter();
 		
 		szLogic.myMove("Unten2");
-		szLogic.updateMoveCounter();
+		szLogic.incrementMoveCounter();
 		
 		szLogic.myMove("Unten1");
-		szLogic.updateMoveCounter();
+		szLogic.incrementMoveCounter();
 		
 		szLogic.printBoard();
 		

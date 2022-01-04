@@ -28,10 +28,10 @@ public class GameLogicTest {
 	@Test
 	public void testeSetCOM() {
 
-		assertFalse(testLogic.getCOM());
-		testLogic.setCOM();
-		assertTrue(testLogic.getCOM());
-
+		assertFalse(testLogic.getCom());
+		testLogic.setCom(false);
+		assertTrue(testLogic.getCom());
+		testLogic.setCom(true);
 	}
 
 	@Test

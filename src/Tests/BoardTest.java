@@ -51,8 +51,8 @@ public class BoardTest {
 		testBoard.getBoard();
 		testBoard.setSignFromField(2, 2, 'X');
 		testBoard.setSignFromField(2, 3, 'O');
-		assertTrue(testBoard.nextFieldIsAToken(2, 2));
-		assertTrue(testBoard.nextFieldIsAToken(2, 3));
+		assertTrue(testBoard.isToken(2, 2));
+		assertTrue(testBoard.isToken(2, 3));
 	}
 
 	@Test

@@ -30,7 +30,7 @@ public class Sieg {
 		
 		szLogic.printBoard();
 		
-		szLogic.updateMoveCounter();
+		szLogic.incrementMoveCounter();
 		szLogic.myMove("Unten4");
 		
 		szLogic.printBoard();
