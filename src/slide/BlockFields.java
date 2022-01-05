@@ -74,7 +74,7 @@ public class BlockFields {
 	public void placeBlock(Scanner input, GameLogic logic) {
 
 		if (countBlock > 0) {
-			System.out.println("Bitte wählen Sie " + countBlock + " Feld(er), die/welches Sie blockieren möchten:\n");
+			System.out.println("Bitte waehlen Sie " + countBlock + " Feld(er), die/welches Sie blockieren moechten:\n");
 			logic.printBoard();
 			System.out.print("REIHE: ");
 			row = input.nextInt();

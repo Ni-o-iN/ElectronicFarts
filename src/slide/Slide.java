@@ -22,7 +22,7 @@ public class Slide {
 
 	public void initGame(GameLogic logic, Scanner input, BlockFields blockFields) {
 		System.out.println("Herzlich willkommen bei dem Besten Spiel der Welt");
-		System.out.println("Bitte Spielmodus auswählen");
+		System.out.println("Bitte Spielmodus auswaehlen");
 		System.out.println(" [1]: P1 vs COM1 \n [2]: P1 vs P2 \n [3] : COM1 vs COM2");
 		int gameMode = Integer.parseInt(input.nextLine());
 		switch (gameMode) {
@@ -43,14 +43,14 @@ public class Slide {
 
 	public void playGame(GameLogic logic, Scanner input, BombFields bombFields) {
 		logic.printBoard();
+		System.out.println("Bitte setzen Sie Ihren Spielstein im folgenden Format:\n"+
+			"Links5 (Sie koennen aber auch von Oben, Unten oder Rechts einwerfen\n"+
+			"und die Zahl muss innerhalb des Spielfelds oben gezeigten Spielfelds sein)\n");
 		while (logic.isRunning()) {
 			if (logic.getMoveCounter() > 0) {
 				bombFields.initBomb(logic, input);
 			}
-			System.out.println("Es ist " + logic.getPlayerName() + " dran\n" +
-			"Bitte setzen Sie Ihren Spielstein im folgenden Format:\n"+
-			"Links5 (Sie können aber auch von Oben, Unten oder Rechts einwerfen\n"+
-			"und die Zahl muss innerhalb des Spielfelds oben gezeigten Spielfelds sein)\n");
+			System.out.println("Es ist " + logic.getPlayerName() + " dran\n");
 			String inputString = input.next() + input.nextLine();
 			if (logic.isValidMove(inputString)) {
 				logic.myMove(inputString);
