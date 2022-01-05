@@ -152,7 +152,9 @@ public class GameLogic {
 		for (int i = 0; i <= 5; i++) {
 			if (board.isEmpty(i, column) && i == 5) {
 				board.setSignFromField(i, column, getPlayerSign());
-			} else if (board.isToken(i, column)) {
+			} else if (board.isToken(0, column)) {
+				slideNextTokenFromTop(row, column); 
+			}else if (board.isToken(i, column)) {
 				board.setSignFromField(--i, column, getPlayerSign());
 				row = i--;
 				break;
@@ -191,7 +193,9 @@ public class GameLogic {
 		for (int i = 5; i >= 0; i--) {
 			if (board.isEmpty(i, column) && i == 0) {
 				board.setSignFromField(i, column, getPlayerSign());
-			} else if (board.isToken(i, column)) {
+			} else if (board.isToken(5, column)) {
+				slideNextTokenFromBottom(row, column); 
+			}else if (board.isToken(i, column)) {
 				board.setSignFromField(++i, column, getPlayerSign());
 				row = i++;
 				break;
@@ -230,7 +234,9 @@ public class GameLogic {
 		for (int i = 6; i >= 0; i--) {
 			if (board.isEmpty(row, i) && i == 0) {
 				board.setSignFromField(row, i, getPlayerSign());
-			} else if (board.isToken(row, i)) {
+			} else if (board.isToken(row, 6)) {
+				slideNextTokenFromRight(row, column);
+			} else  if (board.isToken(row, i)) {
 				board.setSignFromField(row, ++i, getPlayerSign());
 				column = i++;
 				break;
@@ -272,7 +278,9 @@ public class GameLogic {
 		for (int i = 0; i <= 6; i++) {
 			if (board.isEmpty(row, i) && i == 6) {
 				board.setSignFromField(row, i, getPlayerSign());
-			} else if (board.isToken(row, i)) {
+			} else if (board.isToken(row, 0)) {
+				slideNextTokenFromLeft(row, column);
+			}else if (board.isToken(row, i)) {
 				board.setSignFromField(row, --i, getPlayerSign());
 				column = i--;
 				break;
