@@ -172,7 +172,7 @@ public class GameLogic {
 		for (int i = row; i <= 5; i++) {
 			if (board.isBlocked(i, column))
 				break;
-			else if (board.isEmpty(i, column) && !board.isBlocked(i, column)) {
+			else if (board.isEmpty(i, column)) {
 				int colShifter = i, tmpCounter = tokenCounter;
 				while (tmpCounter != 0) {
 					char sign = board.getSignFromField((colShifter - 1), column); // get sign before empty field
@@ -213,7 +213,7 @@ public class GameLogic {
 		for (int i = row; i >= 0; i--) {
 			if (board.isBlocked(i, column))
 				break;
-			else if (board.isEmpty(i, column) && !board.isBlocked(i, column)) {
+			else if (board.isEmpty(i, column)) {
 				int colShifter = i, tmpCounter = tokenCounter;
 				while (tmpCounter != 0) {
 					char sign = board.getSignFromField((colShifter + 1), column); // get sign before empty field
@@ -258,12 +258,11 @@ public class GameLogic {
 		for (int i = column; i >= 0; i--) {
 			if (board.isBlocked(row, i))
 				break;
-			else if (board.isEmpty(row, i) && !board.isBlocked(row, i)) {
+			else if (board.isEmpty(row, i)) {
 				int colShifter = i, tmpCounter = tokenCounter;
 				while (tmpCounter != 0) {
 					char sign = board.getSignFromField(row, (colShifter + 1)); // get sign before empty field
-					board.setSignFromField(row, (colShifter + 1), '_'); // deletes sign because we are moving from left
-																		// to right
+					board.setSignFromField(row, (colShifter + 1), '_'); // deletes sign because we are moving from right to left
 					board.setSignFromField(row, colShifter, sign); // sets new sign
 					tmpCounter--;
 					colShifter++;
@@ -302,13 +301,12 @@ public class GameLogic {
 		for (int i = column; i <= 6; i++) {
 			if (board.isBlocked(row, i))
 				break;
-			else if (board.isEmpty(row, i) && !board.isBlocked(row, i)) {
+			else if (board.isEmpty(row, i)) {
 				int colShifter = i, tmpCounter = tokenCounter;
 				while (tmpCounter != 0) {
-					char sign = board.getSignFromField(row, (colShifter - 1)); // get sign before empty field
-					board.setSignFromField(row, (colShifter - 1), '_'); // deletes sign because we are moving from left
-																		// to right
-					board.setSignFromField(row, colShifter, sign); // sets new sign
+					char sign = board.getSignFromField(row, (colShifter - 1)); 
+					board.setSignFromField(row, (colShifter - 1), '_'); 
+					board.setSignFromField(row, colShifter, sign); 
 					tmpCounter--;
 					colShifter--;
 				}
