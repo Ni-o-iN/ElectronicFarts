@@ -5,8 +5,8 @@ import java.util.Scanner;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import slide.BlockFields;
-import slide.GameLogic;
+import appUI.BlockFields;
+import gamelogic.GameLogic;
 
 /**
  * 

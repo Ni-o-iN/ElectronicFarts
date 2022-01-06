@@ -1,6 +1,6 @@
 package Szenarien;
 
-import slide.GameLogic;
+import gamelogic.GameLogic;
 
 /**
  * @author julianlautenscheidt

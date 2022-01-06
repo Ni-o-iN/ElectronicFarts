@@ -4,11 +4,12 @@ import static org.junit.Assert.*;
 import java.util.Scanner;
 import org.junit.Before;
 import org.junit.Test;
+
+import appUI.Slide;
+import gamelogic.GameLogic;
+import gamelogic.InputConversion;
 import slide.Board;
-import slide.GameLogic;
-import slide.InputConversion;
 import slide.Player;
-import slide.Slide;
 
 /**
  * 

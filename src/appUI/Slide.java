@@ -1,6 +1,8 @@
-package slide;
+package appUI;
 
 import java.util.Scanner;
+
+import gamelogic.GameLogic;
 
 /**
  * 

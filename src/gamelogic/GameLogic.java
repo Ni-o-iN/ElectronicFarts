@@ -1,4 +1,7 @@
-package slide;
+package gamelogic;
+
+import slide.Board;
+import slide.Player;
 
 /**
  * 

@@ -1,6 +1,9 @@
-package slide;
+package appUI;
 
 import java.util.Scanner;
+
+import gamelogic.GameLogic;
+import gamelogic.InputConversion;
 
 public class BombFields {
 

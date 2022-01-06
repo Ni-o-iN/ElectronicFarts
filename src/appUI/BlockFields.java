@@ -1,7 +1,9 @@
-package slide;
+package appUI;
 
 /** using the Scanner Library for input from Terminal */
 import java.util.Scanner;
+
+import gamelogic.GameLogic;
 
 /**
  * This class implements the blocking of fields

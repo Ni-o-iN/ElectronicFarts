@@ -1,4 +1,6 @@
-package slide;
+package ai;
+
+import gamelogic.GameLogic;
 
 // import java.util.Random;
 
