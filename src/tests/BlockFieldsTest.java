@@ -1,4 +1,4 @@
-package Tests;
+package tests;
 
 import java.util.Scanner;
 
@@ -11,7 +11,7 @@ import gamelogic.GameLogic;
 /**
  * 
  * @author emre aydemir
- * @version 0.1 Test zu der BlockFieldsTest-Klasse.
+ * @version 0.1 Tests for the BlockFields-Class
  */
 
 public class BlockFieldsTest {
@@ -20,6 +20,11 @@ public class BlockFieldsTest {
 	private GameLogic logic = new GameLogic();
 	private Scanner input = new Scanner(System.in);
 
+	
+	
+	/**
+	 * *Tests if the user input is a valid input*
+	 */
 	@Test
 	public static void testIfInputIsValid() {
 
@@ -27,7 +32,7 @@ public class BlockFieldsTest {
 	// So sollten die Testmethoden zur Klasse BlockFields aussehen:
 
 	/**
-	 * *hier Methodenbeschreibung einfuegen*
+	 * *Tests if the BlockFields initialisation method works*
 	 */
 	@Ignore
 	@Test
@@ -40,7 +45,7 @@ public class BlockFieldsTest {
 	}
 
 	/**
-	 * *hier Methodenbeschreibung einfuegen*
+	 * *Tests if placing blocks works*
 	 */
 	@Ignore
 	@Test

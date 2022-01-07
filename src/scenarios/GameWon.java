@@ -1,4 +1,4 @@
-package Szenarien;
+package scenarios;
 
 import gamelogic.GameLogic;
 
@@ -7,7 +7,7 @@ import gamelogic.GameLogic;
  * @version 0.1
  * Szenario zu aktivem Sieg
  */
-public class Sieg {
+public class GameWon {
 
 	private static GameLogic szLogic = new GameLogic(); 
 	/**

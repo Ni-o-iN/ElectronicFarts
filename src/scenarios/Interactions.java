@@ -1,4 +1,4 @@
-package Szenarien;
+package scenarios;
 
 import gamelogic.GameLogic;
 
@@ -7,7 +7,7 @@ import gamelogic.GameLogic;
  * @version 0.1
  * Szenario für verschiedeneInteraktionen
  */
-public class Interaktionen {
+public class Interactions {
 
 	private static GameLogic szLogic = new GameLogic();
 	

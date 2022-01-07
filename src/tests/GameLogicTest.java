@@ -1,4 +1,4 @@
-package Tests;
+package tests;
 
 import static org.junit.Assert.*;
 import java.util.Scanner;
@@ -14,7 +14,7 @@ import slide.Player;
 /**
  * 
  * @author julianlautenscheidt, emre aydemir
- * @version 0.3 Test zu der GameLogic-Klasse
+ * @version 0.3 Tests for the GameLogic-class
  */
 public class GameLogicTest {
 
@@ -41,7 +41,9 @@ public class GameLogicTest {
 		// assertNotEquals(spielerTest1, testLogic.addPlayer());
 
 	}
-
+	/**
+	 * *Tests if the row is out of bounds from sliding, it should ask/jump back for a valid userInput*
+	 */
 	@Test
 	public void testIfRowIsOutOfBounds() {
 		
@@ -53,7 +55,9 @@ public class GameLogicTest {
 		printFieldForTests();
 
 	}
-	
+	/**
+	 * *Tests if the column is out of bounds from sliding, it should ask/jump back for a valid userInput*
+	 */
 	@Test
 	public void testIfColumnIsOutOfBounds() {
 		for(int a = 0; a < testBoard.getBoard().length+2; a++) {
@@ -61,7 +65,9 @@ public class GameLogicTest {
 			
 		}
 	}
-
+	/**
+	 * *Tests if the method searchDiagonalNorthWest recognizes 4 stones placed DG-NW.*
+	 */
 	@Test
 	public void testDiagonalNorthWest() {
 		testBoard.getBoard();
@@ -74,7 +80,9 @@ public class GameLogicTest {
 		assertTrue(testLogic.searchDiagonalNorthWest(testBoard.getBoard()));
 
 	}
-
+	/**
+	 * *Tests if the method searchDiagonalSouthWest recognizes 4 stones placed DG-SW*
+	 */
 	@Test
 	public void testDiagonalSouthWest() {
 
@@ -87,7 +95,9 @@ public class GameLogicTest {
 		assertTrue(testLogic.searchDiagonalSouthWest(testBoard.getBoard()));
 
 	}
-
+	/**
+	 * *Tests if player places 4 stones a row, if the method IsSearchRowAHit recognizes it and delivers true boolean true*
+	 */
 	@Test
 	public void testIsSearchRowAHit() {
 		testBoard.getBoard();
@@ -101,7 +111,9 @@ public class GameLogicTest {
 		assertTrue(testLogic.searchRow(testBoard.getBoard()));
 
 	}
-
+	/**
+	 * *Tests if the player places 4 stones a column, if the method IsSearchColumnAHit recognizes it and delivers the bool true*
+	 */
 	@Test
 	public void testIsSearchColumnAHit() {
 		testBoard.getBoard();
@@ -114,7 +126,9 @@ public class GameLogicTest {
 		assertTrue(testLogic.searchCol(testBoard.getBoard()));
 
 	}
-
+	/**
+	 * *Tests if the method boardIsFull is really working like it should - Recognizing if the board is full*
+	 */
 	@Test
 	public void testIsBoardFull() {
 
@@ -129,7 +143,9 @@ public class GameLogicTest {
 		assertTrue(testLogic.boardIsFull(testBoard.getBoard()));
 
 	}
-
+	/**
+	 * *This method is a test-helper-method for printing out the test-boards*
+	 */
 	public void printFieldForTests() {
 		// Print of Expected Board with expected Slide
 		System.out.println("Board");

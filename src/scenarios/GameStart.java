@@ -1,4 +1,4 @@
-package Szenarien;
+package scenarios;
 
 	import gamelogic.GameLogic;
 
@@ -7,7 +7,7 @@ package Szenarien;
 	 * @version 0.3
 	 * Szenario zu Spielbeginn
 	 */
-	public class Spielbeginn {
+	public class GameStart {
 		
 		private static GameLogic szLogic = new GameLogic(); 
 		/**

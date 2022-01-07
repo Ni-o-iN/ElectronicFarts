@@ -1,4 +1,4 @@
-package Szenarien;
+package scenarios;
 
 import gamelogic.GameLogic;
 
@@ -8,7 +8,7 @@ import gamelogic.GameLogic;
  * @version 0.1
  * Szenario für ein volles Feld
  */
-public class FeldVoll {
+public class FullField {
 	
 	private static GameLogic szLogic = new GameLogic();
 	

@@ -1,4 +1,4 @@
-package Szenarien;
+package scenarios;
 
 import gamelogic.GameLogic;
 /**
@@ -8,7 +8,7 @@ import gamelogic.GameLogic;
  * Bombenszenario
  *
  */
-public class Bombe {
+public class Bomb {
 
 	private static GameLogic szLogic = new GameLogic(); 
 	/**
