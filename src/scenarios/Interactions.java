@@ -5,7 +5,7 @@ import gamelogic.GameLogic;
 /**
  * @author julianlautenscheidt
  * @version 0.1
- * Szenario für verschiedeneInteraktionen
+ * Scenario for different interactions
  */
 public class Interactions {
 
@@ -13,10 +13,10 @@ public class Interactions {
 	
 	/**
 	 * @param args
-	 * In diesem Szenario werden verschiedene Interaktionen geprüft
-	 * 1. Stein slidet gegen Blockfield
-	 * 2. Stein slidet gegen Stein und schiebt gegen Blockfield oder Rand
-	 * 3. Einwurf "gegen" Stein
+	 * In this scenario several interactions are checked.
+	 * 1. Stone slides against blockfield
+	 * 2. Stone slides against stone and pushes against blockfield or the edge
+	 * 3. Stone slides "against" stone
 	 */
 	public static void main(String[] args) {
 		

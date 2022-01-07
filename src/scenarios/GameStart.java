@@ -5,17 +5,17 @@ package scenarios;
 	/**
 	 * @author julianlautenscheidt
 	 * @version 0.3
-	 * Szenario zu Spielbeginn
+	 * Scenario for the Beginning of the Game
 	 */
 	public class GameStart {
 		
 		private static GameLogic szLogic = new GameLogic(); 
 		/**
 		 * @param args
-		 * Szenariomethode in der der Spielbeginn mit 4 einfachen Zügen simuliert wird
-		 * 1. Leeres Board anzeigen
-		 * 2. 6 Blockfelder setzen
-		 * 3. 4 einfache Züge ohne Interaktionen
+		 * Scenario method in which the start of the game is simulated with 4 simple moves
+		 * 1. show empty board
+		 * 2. Set 6 block fields
+		 * 3. 4 simple moves without interactions
 		 */
 		public static void main (String[] args) {
 			
@@ -33,7 +33,7 @@ package scenarios;
 			szLogic.printBoard();
 			
 			szLogic.myMove("Oben4");
-			szLogic.incrementMoveCounter(); //Soll so bleiben oder change in myMove?
+			szLogic.incrementMoveCounter(); //Should it remain like that or should it be changed to myMove?
 			
 			szLogic.myMove("Unten6");
 			szLogic.incrementMoveCounter();

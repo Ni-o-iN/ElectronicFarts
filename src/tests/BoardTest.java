@@ -9,12 +9,16 @@ import slide.Board;
 /**
  * 
  * @author julianlautenscheidt, emreaydemir
- * @version 0.3 Verschiedene Tests zu der Board-Klasse
+ * @version 0.3 Tests for the Board-class
  */
 public class BoardTest {
 
 	private Board testBoard = new Board();
 
+	
+	/**
+	 * *Initialises board-field before every test-method-run*
+	 */
 	@Before
 	public void initFeld() {
 
@@ -24,6 +28,9 @@ public class BoardTest {
 
 	char[][] testField = testBoard.getBoard();
 
+	/**
+	 * *Tests if the board has the required width and lenght. Should be 6x7 *
+	 */
 	@Test
 	public void testeBoardGröße() {
 
@@ -31,21 +38,27 @@ public class BoardTest {
 		assertEquals(7, testField[0].length);
 
 	}
-
+	/**
+	 * *Tests if the fieldIsEmpty-Method works, if the field is Empty, it must deliver the boolean true*
+	 */
 	@Test
 	public void testIsFieldEmpty() {
 		testBoard.getBoard();
 		testBoard.setSignFromField(2, 2, '_');
 		assertTrue(testBoard.isEmpty(2, 2));
 	}
-
+	/**
+	 * *Tests if the IsFieldBlocked-Method works. If the field is Blocked, it must deliver the boolean true*
+	 */
 	@Test
 	public void testIsFieldBlocked() {
 		testBoard.getBoard();
 		testBoard.setSignFromField(2, 2, '#');
 		assertTrue(testBoard.isBlocked(2, 2));
 	}
-
+	/**
+	 * *Tests if the nextFieldIsAToken-Method works. If it recognizes that the next field is a token, it must deliver the boolean true*
+	 */
 	@Test
 	public void testIsNextFieldAToken() {
 		testBoard.getBoard();
@@ -54,9 +67,10 @@ public class BoardTest {
 		assertTrue(testBoard.isToken(2, 2));
 		assertTrue(testBoard.isToken(2, 3));
 	}
-
+	/**
+	 * *Tests if the board is visualized in the correct way. Correct way: It definitively shouldnt be empty*
+	 */
 	@Test
-
 	public void testBoardVisualisation() {
 
 		char[][] leer = new char[6][7];
@@ -68,7 +82,9 @@ public class BoardTest {
 		}
 
 	}
-
+	/**
+	 * *Tests if the user is able to place a stone and if it has a an effect on the Field*
+	 */
 	@Test
 	public void testeSteinSetzen() {
 

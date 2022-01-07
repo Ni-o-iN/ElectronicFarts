@@ -5,7 +5,7 @@ import gamelogic.GameLogic;
  * 
  * @author julianlautenscheidt
  * @version 0.2
- * Bombenszenario
+ * Scenario for Bomb
  *
  */
 public class Bomb {
@@ -14,10 +14,10 @@ public class Bomb {
 	/**
 	 * 
 	 * @param args
-	 * Szenario in dem die Bombe simuliert wird. 
-	 * 1. Ein paar Blockfelder setzen (wichtig ist hierbei nur (2,2), dann ein paar Steine einwerfen. 
-	 * 2. Steine sollten auf (2,2) (2,1) (3,2) & (3,1) liegen.
-	 * 3. Bombe auf (2,2). Blockfelder sollten unverändert sein, ebenso Stein auf (3,1). 
+	 * Scenario in which the bomb is simulated. 
+	 * 1. set some block fields (important here is only (2,2), then throw in some stones. 
+	 * 2. stones should be on (2,2) (2,1) (3,2) & (3,1).
+	 * 3rd bomb on (2,2). Block fields should be unchanged, as well as stone on (3,1). 
 	 */
 	public static void main (String[] args) {
 		

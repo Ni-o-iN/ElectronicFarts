@@ -5,7 +5,7 @@ import gamelogic.GameLogic;
 /**
  * @author julianlautenscheidt
  * @version 0.1
- * Szenario zu aktivem Sieg
+ * Scenario for a active vicoty
  */
 public class GameWon {
 
@@ -13,10 +13,10 @@ public class GameWon {
 	/**
 	 * @param args
 	 * @version 0.1
-	 * Szenariomethode in der ein "aktiver" Sieg simuliert wird
-	 * 1. Sieg vorbereiten
-	 * 2. Sieg sliden
-	 * 3. Abfrage auf Sieg
+	 * Scenario method in which an "active" victory is simulated
+	 * 1. prepare victory
+	 * 2. slide victory
+	 * 3. request for victory
 	 */
 	public static void main(String[] args) {
 		
