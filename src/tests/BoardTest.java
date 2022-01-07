@@ -7,7 +7,7 @@ import org.junit.Test;
 import slide.Board;
 
 /**
- * 
+ * This test-class tests various board requirements and method-functionality for the class Board.
  * @author julianlautenscheidt, emreaydemir
  * @version 0.3 Tests for the Board-class
  */

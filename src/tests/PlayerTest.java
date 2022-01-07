@@ -8,7 +8,7 @@ import org.junit.Test;
 import slide.Player;
 
 /**
- * 
+ * This class tests methods from the class Player.
  * @author julianlautenscheidt
  * @version 0.2 Tests for the Player-class
  *

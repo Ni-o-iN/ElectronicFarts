@@ -3,20 +3,19 @@ package scenarios;
 import gamelogic.GameLogic;
 
 /**
+ * Scenario for a active victory
  * @author julianlautenscheidt
  * @version 0.1
- * Scenario for a active vicoty
  */
 public class GameWon {
 
 	private static GameLogic szLogic = new GameLogic(); 
 	/**
-	 * @param args
-	 * @version 0.1
 	 * Scenario method in which an "active" victory is simulated
 	 * 1. prepare victory
 	 * 2. slide victory
 	 * 3. request for victory
+	 * @param args
 	 */
 	public static void main(String[] args) {
 		

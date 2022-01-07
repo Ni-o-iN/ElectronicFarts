@@ -12,7 +12,7 @@ import slide.Board;
 import slide.Player;
 
 /**
- * 
+ * This test-class tests some of the core functionalities / GameLogic-methods.
  * @author julianlautenscheidt, emre aydemir
  * @version 0.3 Tests for the GameLogic-class
  */
@@ -147,15 +147,15 @@ public class GameLogicTest {
 	 * *This method is a test-helper-method for printing out the test-boards*
 	 */
 	public void printFieldForTests() {
-		// Print of Expected Board with expected Slide
+	
 		System.out.println("Board");
 		char[][] fieldExp = testBoard.getBoard();
 		System.out.printf("  ");
-		for (int i = 0; i < fieldExp[0].length; i++) { // print out column numbers
+		for (int i = 0; i < fieldExp[0].length; i++) {
 			System.out.print((i + 1) + " ");
 		}
 
-		System.out.println(); // new line after column numbers
+		System.out.println(); 
 
 		for (int i = 0; i < fieldExp.length; i++) {
 			System.out.printf("%d ", i + 1);

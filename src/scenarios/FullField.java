@@ -3,21 +3,19 @@ package scenarios;
 import gamelogic.GameLogic;
 
 /**
- * 
+ * Scenario for FullField
  * @author julianlautenscheidt
  * @version 0.1
- * Scenario for FullField
  */
 public class FullField {
 	
 	private static GameLogic szLogic = new GameLogic();
 
 	/**
-	 * 
-	 * @param args
 	 * Scenario where it is checked if a full field ends the game
 	 * 1. fill field completely by block field & throw-in loops (make sure not 4 in a row)
 	 * 2. check full field / win
+	 * @param args
 	 */
 	public static void main(String[] args) {
 		

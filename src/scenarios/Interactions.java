@@ -3,20 +3,20 @@ package scenarios;
 import gamelogic.GameLogic;
 
 /**
+ * Scenario for different interactions
  * @author julianlautenscheidt
  * @version 0.1
- * Scenario for different interactions
  */
 public class Interactions {
 
 	private static GameLogic szLogic = new GameLogic();
 	
 	/**
-	 * @param args
 	 * In this scenario several interactions are checked.
 	 * 1. Stone slides against blockfield
 	 * 2. Stone slides against stone and pushes against blockfield or the edge
 	 * 3. Stone slides "against" stone
+	 * @param args
 	 */
 	public static void main(String[] args) {
 		

@@ -3,19 +3,19 @@ package scenarios;
 	import gamelogic.GameLogic;
 
 	/**
+	 * Scenario for the Beginning of the Game
 	 * @author julianlautenscheidt
 	 * @version 0.3
-	 * Scenario for the Beginning of the Game
 	 */
 	public class GameStart {
 		
 		private static GameLogic szLogic = new GameLogic(); 
 		/**
-		 * @param args
 		 * Scenario method in which the start of the game is simulated with 4 simple moves
 		 * 1. show empty board
 		 * 2. Set 6 block fields
 		 * 3. 4 simple moves without interactions
+		 * @param args
 		 */
 		public static void main (String[] args) {
 			
